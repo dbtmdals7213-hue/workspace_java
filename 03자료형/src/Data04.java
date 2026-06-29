@@ -3,7 +3,7 @@
 	주제: 변수를 선언할 때 사용한 자료형이 어떤 역할을 하는지 살펴보자.
 */
 
-public class Date04 {
+public class Data04 {
 
 	public static void main(String[] args) {
 		/*
