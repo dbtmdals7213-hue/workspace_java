@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="02자바파일구조파악하기/src"/>
+	<classpathentry kind="src" path="03자료형/src"/>
+	<classpathentry kind="src" path="04연산자/src"/>
+	<classpathentry kind="src" path="git_test2/src"/>
+	<classpathentry kind="src" path="thisisjava/src"/>
+	<classpathentry kind="output" path="02자바파일구조파악하기/bin"/>
+</classpath>
