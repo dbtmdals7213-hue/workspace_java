@@ -73,6 +73,8 @@
 	[예제] 5개의 실수값 중에서 최대 값을 구하기  - Arr02.java
 	
 	[연습] - 파일이름 : Arr02_test.java
+	
+	[응용 연습] - 파일이름 : TemperatureAnalyzer.java
 
 
 	       	
