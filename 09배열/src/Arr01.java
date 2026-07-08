@@ -19,8 +19,13 @@ public class Arr01 {
 		//2. 5명의 학생 점수 총합을 구해 저장할 변수 선언 후 0으로 초기화
 		int total = 0;
 		
+		/*
+			참고. 배열 전체 칸의 개수 얻는 방법
+			배열명.length
+		*/
+		
 		//3. for 반복문을 이용하여 score 배열에 각 점수를 차례대로 얻어 total 변수에 누적합니다.
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < score.length; i++) {
 			
 			total = total + score[i];
 		/*
@@ -28,7 +33,7 @@ public class Arr01 {
 				0 =   0   + score[0];
 				0 =   0   +   95;
 			   95
-			   
+			
 		    i -> 1 일때
 		       95 =   95  + score[1];
 		       95 =   95  +   70;
@@ -38,12 +43,12 @@ public class Arr01 {
 		      165 =  165  + score[2];
 		      165 =  165  +   80;
 		      245
-		      
+			
 		    i -> 3 일때
 		      245 =  245  + score[3];
 		      245 =  245  +   75;
 		      320
-		      
+			
 		    i -> 4 일때
 		      320 =  320  + score[4];
 		      320 =  320  +  100;
@@ -56,7 +61,7 @@ public class Arr01 {
 			4. 5명 학생 점수들의 평균을 구해 avg 변수 선언 후 저장
 			   평균 = 총합 / 총 개수
 		*/
-		double avg = total / (double)5;
+		double avg = total / score.length;
 		//			  420  / (double)5;
 		//			  420  /  5.0;
 
