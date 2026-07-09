@@ -34,13 +34,21 @@ public class Arr03 {
 			// 하나의 행에 대한 열의 개수만큼 반복
 			for(int col = 0; col < 3; col++) {
 				
-				System.out.print(" " + score[row][col]);
+				System.out.print("  " + score[row][col]);
 				
 			}// 안쪽 for
 			
 			System.out.println();
 			
 		}//바깥 for
+		
+		/*  
+			10  90  70
+			60  80  65
+			55  60  85
+			90  75  95
+			60  30  80
+		*/
 		
 	}
 
