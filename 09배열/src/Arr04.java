@@ -34,22 +34,25 @@ public class Arr04 {
 		
 		System.out.println("각 과목별 총점 구하기");
 		
-		for(c = 0; c < 3; c++) {
+		// 과목명을 출력용으로 사용하기 위해 문자열 형태로 1차원 배열 만들어 저장
+		String[] subjectName = {"국어", "영어", "수학"};
+		//						  0      1	    2
+		
+		for(c = 0; c < 3; c++) {// 열(세로 방향)은 각 과목을 구분하고 각 과목 개수만큼 반복
 			
-			for(r = 0; r < 5; r++) {
+			for(r = 0; r < 5; r++) {// 행은 각 과목에 대한 학생의 행 index 를 1씩 증가시키면서 반복(5번)
 				
 				subject[c] += score[r][c];
 			}
-			System.out.println((c + 1) + "번 과목 총점 = " + subject[c]);
+			
+			System.out.println(subjectName[c] + " 점수 총합: " + subject[c]);
 		}
-		
 		
 		//3. 각 학생 별 총점을 저장시킬 1차원 배열 메모리 생성
 		int[] student = new int[5]; // [ 0 ][ 0 ][ 0 ][ 0 ][ 0 ]
 									//   0    1    2    3    4 		<-- index
 		
 		System.out.println("학생별 과목 총점 구하기");
-		
 		
 		for(r = 0; r < 5; r++) {// 행은 각 학생을 구분하므로 해당 학생 수만큼 반복
 			
@@ -58,7 +61,7 @@ public class Arr04 {
 				student[r] += score[r][c];
 			}// 안쪽 for
 			
-			System.out.println((r + 1) + "번 학생 총점 = " + student[r]);
+			System.out.println((r + 1) + "번 학생 총점: " + student[r]);
 		}// 바깥 for
 		
 		
