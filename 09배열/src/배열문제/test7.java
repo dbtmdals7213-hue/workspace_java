@@ -14,6 +14,13 @@ public class test7 {
 		//			 0   1  2  3  4   index	
 		int sum = 0;
 		
+		//(1) 향상된 for 반복문을 이용하여 arr 배열에 저장된 값의 개수만큼 반복해서 차례대로 얻어 sum 변수에 누적
+		for(int number : arr) {
+			
+			sum += number;
+		}
+		
+		
 		/*
 			for(int num : arr) {
 				↑변수      ↑전체 배열
@@ -22,15 +29,27 @@ public class test7 {
 			}
 		*/
 		
+		/*
+			향상된 for 반복문 작성 방법
+			
+				for(변수 선언: 배열){
+				
+					반복할 코드;
+				}
+			=================================================
+				for(배열에서 차례대로 꺼내어 저장할 변수 선언 : 배열){
+				
+					위 변수에서 전달 받은 값을 반복해서 사용할 코드;
+				}
+		*/
 		
-		//(1) 향상된 for 반복문을 이용하여 arr 배열에 저장된 값의 개수만큼 반복해서 차례대로 얻어 sun 변수에 누적
-		
-		
+		/*
 		//(1) 일반 for 반복문을 이용하여 arr 배열에 저장된 값의 개수만큼 반복해서 차례대로 얻어 sum 변수에 누적
-		for(int i = 0; i < arr.length; i++) {
-		
-			sum += arr[i];
-		}
+			for(int i = 0; i < arr.length; i++) {
+			
+				sum += arr[i];
+			}
+		*/
 		
 		System.out.println("sum="+sum);	
 	}

@@ -24,7 +24,6 @@ public class test8 {
 		
 		int total = 0; // 전체 합계를 저장할 변수. 
 		float average = 0; //평균 값을 저장할 변수.
-		int totArr = 0; // 전체 배열 개수를 저장할 변수.
 		
 		//바깥쪽 for 문 : 배열의 각 행(1차원 배열)을 하나씩 접근합니다.
 		for(int i=0;  i<arr.length; i++) {
@@ -32,15 +31,13 @@ public class test8 {
 			//안쪽 for 문 : 각 행의 열(각 숫자들)을 하나씩 접근합니다.
 			for(int j=0;   j<arr[i].length; j++) {	
 				
-				total += arr[i][j];
+				total += arr[i][j]; // 누적 덧셈: 현재 total 값에 arr[i][j] 값을 추가
 				
 			}
-			totArr += arr[i].length;
 		}
 		
 		//(2) 평균계산 코드 작성
-		average = total / (float)totArr;
-		
+		average = total / (float)(arr.length * arr[0].length);
 		
 		System.out.println("total=" + total);
 		System.out.println("average="+average);
