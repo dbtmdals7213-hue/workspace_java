@@ -3,6 +3,7 @@
 	스토리. 학교에서 학생 한 명의 정보를 관리한다.
 		  이름, 학번, 국어/영어/수학 점수를 저장하고, 평균을 계산해서 출력한다.
 */
+
 //1단계. 현실의 학생 객체 모델링
 // - 데이터: 이름(name), 학번(studentId), 국어/영어/수학 점수(kor, eng, math)
 // - 기능: 평균 계산(calcAverage), 학생 정보 출력(printInfo)
@@ -53,8 +54,9 @@ public class StudentTest {
 		s.studentId = "2026001";
 		s.kor = 90;	s.eng = 85;	s.math = 95;
 		
-		s.calcAverage();
-		s.printInfo();
+		//순서4. 객체 메소드 호출
+		s.calcAverage(); // 김민준님의 평균 점수: 90.0점
+		s.printInfo(); // 학번: 2026001, 이름: 김민준
 	}
 
 }
