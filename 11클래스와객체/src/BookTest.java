@@ -22,11 +22,12 @@ public class BookTest {
 		*/
 		void rent() {
 		
-			if(isRented == false) {
+			if(!isRented) {// 대출 중이 아닌지 검사(! 는 부정 -> false 이면 true 가 됨)
 				
-				isRented = true;
-				System.out.println("대출이 완료되었습니다.");
-			}else {
+				isRented = true; // 대출 상태로 변경
+				System.out.println(title + " 대출 완료"); // 대출 완료 메세지 출력
+			}else {// 이미 대출 중이면
+				
 				System.out.println("이미 대출 중입니다.");
 			}
 		}
@@ -37,30 +38,35 @@ public class BookTest {
 		*/
 		void returnBook() {
 			
-			isRented = false;
-			System.out.println("반납 완료했습니다.");
+			isRented = false; // 대출 상태를 해제(반납)
+			System.out.println(title + " 반납 완료");
 		}
 		
 		/*
 			메소드명: printStatus
 			기능: 제목, 저자, 대출 여부를 한 줄로 출력한다.
 		*/
-		void printStatus() {
+		void printStatus() {// 세 객체 변수 값들 한 줄로 출력
 			
-			System.out.println("제목: " + title + ", 저자: " + author + ", 대출 여부: " + isRented);
+			System.out.println("제목: " + title + " / 저자: " + author + " / 대출 여부: " + isRented);
 		}
 		
 	public static void main(String[] args) {
+		//3단계: new 연산자로 객체 메모리 생성 후 사용
 		
+		//순서1+2. 참조변수 선언 + 객체 메모리 생성
 		BookTest book = new BookTest();
 		
+		//순서3. 객체 메모리 내부에 포함된 객체 변수 값 설정
 		book.title = "자바의 정석";
-		book.author = "";
-		book.isRented = true;
+		book.author = "남궁성";
+		book.isRented = false;
 		
-		book.rent();
-		book.returnBook();
-		book.printStatus();
+		//순서4. 객체 메소드 호출해서 렌트도 하고 반납도 합시다.
+		book.rent(); // false -> true
+		book.rent(); // 이미 대출 true -> 대출 실패
+		book.returnBook(); // 자바의 정석 반납 완료
+		book.printStatus(); // 제목: 자바의 정석 / 저자: 남궁성 / 대출 여부: false
 	}
 
 }
