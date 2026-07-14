@@ -66,14 +66,14 @@ public class Main {// -----> Main.java 컴파일 Main.class 실행 파일로 생
 		//순서1+2. 참조 변수 선언 + 객체 메모리 생성 후 참조 변수에 주소 번지 저장
 		PetTest pet = new PetTest();
 		
-		
+		//순서3. 객체 변수 값 설정
 		pet.name = "초코";
-		pet.hunger = 60;
+		pet.hunger = 50;
 		
-		pet.feed(10);
-		pet.play(20);
+		//순서4. 객체 메소드 호출
+		pet.play(30); // 50 -> 80
+		pet.feed(20); // 80 -> 60
 		pet.checkStatus();
-
 	}
 
 }
