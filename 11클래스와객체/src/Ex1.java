@@ -66,14 +66,10 @@ class FruitSeller{
 	
 	/* 클래스 변수 */
 	// --- 과일 장수의 속성(데이터,상태) 정보를 저장할 변수 ---
-	//1. 사과 한 개당 가격을 저장할 변수 -> 상수화 시킴
-	final int APPLE_PRICE = 1000;
 	
-	//2. 보유하고 있는 사과의 수를 저장할 변수
-	int numOfApple; 
-	
-	//3. 판매 수익을 저장할 변수
-	int myMoney; 
+	final int APPLE_PRICE = 1000; //1. 사과 한 개당 가격을 저장할 변수 -> 상수화 시킴
+	int numOfApple; //2. 보유하고 있는 사과의 수를 저장할 변수
+	int myMoney; //3. 판매 수익을 저장할 변수
 
 	/* 클래스 메소드 */
 	// --- 과일 장수의 동작(기능, 행동)을 메소드로 만들기 ---
@@ -84,11 +80,8 @@ class FruitSeller{
 		//방법 -> 과일 구매자(FruitBuyer) 객체가 지불한 금액에 한 개당 금액으로 나누면 판매한 사과 개수를 구할 수 있다.
 		int num = money / APPLE_PRICE;
 		
-		// 사과 판매 후 과일 장수 객체가 보유한 사과 개수 차감
-		numOfApple -= num;
-		
-		// 과일 장수 객체가 판매한 판매 수익 금액을 누적
-		myMoney += money;
+		numOfApple -= num; // 사과 판매 후 과일 장수 객체가 보유한 사과 개수 차감
+		myMoney += money; // 과일 장수 객체가 판매한 판매 수익 금액을 누적
 		
 		return num; // 실제 과일 장수 객체가 판매한 사과 개수 반환
 	}
@@ -107,11 +100,9 @@ class FruitBuyer {
 	
 	/* 클래스 변수 */
 	// --- 과일 구매자의 속성(데이터, 상태) 정보를 저장할 변수 ---    
-    //1. 현재 소유하고 있는 현금을 저장할 변수
-	int myMoney = 5000;
-	
-	//2. 현재 소유하고 있는 사과 수를 저장할 변수
-	int numOfApple = 0;
+    
+	int myMoney = 5000; //1. 현재 소유하고 있는 현금을 저장할 변수
+	int numOfApple = 0; //2. 현재 소유하고 있는 사과 수를 저장할 변수
 
 	/* 클래스 메소드 */
 	// --- 과일 구매자의 동작(기능, 행동)을 메소드로 만들기 ---
@@ -119,33 +110,74 @@ class FruitBuyer {
 	// 매개변수 -> 과일 구매를 위한 과일 장수(판매자) 객체, 구매 시 지불한 금액
 	public void buyApple(FruitSeller seller, int money) {
 		
-		
+		numOfApple += seller.saleApple(money);
+		myMoney -= money; // 과일 판매자 객체(FruitSeller 객체)에게 과일 구매자 객체가 지불한 2000원 차감
 	}
 	
-	//2. 과일 구매 후 현재 남은 현금과 사과의 수 출력 기능의 메소드 
-}
+	//2. 과일 구매 후 현재 남은 현금과 사과의 수 출력 기능의 메소드
+	public void showBuyResult() {
+		
+		System.out.println("현재 잔액: " + myMoney); // 현재 남은 돈 출력
+		System.out.println("보유 사과 수: " + numOfApple); // 현재 보유한 사과 수 출력
+	}
+}// FruitBuyer 클래스 끝
 
 public class Ex1 {
 	public static void main(String[] args) {
-	//(3단계) 객체(인스턴스) 생성과 사용
-	// - 객체 생성 시 new 연산자 사용 
-	// - 클래스(설계도, 틀)를 통해 -> 객체 생성
-	
-	// 과일 판매자 객체 생성
-	
-	
-	// 과일 구매자 객체 생성
-	
-	
-	// 과일 구매자는 과일 판매자에게 2000원어치 사과 구매하기
-	
-	
-	// 과일 판매자의 현재 상황
-	System.out.println("--과일 판매자의 현재상황--");
-	
-	// 과일 구매자의 현재 상황
-	System.out.println("--과일 구매자의 현재상황--");
-				
+		//(3단계) 객체(인스턴스) 생성과 사용
+		// - 객체 생성 시 new 연산자 사용 
+		// - 클래스(설계도, 틀)를 통해 -> 객체 생성
+		
+		//1. 과일 판매자 객체 생성
+		FruitSeller seller = new FruitSeller();
+		seller.numOfApple = 20; // 과일 장수 판매자 객체는 처음에 사과를 20개 가지고 있습니다.
+		seller.myMoney = 0; // 과일 장수 판매자 객체는 처음에 수익이 0원 입니다.
+		
+		//2. 과일 구매자 객체 생성
+		FruitBuyer buyer = new FruitBuyer();
+		
+		//3. 과일 구매자는 과일 판매자에게 2000원 어치 사과 구매하기
+		buyer.buyApple(seller, 2000);
+		
+		// 과일 판매자의 현재 상황
+		System.out.println("-- 과일 판매자의 현재상황 --");
+		seller.showSaleResult(); // 과일 판매자는 사과 18개를 남기고, 2000원의 수익을 기록했을 것입니다.
+		/*
+			--과일 판매자의 현재상황--
+			과일 장수 객체의 현재 남은 사과 수: 18
+			과일 장수 객체의 현재 잔고: 2000
+		*/
+		
+		// 과일 구매자의 현재 상황
+		System.out.println("-- 과일 구매자의 현재상황 --");
+		buyer.showBuyResult();
+		/*
+			--과일 구매자의 현재상황--
+			현재 잔액: 3000
+			보유 사과 수: 2
+		*/
+		// 과일 구매자는 2000원을 사용하여 사과 2개를 얻고, 3000원의 잔액을 가질 것입니다.
+		
+		// 과일 구매자는 과일 판매자에게 2000원을 지불하고 사과 구매하는 행동
+		buyer.buyApple(seller, 2000);
+		
+		// 과일 장수 판매자의 현재 상태 출력
+		System.out.println("-- 과일 장수(판매자) 객체의 현재 남은 돈과 사과 수 --");
+		seller.showSaleResult();
+		/*
+			-- 과일 장수(판매자) 객체의 현재 남은 돈과 사과 수 --
+			과일 장수 객체의 현재 남은 사과 수: 16
+			과일 장수 객체의 현재 잔고: 4000
+		*/
+		
+		// 과일 구매자의 현재 상태 출력
+		System.out.println("-- 과일 구매자 객체의 현재 남은 돈과 사과 수 --");
+		buyer.showBuyResult();
+		/*
+			-- 과일 구매자 객체의 현재 남은 돈과 사과 수 --
+			현재 잔액: 1000
+			보유 사과 수: 4
+		*/
 	}
 
 }
