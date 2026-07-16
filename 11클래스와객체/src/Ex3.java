@@ -72,9 +72,6 @@ public class Ex3 {
 			
 			System.out.println(persons[i].age);
 		}
-		
-		
-		
 	}
 
 }
