@@ -15,8 +15,8 @@ public class BankAccountTest {
 	double balance; //3. 잔액(예: 10000.0원) 저장할 클래스 변수
 	
 	//1. 클래스 메소드
-	// 메소드명: deposit
-	// 기능: 특정 금액(amount)을 입금하면, 잔액(balance)이 증가한다.
+	//메소드명: deposit
+	//기능: 특정 금액(amount)을 입금하면, 잔액(balance)이 증가한다.
 	void deposit(double amount) {
 		
 		balance += amount; // 현재 잔액(balance)에 amount(입금 금액) 을 더한다.
@@ -26,8 +26,9 @@ public class BankAccountTest {
 		System.out.println("현재 잔액: " + balance + "원");
 	}
 	
-	// 메소드명: withdraw
-	// 기능: 출금	- 특정 금액을 출금하면, 잔액(balance)을 감소한다.
+	//2. 클래스 메소드
+	//메소드명: withdraw
+	//기능: 출금	- 특정 금액을 출금하면, 잔액(balance)을 감소한다.
 	//			  단, 잔액이 부족하면 출금이 실패한다.
 	void withdraw(double amount) {
 		
@@ -40,14 +41,39 @@ public class BankAccountTest {
 			System.out.println("현재 잔액: " + balance + "원");
 		}else {// 현재 잔액이 출금할 금액보다 적다면? 출금 불가
 			
-			
+			System.out.println("잔액 부족! 출금 실패");
 		}
 	}
 	
+	//3. 클래스 메소드
+	//메소드명: checkBalance
+	//기능: 현재 계좌의 잔액(balance)을 출력한다
+	void checkBalance() {
+		
+		System.out.println(owner + "님의 현재 잔액: " + balance + "원");
+	}
 	
+	//4. main 메소드
+	//기능: 자바 코드를 실행시키는 시작 기능
 	public static void main(String[] args) {
 		
+		//3단계: 객체 생성 후 사용
+		//순서1. "은행 계좌" 객체 생성
+		BankAccountTest account = new BankAccountTest();
+		
+		//순서2. "계좌 정보 설정"
+		//		- 계좌 번호 설정
+		//		- 예금주 설정
+		//		- 초기 잔액 설정(100,000원)
+		account.accountNumber = "123-456-789";
+		account.owner = "이영희";
+		account.balance = 100000;
+		
+		//순서3. 계좌 기능 사용해보기
+		account.deposit(50000); // 50000원 입금 -> balance 변수 값이 150000원으로 변경됨
+		account.withdraw(30000); // 30000원 출금 -> balance 변수 값이 120000원으로 변경됨
+		account.checkBalance(); // 현재 잔액 출력 -> 이영희님의 현재 잔액: 120000.0원
 
 	}
 
-}
+}// --- class BankAccountTest 끝
