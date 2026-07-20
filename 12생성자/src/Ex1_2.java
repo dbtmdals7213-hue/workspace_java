@@ -1,6 +1,5 @@
-package 학생제공2;
-
 // 과일 장수 이야기 스토리
+
 /*
 	[ 현실 세계 상황 재연 1 ]
 	"나는 과일장수에게 두개의 사과를 구매했다!"
@@ -53,18 +52,29 @@ package 학생제공2;
 
 //(2단계) 클래스(설계도) 정의: 클래스변수 + 클래스메소드
 // 과일 장수 FruitSeller 라는 이름의 틀(클래스)을 정의합니다.
+
+
+
 class FruitSeller{ 
 	
 	/* 클래스 변수 */
 	//--- 과일 장수의 속성(데이터, 상태) 정보를 저장할 변수 ---	
 	
-	// final int APPLE_PRICE = 1000; //1. 사과 한 개당 가격을 저장할 변수 -> 상수화 시킴 
-	
-	int apple_price; //1. 사과 한 개당 가격을 저장할 변수
+	final int APPLE_PRICE; //1. 사과 한 개당 가격을 저장할 변수
 	int numOfApple; //2. 보유하고 있는 사과의 수를 저장할 변수
 	int myMoney; //3. 판매 수익을 저장할 변수
 
-
+	/* 생성자 */
+	//					사과 한 개당 가격,		보유 사과 수,		판매 수익
+	public FruitSeller(int apple_price, int numOfApple_, int myMoney_) {// <--- new FruitSeller(1000, 30, 0);
+		
+		// 객체변수명 = 매개변수명;
+		APPLE_PRICE = apple_price; // 1000
+		numOfApple = numOfApple_; // 30
+		myMoney = myMoney_; // 0
+	}
+	
+	
 	/* 클래스 메소드 */
 	//--- 과일 장수의 동작(기능, 행동)을 메소드로 만들기 ---
 	
@@ -73,7 +83,7 @@ class FruitSeller{
 		
 		// 판매한 사과 개수 구하기
 		//방법 -> 과일 구매자(FruitBuyer) 객체가 지불한 금액에 한 개당 금액으로 나누면 판매한 사과 개수를 구할 수 있다.
-		int num = money / apple_price;
+		int num = money / APPLE_PRICE;
 			
 		numOfApple -= num; // 사과 판매 후 과일장수 객체가 보유한 사과 개수 차감
 		myMoney += money; // 과일 장수 객체가 판매한 판매 수익 금액을 누적
@@ -87,20 +97,7 @@ class FruitSeller{
 		System.out.println("과일 장수 객체의 현재 잔고: " + myMoney);
 	}
 	
-	//3. 나중에 FruitSeller 클래스의 객체 메모리를 생성한 후
-	//	 각 객체 변수 3개의 값을 저장할 기능의 메소드 추가
-	//								1500			  30			  0		<-- 과일 장수1 객체의 객체 변수 값들
-	//								1000			  20			  0		<-- 과일 장수2 객체의 객체 변수 값들
-	public void initMembers(int apple_price_, int numOfApple_, int myMoney_) {
-		
-		// 객체변수명 = 매개변수명
-		apple_price = apple_price_; //1. 사과 개당 가격
-		numOfApple = numOfApple_; //2. 현재 보유한 사과 개수
-		myMoney = myMoney_; //3. 판매 수익
-	}
-	
 }// FruitSeller 클래스 끝
-
 
 //(2단계) 클래스(설계도) 정의: 클래스변수 + 클래스메소드
 // 나(과일 구매자) FruitBuyer 라는 이름의 틀(클래스)을 정의합니다.
@@ -109,8 +106,17 @@ class FruitBuyer {
 	/* 클래스 변수 */
 	//--- 과일 구매자의 속성(데이터, 상태) 정보를 저장할 변수 ---   
 	 
-	int myMoney = 5000; //1. 현재 소유하고 있는 현금을 저장할 변수
-	int numOfApple = 0; //2. 현재 소유하고 있는 사과 수를 저장할 변수
+	int myMoney; //1. 현재 소유하고 있는 현금을 저장할 변수
+	int numOfApple; //2. 현재 소유하고 있는 사과 수를 저장할 변수
+	
+	/* 생성자 */
+	// 생성자 만드는 단축 키 alt + shift + s + o
+	
+	public FruitBuyer(int myMoney_, int numOfApple_) {
+		
+		myMoney = myMoney_;
+		numOfApple = numOfApple_;
+	}
 	
 	/* 클래스 메소드 */
 	//--- 과일 구매자의 동작(기능, 행동)을 메소드로 만들기 ---
@@ -139,92 +145,17 @@ class FruitBuyer {
 		
 }// ---> 과일 구매자(FruitBuyer class) 정의 끝 
 
-
-public class Ex1 {
+public class Ex1_2 {
 	
 	public static void main(String[] args) {
 		//(3단계) 객체(인스턴스) 생성과 사용
 		// - 객체 생성 시 new 연산자 사용 
 		// - 클래스(설계도, 틀)를 통해 -> 객체 생성
 	
-		/*
-			두 명의 과일 장수와 한 명의 구매자가 있다고 가정하자!
-			
-			과일 장수1 FruitSeller: 보유하고 있는 사과의 수는 30개 이고, 개당 가격은 1,500원
-			과일 장수2 FruitSeller: 보유하고 있는 사과의 수는 20개 이고, 개당 가격은 1,000원
-		*/
-		// 과일 장수1(FruitSeller 클래스의 객체 메모리 생성)
-		FruitSeller seller1 = new FruitSeller();
 		
-		// 생성된 과일 장수1 객체의 객체 변수 값들을 처음 저장하기 위해 추가한 initMembers 메소드 사용
-		// -> 사과 개당 가격 1,500원, 보유한 사과 개수 30개, 판매 수익이자 잔고 0원
-		seller1.initMembers(1500, 30, 0);
-		
-		//=====================================================================================
-		
-		// 과일 장수2(FruitSeller 클래스의 객체 메모리 생성)
-		FruitSeller seller2 = new FruitSeller();
-		
-		// 생성된 과일 장수2 객체의 객체 변수 값을 처음 저장하기 위해 추가한 initMembers 메소드 사용
-		seller2.initMembers(1000, 20, 0);
-		
-		// 1명의 과일 구매자 객체(FruitBuyer 클래스의 객체) 생성
-		FruitBuyer buyer1 = new FruitBuyer();
-		
-		//1. 과일 구매자 객체는 과일 장수1 객체에게 4500원을 지불하고 사과 구매
-		buyer1.buyApple(seller1, 4500);
-		
-		//2. 과일 구매자 객체의 현재 객체 변수들에 저장된 값들의 상황 출력
-		System.out.println("---------- 과일 구매자의 현재 상태 ----------");
-		buyer1.showBuyResult();
-		
-		//3. 과일 장수1 객체의 현재 객체 변수들에 저장된 값들의 상황 출력
-		System.out.println("---------- 과일 장수1 객체의 현재 상태 ----------");
-		seller1.showSaleResult();
-		
-		//1-1. 1명의 과일 구매자 객체(FruitBuyer 클래스의 객체)가 과일 장수2 객체에게 2000원을 지불하고 사과 구매하기
-		buyer1.buyApple(seller2, 2000);
-		
-		//2-1. 과일 구매자 객체의 현재 객체 변수들에 저장된 값들의 상황 출력
-		System.out.println("---------- 과일 구매자의 현재 상태 ----------");
-		buyer1.showBuyResult();
-		
-		//3-1. 과일 장수2 객체의 현재 객체 변수들에 저장된 값들의 상황 출력
-		System.out.println("---------- 과일 장수2 객체의 현재 상태 ----------");
-		seller2.showSaleResult();
 		
 	}
 	
-	/*
-		이 프로그램은 과일 장수1, 과일 장수2 객체들의 사과 1개당 가격은 객체 메모리를
-		생성한 후 각각 1500원, 1000원으로 다르게 설정하는 것은 가능했다.
-		
-		그러나 이 프로그램 문제점 2가지가 있다.
-			
-			1. 과일 장수1, 2 객체는 생성하고 난 다음에 객체변수들의 값을 초기화 해야 한다.
-			   즉! 두 줄에 걸쳐서 코드 문장을 작성해야 하나의 객체 메모리를 생성해서 완성할 수 있다.
-			   코드의 가독성이 저하됨
-			   
-				   FruitSeller seller1  = new FruitSeller();
-				   
-				   			   seller1.initMembers(1500, 30, 0);
-					
-			2. FruitSeller(과일 장수) 클래스로 객체를 생성하면
-			   객체 메모리 내부의 APPLE_PRICE 상수의 final 선언이 사라진 점이 문제가 됨
-			   
-			    final 선언이 사리진점이 왜 문제가 될까?
-			    	: 클래스 설계 시 과일 장수가 판매하는 사과 한 개당 가격은 변경되지 않음을 가정해두고
-					  객체 변수 int apple_price 로 변경했습니다. initMember 메소드 내부에서
-					  구현 코드로 apple_price 변수 값을 초기화 하려다보니 어쩔수없이 final 선언을
-					  강제로 삭제 시켰습니다. 여기서 하나의 문제점이 있는데 initMember 메소드라는 것은
-					  만들어놓고 여러 번 호출할 수 있으므로 initMember 메소드를 여러 번 호출한다면 
-					  개발자가 객체 메모리의 변수 값 초기화 하는 작업의 실수를 범할 수도 있기 때문에
-					  객체 메모리 생성하는 동시에 단 한 번만 호출되는 생성자를 이용해 객체 메모리를 생성 후
-					  빠르게 객체 변수들을 초기화 해야 합니다.
-		
-		이 프로그램의 문제점들 해결 방법은 클래스 설계 시 내부에 생성자를 만들어놓고 사용하자
-	*/
-
 }
 
 

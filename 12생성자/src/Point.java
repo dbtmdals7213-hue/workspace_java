@@ -1,8 +1,4 @@
 
-
-
-
-
 public class Point {// x 좌표, y 좌표 점 설계도
 
 	//[1] 객체 변수 선언
@@ -66,9 +62,49 @@ public class Point {// x 좌표, y 좌표 점 설계도
 	
 	public static void main(String[] args) {
 		
+		//1. 기본 생성자를 이용하여 Point 클래스의 객체 생성
+		Point point1 = new Point();
 		
+		//1-1. point1 참조변수에 저장된 객체 메모리의 객체 변수 x 값 얻어와 출력
+		// System.out.println("객체 변수 x = " + point1.x); // 2
+		System.out.println("객체 변수 x = " + point1.getX()); // 객체 변수 x = 2
 		
+		//1-2. point1 참조변수에 저장된 객체 메모리의 객체 변수 y 값 얻어와 출력
+		// System.out.println("객체 변수 y = " + point1.y); // 2
+		System.out.println("객체 변수 y = " + point1.getY()); // 객체 변수 y = 2
 		
+		//1-3. point1 참조변수에 저장된 객체 메모리의 전체 좌표 정보 출력
+		point1.printCoordinates();
+		
+		//1-4. point1 참조변수에 저장된 객체 메모리에 포함된 x 객체 변수 값 2 -> 10으로 변경
+		point1.setX(10);
+		
+		//1-5. point1 참조변수에 저장된 객체 메모리에 포함된 y 객체 변수 값 2 -> 20으로 변경
+		point1.setY(20);
+		
+		//1-6. point1 참조변수에 저장된 객체 메모리의 전체 좌표 정보 출력
+		point1.printCoordinates();
+		
+		System.out.println("===============================");
+		
+		//2. x 좌표 값만 초기화 하는 생성자를 사용해 Point 클래스에 대한 다른 객체 생성
+		Point point2 = new Point(300);
+		
+		//2-1. point2 참조변수에 저장된 객체 메모리의 전체 좌표 정보 출력
+		point2.printCoordinates();
+		
+		System.out.println("===============================");
+		
+		//3. x, y 좌표 값을 모두 초기화 하는 생성자를 사용해 Point 클래스에 대한 다른 객체 생성
+		Point point3 = new Point(300, 400);
+		
+		//3-1. point3 참조변수에 저장된 객체 메모리의 전체 좌표 정보 출력
+		point3.printCoordinates();
+		
+		// 다른 출력 방법
+		// System.out.println("출력 x, y : " + point3.getX() + ", " + point3.getY());
 	}
 
 }
+
+
