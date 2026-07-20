@@ -15,6 +15,7 @@
 	연습4. 핸드폰(Phone) 클래스 - 생성자 3개 오버로딩
 	연습5. 피자(Pizza) 클래스 - 생성자 안에서 계산까지
 */
+
 // 연습1. 학생(Student) 클래스
 
 // [문제]
@@ -35,11 +36,15 @@ class Student {
 	}
 	//[3] 매개변수가 있는 생성자 정의
 	public Student(String name_, int age_) {
-		
+					//	 "홍길동",	  20
 		name = name_;
+		//	  "홍길동"
 		age = age_;
+		//		20
 	}
-	
+
+}
+
 //연습2. 은행 계좌(BankAccount) 클래스
 	
 //[문제]
@@ -61,27 +66,57 @@ class BankAccount {
 	
 	//[3] 매개변수가 있는 생성자 정의
 	public BankAccount(String owner_, int balance_) {
-		
+						//	 "김길동" ,	   50000
 		owner = owner_;
+		//	  = "김길동"
 		balance = balance_;
+		//		=  50000
 	}
 	
 }
 	
+
 	
 	
-	
-}
+
 
 public class 생성자_연습문제_5개 {
 
 	public static void main(String[] args) {
 		
+		//연습1 확인. 학생 객체 만들기
+		System.out.println("===== 연습1. Student =====");
 		
+		// 기본 생성자로 Student 클래스로 객체 생성
+		Student s1 = new Student();
 		
+		System.out.println(s1.name); // "무명"
+		System.out.println(s1.age); // 0
 		
+		// 매개변수가 작성되어 있는 생성자로 객체 생성
+		Student s2 = new Student("홍길동", 20);
 		
+		System.out.println(s2.name); // "홍길동"
+		System.out.println(s2.age); // 20
+		
+		//연습2 확인. 은행 계좌 객체 만들기
+		System.out.println("===== 연습2. BankAccount =====");
+		
+		// 기본 생성자로 BankAccount 클래스로 객체 생성
+		BankAccount acc1 = new BankAccount();
+		
+		System.out.println(acc1.owner); // "미지정"
+		System.out.println(acc1.balance); // 0
+		
+		// 매개변수가 작성되어 있는 생성자로 객체 생성
+		BankAccount acc2 = new BankAccount("김길동", 50000);
+		
+		System.out.println(acc2.owner); // "김길동"
+		System.out.println(acc2.balance); // 50000
 		
 	}
 
 }
+
+
+
