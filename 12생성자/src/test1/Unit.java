@@ -25,24 +25,53 @@ public class Unit {
 	
 	// 세 번째 생성자: 유닛의 이름, 체력, 공격력 모두 매개변수로 받아 모든 객체 변수들의 값을 초기화 하는 생성자
 	public Unit(String name, int hp, int damage) {
-		
+				//	"시저탱크",   "150",	"35"
 		this.name = name;
 		this.hp = hp;
 		this.damage = damage;
 	}
 	
 	//3. 메소드 - 유닛들의 행동을 표현
-	// 첫 번째 메소드 명: attack
+	// 첫 번째 메소드명: attack
 	// 기능: 특정 유닛 객체가 다른 유닛 객체를 공격
 	public void attack(Unit target) {// <- new Unit("저글링", 80);
 									 // <- new Unit("마린");
 		
 		//조건문1. 현재 생성된 Unit 클래스에 대한 객체(마린 객체)의 hp 객체 변수의 값이 0보다 작거나 같으면?
-		if(this.hp)
+		if(this.hp <= 0) {
+			
+			System.out.println(this.name + "은(는) 이미 파괴되어 공격할 수 없습니다!");
+			return; // attack 메소드 } 중괄호 빠져나감
+		}
+		//조건문2. target 매개변수로 전달받은 new Unit("저글링", 80); 객체의 hp 객체 변수의 값이 0보다 작거나 같으면?
+		if(target.hp <= 0) {
+			
+			System.out.println(target.name + "은(는) 이미 파괴되어 공격할 수 없습니다!");
+			return;
+		}
 		
+		// 매개변수 target 으로 전달받은 new Unit("저글링", 80); 객체의 hp 객체 변수(기본 체력)를 
+		// this.damage; 로 작성한 new Unit("마린"); 객체의 damage 객체 변수(기본 공격력) 값으로 저장
+		//요약: 마린이 저글링을 공격하기 때문
+		target.hp -= this.damage; // target.hp = target.hp - this.damage;
 		
-	}
+		System.out.println(this.name + "이(가) " + target.name + "을(를) 공격합니다!(공격력: " + this.damage + ")");
+		
+		// 저글링 객체의 체력이 0이 되면 파괴된 상태 표시
+		if(target.hp <= 0) {
+			
+			target.hp = 0;
+			System.out.println(target.name + "이(가) 파괴되었습니다!");
+		}
+		
+	}// attack 메소드
 	
+	// 두 번째 메소드명: status
+	// 기능: 현재 유닛 객체 상태 정보 출력
+	public void status() {
+		
+		System.out.println("[유닛 상태] " + this.name + " - 체력: " + this.hp + ", 공격력: " + this.damage);
+	}
 	
 	public static void main(String[] args) {
 		
@@ -54,9 +83,41 @@ public class Unit {
 		// 유닛 이름: 저글링, 기본 체력: 80, 기본 공격력 10
 		Unit zergling = new Unit("저글링", 80);
 		
-		// 전투 시뮬레이션 - 마린 유닛 객체가 저글링을 공격한다.
-		marine.attack(zergling);
+		// 시저탱크 유닛 역할을 하는 객체 하나 생성
+		// 유닛 이름: 시저탱크, 기본 체력: 150, 기본 공격력: 35;
+		Unit tank = new Unit("시저탱크", 150, 35);
 		
+		// 위 바로 생성된 마린, 저글링, 탱크 객체 메모리의 객체 변수 값들을 출력
+		marine.status();
+		zergling.status();
+		tank.status();
+		
+		System.out.println("\n=============== 전투 시작 ===============");
+		
+		// 전투 시뮬레이션
+		// 마린 유닛 객체가 저글링을 공격한다.
+		marine.attack(zergling);
+	//  marine.attack(new Unit("저글링" 80));
+		
+		// 저글링이 마린을 공격한다.
+		zergling.attack(marine);
+		
+		// 시저탱크가 저글링을 공격한다.
+		tank.attack(zergling);
+		
+		// 시저탱크가 마린을 공격1
+		tank.attack(marine);
+		
+		// 시저탱크가 마린을 공격2
+		tank.attack(marine);
+		
+		// 시저탱크가 마린을 공격3
+		tank.attack(marine);
+		
+		System.out.println("\n============ 전투 종료 후 상태 ===========");
+		marine.status();
+		zergling.status();
+		tank.status();
 	}
 
 }
