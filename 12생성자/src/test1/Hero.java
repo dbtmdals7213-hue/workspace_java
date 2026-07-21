@@ -88,13 +88,14 @@ public class Hero { //용사(전사/마법사/몬스터 모두 이 설계도로 
 		}
 		
 		target.hp -= this.damage;
+		System.out.println(this.name + "이(가) " + target.name + "을(를) 공격합니다!(공격력:" + this.damage + ")");
 		
 		if(target.hp <= 0) {
 			
 			target.hp = 0;
 			System.out.println(target.name + "이(가) 쓰러졌습니다!!");
 		}
-	}
+	}// --- attack 메소드
 	
 	
 	//두번째 메소드  ★문제1에 없던 새 메소드★
@@ -126,8 +127,8 @@ public class Hero { //용사(전사/마법사/몬스터 모두 이 설계도로 
 		this.hp += 30;
 		this.potion -= 1;
 		
-		System.out.println(this.name + "이(가) 물약을 마셨습니다! (체력 +30, 남은물약: " + this.potion + "개)");
-	}
+		System.out.println(this.name + "이(가) 물약을 마셨습니다! (체력+30, 남은물약: " + this.potion + "개)");
+	}// --- heal 메소드
 	
 	
 	//세번째 메소드
@@ -138,8 +139,8 @@ public class Hero { //용사(전사/마법사/몬스터 모두 이 설계도로 
 	//>>> 여기에 status 메소드를 작성하세요.
 	public void status() {
 		
-		System.out.println("[캐릭터 상태] " + this.name  + "- 체력: " + this.hp + ", 공격력: " + this.damage + ", 물약: " + this.potion + "개");
-	}
+		System.out.println("[캐릭터 상태] " + this.name  + " - 체력: " + this.hp + ", 공격력: " + this.damage + ", 물약: " + this.potion + "개");
+	}// --- status 메소드
 
 	
 	public static void main(String[] args) {
@@ -148,25 +149,26 @@ public class Hero { //용사(전사/마법사/몬스터 모두 이 설계도로 
 		//  변수명 warrior, 이름 "전사"  -> 체력 100, 공격력 20, 물약 3개 자동 설정
 		
 		//>>> 여기에 전사 객체 생성 코드를 작성하세요.
-		
+		Hero warrior = new Hero("전사");
 		
 		//Hero클래스의 두번째 객체 생성 : 이름과 체력을 받는 생성자 호출
 		//  변수명 mage, 이름 "마법사", 체력 70
 		
 		//>>> 여기에 마법사 객체 생성 코드를 작성하세요.
-		
+		Hero mage = new Hero("마법사", 70);
 		
 		//Hero클래스의 세번째 객체 생성 : 이름, 체력, 공격력, 물약 모두 받는 생성자 호출
 		//  변수명 dragon, 이름 "드래곤", 체력 200, 공격력 45, 물약 0개
 		
 		//>>> 여기에 드래곤 객체 생성 코드를 작성하세요.
-		
+		Hero dragon = new Hero("드래곤", 200, 45, 0);
 		
 		//위 생성된 3개의 Hero객체 상태 출력 (status 메소드 호출)
 		
 		//>>> 여기에 status 호출 3줄을 작성하세요.
-		
-		
+		warrior.status();
+		mage.status();
+		dragon.status();
 		
 		System.out.println("\n==== 던전 전투 시작 ====");
 		
@@ -180,23 +182,24 @@ public class Hero { //용사(전사/마법사/몬스터 모두 이 설계도로 
 		//  ⑦ 드래곤이 물약 마시기 (heal 호출) -> 물약 없음 메시지 확인
 		
 		//>>> 여기에 전투 코드 7줄을 작성하세요.
-		
-		
-		
-		
-		
-		
+		warrior.attack(dragon);
+		dragon.attack(warrior);
+		dragon.attack(mage);
+		warrior.heal();
+		dragon.attack(mage);
+		mage.attack(dragon);
+		dragon.heal();
 		
 		
 		System.out.println("\n==== 전투 종료 후 상태 ====");
 		
 		//>>> 여기에 status 호출 3줄을 작성하세요.
-		
-		
-		
-	}
+		warrior.status();
+		mage.status();
+		dragon.status();
+	}// --- main 메소드
 
-}
+}// --- Hero 클래스
 
 /*
 	===== 정답 코드 작성 시 예상 실행 결과 =====
