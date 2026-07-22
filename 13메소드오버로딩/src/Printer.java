@@ -104,8 +104,6 @@ public class Printer {
 		out.print(100); // 정수 숫자 출력: 100
 		out.print(99.99); // 실수 숫자 출력: 99.99
 		out.print("문자열", 85); // 문자열과 정수 출력: 문자열, 85
-		
-		
 	}
 
 }
