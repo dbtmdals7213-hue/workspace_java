@@ -28,6 +28,7 @@ public class Survivor { //생존자 설계도
 	int ammo;
 	int power;
 	
+	
 	//2. 생성자 (2개만 만듭니다)
 
 	//   첫번째 생성자 : 이름만 받는 생성자
@@ -36,10 +37,9 @@ public class Survivor { //생존자 설계도
 
 	//>>> 여기에 첫번째 생성자를 작성하세요.
 	public Survivor(String name) {
-		
+					//	   "레온"
 		this(name, 100, 10, 30);
 	}
-
 
 
 	//   두번째 생성자 : 이름, 체력, 총알, 공격력 모두 받는 생성자
@@ -54,7 +54,6 @@ public class Survivor { //생존자 설계도
 		this.power = power;
 	}
 	
-
 
 	//3. 메소드 정의
 
@@ -107,7 +106,7 @@ public class Survivor { //생존자 설계도
 			return;
 		}
 		
-		ammo--;
+		ammo -= 1;
 		target.hp -= this.power;
 		System.out.println(this.name + "이(가) 좀비를 공격! (공격력:" + this.power + ", 남은총알:" + this.ammo + "발)");
 		
@@ -160,7 +159,7 @@ public class Survivor { //생존자 설계도
 				reload();
 			}
 			
-			shoot(zombies[i]);
+			this.shoot(zombies[i]);
 		}
 		
 		System.out.println("===== 웨이브 종료! =====");
@@ -191,6 +190,7 @@ public class Survivor { //생존자 설계도
 		leon.ammo = 10;
 		leon.power = 30;
 
+		
 		//좀비 12마리를 "배열"에 담기
 		//  ★배열 만드는 문법:  Zombie[] 배열명 = new Zombie[12];
 		//  ★12마리를 일일이 만들기 번거로우니 for 반복문으로 생성하세요.
@@ -207,13 +207,13 @@ public class Survivor { //생존자 설계도
 		}
 
 
-
-
 		//전투 시작 전 생존자 상태 출력
 
 		//>>> 여기에 leon.status() 호출을 작성하세요.
+		System.out.println();
 		leon.status();
 
+		
 		//웨이브 전투 실행! (배열을 통째로 넘긴다)
 		//  힌트: leon.fightWave(zombies);
 		//  ※ 좀비 12마리 > 총알 10발 이므로 도중에 reload가 자동 발동됩니다!
@@ -221,19 +221,17 @@ public class Survivor { //생존자 설계도
 		//>>> 여기에 fightWave 호출을 작성하세요.
 		leon.fightWave(zombies);
 
+		
 		//전투 종료 후 생존자 상태 + 각 좀비 상태 출력
 		//  (좀비 상태는 for문으로 배열을 돌며 zombies[i].status() 호출)
 
 		//>>> 여기에 종료 후 상태 출력 코드를 작성하세요.
+		leon.status();
 		for(int i = 0; i < zombies.length; i++) {
 			
-			leon.status();
 			zombies[i].status();
 		}
-
-
-
-	}
+	}// 
 }
 
 //==========================================================================

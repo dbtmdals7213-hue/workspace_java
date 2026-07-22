@@ -16,6 +16,7 @@
 	연습5. 피자(Pizza) 클래스 - 생성자 안에서 계산까지
 */
 
+
 // 연습1. 학생(Student) 클래스
 
 // [문제]
@@ -44,6 +45,7 @@ class Student {
 	}
 
 }
+
 
 //연습2. 은행 계좌(BankAccount) 클래스
 	
@@ -74,10 +76,70 @@ class BankAccount {
 	}
 	
 }
-	
 
+
+//연습3. 책(Book) 클래스 - 매개변수 3개 버전
+//[문제]
+// - 객체 변수:  title(제목, String), author(저자, String), price(가격, int)
+// - 기본 생성자: title = "제목없음", author = "작자미상", price=0
+// - 매개변수 생성자: 제목, 저자, 가격 3개를 모두 전달받아 초기화
+class Book {
 	
+	String title;
+	String author;
+	int price;
 	
+	public Book() {
+		
+		this("제목없음", "작자미상", 0);
+	}
+	
+	public Book(String title, String author, int price) {
+		
+		this.title = title;
+		this.author = author;
+		this.price = price;
+	}
+	
+}
+
+
+//연습4. 핸드폰(Phone) 클래스 - 생성자 오버로딩 3개 버전
+//[문제]
+// - 객체 변수: model(모델명, String), storage(저장용량GB, int)
+// - 생성자 3개를 만들어 본다.(★ 생성자 오버로딩 ★)
+// - 기본 생성자: model = "미정", storage = 128
+// - 모델명만 전달받는 생성자: storage 는 128로 고정
+// - 모델명 + 용량을 모두 전달받는 생성자
+
+// ※ 생성자 오버로딩?
+// - 같은 이름의 생성자를 매개변수의 개수나 타입을 다르게 해서
+//	 여러 개 만들어 놓는 문법
+// - 객체를 만드는 방법(선택지)이 여러 개 생기는 효과!
+class Phone {
+	
+	String model;
+	int storage;
+	
+	public Phone() {
+		
+		this("미정", 128);
+	}
+	
+	public Phone(String model) {
+		
+		this(model, 128);
+	}
+	
+	public Phone(String model, int storage) {
+		
+		this.model = model;
+		this.storage = storage;
+	}
+}
+
+
+
 
 
 public class 생성자_연습문제_5개 {
