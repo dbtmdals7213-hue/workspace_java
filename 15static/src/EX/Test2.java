@@ -42,9 +42,8 @@ class BankAccount {
 	//>>> 여기에 생성자 ①을 작성하세요.
 	public BankAccount(String owner) {
 		
-		this();
+		this(owner, 0);
 	}
-
 
 
 	//[4] 생성자 ② - 예금주 이름 + 초기잔액을 매개변수로 받는 생성자
@@ -58,11 +57,11 @@ class BankAccount {
 	//>>> 여기에 생성자 ②를 작성하세요.
 	public BankAccount(String owner, int balance) {
 		
-		BankAccount.accountCount += 1;
-		accountNumber = 1000 + BankAccount.accountCount;
+		accountCount += 1;
+		accountNumber = 1000 + accountCount;
 		this.owner = owner;
-		this.balance = balance;
-		BankAccount.totalAsset += this.balance;
+		this.balance += balance;
+		totalAsset += balance;
 	}
 
 
@@ -79,8 +78,8 @@ class BankAccount {
 	public void deposit(int amount) {
 		
 		this.balance += amount;
-		BankAccount.totalAsset += amount;
-		System.out.println("[계좌번호]에 " + amount + "원 입금 완료 (잔액: " + this.balance + "원)");
+		totalAsset += amount;
+		System.out.println("[" + this.accountNumber + "]에 " + amount + "원 입금 완료 (잔액: " + this.balance + "원)");
 	}
 
 
@@ -96,21 +95,31 @@ class BankAccount {
 	//               true 반환
 
 	//>>> 여기에 withdraw 메소드를 작성하세요.
-
-
-
-
-
-
-
+	public boolean withdraw(int amount) {
+		
+		if(amount > this.balance) {
+			
+			System.out.println("[" + this.accountNumber + "] 잔액 부족으로 출금 실패");
+			return false;
+		}else {
+			
+			this.balance -= amount;
+			totalAsset -= amount;
+			
+			System.out.println("[" + this.accountNumber + "]에서 " + amount + "원 출금 완료 (잔액: " + this.balance + "원)");
+			return true;
+		}
+	}
 
 
 	//[7] 인스턴스메소드 - showInfo (계좌 정보 출력)
 	//    출력형식: "계좌번호: XXXX / 예금주: OOO / 잔액: XXXX원"
 
 	//>>> 여기에 showInfo 메소드를 작성하세요.
-
-
+	public void showInfo() {
+		
+		System.out.println("계좌번호: " + this.accountNumber + " / 예금주: " + this.owner + " / 잔액: " + this.balance + "원");
+	}
 
 
 	//[8] 클래스메소드(static) - showBankStatus (은행 전체 현황 출력)
@@ -121,9 +130,12 @@ class BankAccount {
 	//      총자산: XXXX원
 
 	//>>> 여기에 showBankStatus 메소드를 작성하세요.
-
-
-
+	public static void showBankStatus() {
+		
+		System.out.println("===== 은행 전체 현황 =====");
+		System.out.println("총 계좌 수: " + accountCount + "개");
+		System.out.println("총자산: " + totalAsset + "원");
+	}
 
 }
 
@@ -138,25 +150,28 @@ public class Test2 {
 		//    accounts[2] : 생성자② 사용 - 예금주 "박민수", 초기잔액 30000 (계좌번호 자동 1003)
 
 		//>>> 여기에 배열 생성 + 계좌 3개 담는 코드를 작성하세요.
-
-
-
-
-
-
+		BankAccount[] accounts = new BankAccount[3];
+		accounts[0] = new BankAccount("김철수", 0);
+		accounts[1] = new BankAccount("이영희", 50000);
+		accounts[2] = new BankAccount("박민수", 30000);
+		
+		
 		//[10] for 반복문으로 배열을 처음부터 끝까지 돌며 각 계좌의 showInfo() 호출
 
 		//>>> 여기에 for문을 작성하세요.
-
-
-
-
+		for(int i = 0; i < accounts.length; i++) {
+			
+			accounts[i].showInfo();
+		}
+		
 		System.out.println();
 
+		
 		//[11] accounts[1] (이영희) 계좌가 20000원 입금
 
 		//>>> 여기에 deposit 호출 코드를 작성하세요.
-
+		accounts[1].deposit(20000);
+		
 
 		//[12] accounts[2] (박민수) 계좌가 50000원 출금 시도
 		//     (박민수 잔액은 30000원뿐이라 50000원 출금은 실패해야 정상!)
@@ -164,20 +179,24 @@ public class Test2 {
 		//     성공하면 "출금 처리 완료" 출력, 실패하면 "출금 처리 불가" 출력
 
 		//>>> 여기에 withdraw 호출 + boolean 변수 저장 + if문을 작성하세요.
-
-
-
-
-
+		boolean result = accounts[2].withdraw(50000);
+		if(result) {// result 가 true 라면(즉, 출금이 성공했다면)
+			
+			System.out.println("출금 처리 완료");
+		}else {// result 가 false 라면(즉, 출금에 실패했다면)
+			
+			System.out.println("출금 처리 불가");
+		}
 
 		System.out.println();
 
+		
 		//[13] 은행 전체 현황 출력
 		//     ★static 메소드이므로 객체가 아니라 "클래스명"으로 호출한다★
 
 		//>>> 여기에 showBankStatus 호출 코드를 작성하세요.
 
-
+		BankAccount.showBankStatus();
 	}
 }
 
