@@ -43,7 +43,7 @@ public class Test1 {
 		a.add(5);
 		
 		//3. a 객체 메모리에 포함된 int num 객체 변수 값 얻어 출력
-		//	 JVM 메모리의 Method area 영역에 올라가 있는 static int staticNum 클래스 변수 값 얻어 출력
+		//	 JVM 메모리의 Method Area 영역에 올라가 있는 static int staticNum 클래스 변수 값 얻어 출력
 		System.out.println("---------- a 객체 ----------");
 		System.out.println("객체 변수 num = " + a.num); // 참조변수명.객체변수명
 		System.out.println("클래스 변수 staticNum = " + Student.staticNum);	 // 참조변수명.클래스변수명
@@ -63,7 +63,7 @@ public class Test1 {
 		b.add(5);
 		
 		//3-1. b 객체 메모리에 포함된 int num 객체 변수 값 얻어 출력
-		//	   JVM 메모리의 Method area 영역에 올라가 있는 static int staticNum 클래스 변수 값 얻어 출력
+		//	   JVM 메모리의 Method Area 영역에 올라가 있는 static int staticNum 클래스 변수 값 얻어 출력
 		System.out.println("---------- b 객체 ----------");
 		System.out.println("객체 변수 num = " + b.num); // 참조변수명.객체변수명
 		System.out.println("클래스 변수 staticNum = " + Student.staticNum);	 // 참조변수명.클래스변수명
@@ -73,7 +73,7 @@ public class Test1 {
 			결론: 객체 변수와 클래스 변수 차이점 적어보기
 				-> 객체 변수는 객체 메모리를 생성할 때 마다 객체 메모리 내부에 개별적으로 생성되는 메모리 공간
 				-> 클래스 변수는 생성된 각 객체 메모리들이 공용으로 사용하는 공용 변수 메모리이기 때문에
-				   자바 프로그램이 시작되면 가장 처음 class Student 가 JVM 의 Method area 영역에 올라갈 때
+				   자바 프로그램이 시작되면 가장 처음 class Student 가 JVM 의 Method Area 영역에 올라갈 때
 				   class Student 에 포함되어 같이 올라가는 변수 메모리 공간
 		*/
 	}
