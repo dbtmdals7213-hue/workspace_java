@@ -77,7 +77,7 @@ public class Unit {
 		
 		// 마린 유닛 역할을 하는 객체 하나 생성
 		// 유닛 이름: 마린, 기본체력: 100, 기본 공격력: 10
-		Unit marine = new Unit("마린");
+		Unit marin = new Unit("마린");
 		
 		// 저글링 유닛 역할을 하는 객체 하나 생성
 		// 유닛 이름: 저글링, 기본 체력: 80, 기본 공격력 10
@@ -88,7 +88,7 @@ public class Unit {
 		Unit tank = new Unit("시저탱크", 150, 35);
 		
 		// 위 바로 생성된 마린, 저글링, 탱크 객체 메모리의 객체 변수 값들을 출력
-		marine.status();
+		marin.status();
 		zergling.status();
 		tank.status();
 		
@@ -96,26 +96,26 @@ public class Unit {
 		
 		// 전투 시뮬레이션
 		// 마린 유닛 객체가 저글링을 공격한다.
-		marine.attack(zergling);
+		marin.attack(zergling);
 	//  marine.attack(new Unit("저글링" 80));
 		
 		// 저글링이 마린을 공격한다.
-		zergling.attack(marine);
+		zergling.attack(marin);
 		
 		// 시저탱크가 저글링을 공격한다.
 		tank.attack(zergling);
 		
 		// 시저탱크가 마린을 공격1
-		tank.attack(marine);
+		tank.attack(marin);
 		
 		// 시저탱크가 마린을 공격2
-		tank.attack(marine);
+		tank.attack(marin);
 		
 		// 시저탱크가 마린을 공격3
-		tank.attack(marine);
+		tank.attack(marin);
 		
 		System.out.println("\n============ 전투 종료 후 상태 ===========");
-		marine.status();
+		marin.status();
 		zergling.status();
 		tank.status();
 	}

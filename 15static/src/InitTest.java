@@ -46,7 +46,7 @@ public class InitTest {
 		// arr 에 저장된 배열 메모리의 각 칸의 랜덤 값을 반복해서 얻어 출력
 		for(int i = 0; i < InitTest.arr.length; i++) {
 			
-			System.err.println("arr[" + i + "] : " + InitTest.arr[i]);
+			System.out.println("arr[" + i + "] : " + InitTest.arr[i]);
 		}
 		
 	}
