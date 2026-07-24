@@ -67,26 +67,26 @@ public class Test2 {
 
 /*
 	Sub 클래스 객체 그림
-	 ___________________________________________________________
-	|	 ___________________________________________________	|
-	|	|	Super {} 부모 클래스로 상속 받은 객체					|	|
-	|	|		public int num1 = 10;						|	|
-	|	|		protected int num2 = 20;					|	|
-	|	|		int num3 = 30;								|	|
-	|	|		private int num4 = 40;						|	|
-	|	|		public int getNum4() { return this.num4; }	|	|
-	|	|___________________________________________________|	|
-	|															|
-	|	 ___________________________________________________	|
-	|	|	자식 클래스에 추가한 객체								|	|
-	|	|		private int num5;							|	|
-	|	|		public void print() {						|	|
-	|	|		System.out.println(super.num1);				|	|
-	|	|		System.out.println(super.num2);				|	|
-	|	|		System.out.println(super.num3);				|	|
-	|	|		System.out.println(super.getNum4());		|	|
-	|	|		System.out.println(this.num5);				|	|
-	|	|	}												|	|
-	|	|___________________________________________________|	|
-	|___________________________________________________________|
+	┌───────────────────────────────────────────────────────────┐
+	│	┌───────────────────────────────────────────────────┐	│
+	│	│	Super {} 부모 클래스로 상속 받은 객체					│	│
+	│	│		public int num1 = 10;						│	│
+	│	│		protected int num2 = 20;					│	│
+	│	│		int num3 = 30;								│	│
+	│	│		private int num4 = 40;						│	│
+	│	│		public int getNum4() { return this.num4; }	│	│
+	│	└───────────────────────────────────────────────────┘	│
+	│															│
+	│	┌───────────────────────────────────────────────────┐	│
+	│	│	자식 클래스에 추가한 객체								│	│
+	│	│		private int num5;							│	│
+	│	│		public void print() {						│	│
+	│	│		System.out.println(super.num1);				│	│
+	│	│		System.out.println(super.num2);				│	│
+	│	│		System.out.println(super.num3);				│	│
+	│	│		System.out.println(super.getNum4());		│	│
+	│	│		System.out.println(this.num5);				│	│
+	│	│	}												│	│
+	│	└───────────────────────────────────────────────────┘	│
+	└───────────────────────────────────────────────────────────┘
 */

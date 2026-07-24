@@ -108,15 +108,15 @@ class SmartPhone extends BasicPhone {
 	
 	public void useApp() {
 		
-		this.battery -= 20;
+		this.battery = this.battery - 20;
 		System.out.println(">> 앱을 사용해서 휴대폰 배터리가 20% 소모되었습니다");
 		this.showBattery();
 	}
 	
 	public void charge() {
 		
-		super.battery -= 30;
-		this.battery += 30;
+		super.battery = super.battery - 30;
+		this.battery = this.battery + 30;
 		System.out.println(">> 보조배터리 30%를 휴대폰으로 옮겨 충전했습니다");
 		this.showBattery();
 	}
