@@ -25,8 +25,8 @@ class Person {
 	//        직접 접근할 수 있게 됩니다. (자식 클래스 Student에서도 직접 접근 불가)
 
 	//>>> 여기에 변수 2개를 선언하세요.
-
-
+	private String name;
+	private int age;
 
 	//[1-2] 생성자 작성
 	//      생성자 문법:  public 클래스명(매개변수들) { 초기화 코드 }
@@ -39,7 +39,11 @@ class Person {
 	//        이름이 같아 구분이 안 되므로 왼쪽에 this. 를 반드시 붙입니다.
 
 	//>>> 여기에 생성자를 작성하세요.
-
+	public Person(String name, int age) {
+		
+		this.name = name;
+		this.age = age;
+	}
 
 
 
@@ -51,8 +55,15 @@ class Person {
 	//        "값을 읽는 전용 public 메소드"를 대신 열어주는 것입니다.
 
 	//>>> 여기에 getter 2개를 작성하세요.
-
-
+	public String getName() {
+		
+		return this.name;
+	}
+	
+	public int getAge() {
+		
+		return this.age;
+	}
 
 	//[1-4] showInfo 메소드 작성
 	//      문법:  public void showInfo() { 출력코드 }
@@ -62,10 +73,12 @@ class Person {
 	//        직접 읽을 수 있습니다.
 
 	//>>> 여기에 showInfo 메소드를 작성하세요.
+	public void showInfo() {
+		
+		System.out.println("이름: " + this.name + ", 나이: " + this.age);
+	}
+}// --- Person 클래스 끝
 
-
-
-}
 
 //[1-5] Student 클래스 전체 작성
 //      상속 문법:  class 자식클래스명 extends 부모클래스명 { }
@@ -97,12 +110,24 @@ class Person {
 //              부모에게 물려받은 getName(), getAge() 메소드를 호출해서 값을 얻습니다.
 
 //>>> 여기에 Student 클래스 전체를 작성하세요.
-class Student  {
+class Student extends Person {
+
+	private String major;
+
+	public Student(String name, int age, String major) {
+		
+		super(name, age);
+		this.major = major;
+	}
+
+	@Override
+	public void showInfo() {
+		
+		System.out.println("이름: " + super.getName() + ", 나이: " + super.getAge() + ", 전공: " + this.major);
+	}
+}// --- Student 클래스 끝
 
 
-
-
-}
 //==========================================================================
 // 문제2. Animal(부모) -> Dog, Cat(자식)
 //        핵심: protected 변수는 자식 클래스에서 this.변수명 으로 직접 접근 가능.
@@ -118,7 +143,7 @@ class Animal {
 	//        직접 읽고 쓸 수 있게 됩니다.
 
 	//>>> 여기에 변수를 선언하세요.
-
+	protected String name;
 
 	//[2-2] 생성자 작성
 	//      - 생성자 이름: Animal (클래스명과 동일, 반환타입 없음)
@@ -126,8 +151,10 @@ class Animal {
 	//      - 내부 코드 1줄:  this.name = name;
 
 	//>>> 여기에 생성자를 작성하세요.
-
-
+	public Animal(String name) {
+		
+		this.name = name;
+	}
 
 	//[2-3] sound 메소드 작성
 	//      문법:  public void sound() { 출력코드 }
@@ -135,10 +162,12 @@ class Animal {
 	//        System.out.println(this.name + "이(가) 동물 소리를 냅니다");
 
 	//>>> 여기에 sound 메소드를 작성하세요.
+	public void sound() {
+		
+		System.out.println(this.name + "이(가) 동물 소리를 냅니다.");
+	}
+}// --- Animal 클래스 끝
 
-
-
-}
 
 //[2-4] Dog 클래스 전체 작성
 //      class Dog extends Animal {  으로 시작하세요.
@@ -158,12 +187,20 @@ class Animal {
 //              직접 읽을 수 있습니다. (문제1과 달리 getter가 필요 없음!)
 
 //>>> 여기에 Dog 클래스 전체를 작성하세요.
-class Dog {
+class Dog extends Animal {
 	
+	public Dog(String name) {
+		
+		super(name);
+	}
 	
-	
-	
-}
+	@Override
+	public void sound() {
+		
+		System.out.println(this.name + "이(가) 멍멍 짖습니다");
+	}
+}// --- Dog 클래스 끝
+
 
 //[2-5] Cat 클래스 전체 작성
 //      Dog와 완전히 같은 구조로 작성하되, 출력 문장만 다릅니다.
@@ -173,11 +210,20 @@ class Dog {
 //          System.out.println(this.name + "이(가) 야옹 웁니다");
 
 //>>> 여기에 Cat 클래스 전체를 작성하세요.
-class Cat {
-	
+class Cat extends Animal {
 
+	public Cat(String name) {
+		
+		super(name);
+	}
 	
-}
+	@Override
+	public void sound() {
+
+		System.out.println(this.name + "이(가) 야옹 웁니다");
+	}
+}// --- Cat 클래스 끝
+
 
 //==========================================================================
 // 문제3. Employee(부모) -> Manager(자식)
@@ -195,8 +241,8 @@ class Employee {
 	//         -> 자식(Manager)은 직접 접근 가능하게 됨
 
 	//>>> 여기에 변수 2개를 선언하세요.
-
-
+	private String name;
+	protected int salary;
 
 	//[3-2] 생성자 작성
 	//      - 생성자 이름: Employee
@@ -206,27 +252,31 @@ class Employee {
 	//          this.salary = salary;
 
 	//>>> 여기에 생성자를 작성하세요.
-
-
-
+	public Employee(String name, int salary) {
+		
+		this.name = name;
+		this.salary = salary;
+	}
 
 	//[3-3] getter 작성
 	//      문법:  public String getName() { return this.name; }
 	//      ※ private인 name을 자식이나 바깥에서 "읽을 수 있게" 열어주는 통로
 
 	//>>> 여기에 getName 메소드를 작성하세요.
-
-
+	public String getName() { return this.name; }
+	
 	//[3-4] showSalary 메소드 작성
 	//      문법:  public void showSalary() { 출력코드 }
 	//      - 출력 코드 1줄:
 	//        System.out.println(this.name + "의 급여: " + this.salary + "원");
 
 	//>>> 여기에 showSalary 메소드를 작성하세요.
+	public void showSalary() {
+		
+		System.out.println(this.name + "의 급여: " + this.salary + "원");
+	}
+}// --- Employee 클래스 끝
 
-
-
-}
 
 //[3-5] Manager 클래스 전체 작성
 //      class Manager extends Employee {  으로 시작하세요.
@@ -257,10 +307,25 @@ class Employee {
 //              getTotalPay()를 호출해서 사용합니다.
 
 //>>> 여기에 Manager 클래스 전체를 작성하세요.
-class Manager {
+class Manager extends Employee {
 	
+	private int bonus;
 	
-}
+	public Manager(String name, int salary, int bonus) {
+		
+		super(name, salary);
+		this.bonus = bonus;
+	}
+	
+	public int getTotalPay() { return this.salary + this.bonus; }
+	
+	@Override
+	public void showSalary() {
+
+		System.out.println(super.getName() + "의 총급여(보너스포함): " + this.getTotalPay() + "원");
+	}
+}// Manager 클래스 끝
+
 
 //==========================================================================
 // 문제4. Shape(부모) -> Circle, Rectangle(자식)
@@ -274,7 +339,7 @@ class Shape {
 	//      private 접근제어자, String 자료형, 변수명 shapeName  (도형 이름 저장용)
 
 	//>>> 여기에 변수를 선언하세요.
-
+	private String shapeName;
 
 	//[4-2] 생성자 작성
 	//      - 생성자 이름: Shape
@@ -282,8 +347,11 @@ class Shape {
 	//      - 내부 코드 1줄:  this.shapeName = shapeName;
 
 	//>>> 여기에 생성자를 작성하세요.
-
-
+	public Shape(String shapeName) {
+		
+		super();
+		this.shapeName = shapeName;
+	}
 
 	//[4-3] getter 작성
 	//      문법:  public String getShapeName() { return this.shapeName; }
@@ -302,7 +370,8 @@ class Shape {
 
 
 
-}
+}// --- Shape 클래스 끝
+
 
 //[4-5] Circle 클래스 전체 작성
 //      class Circle extends Shape {  으로 시작하세요.
@@ -326,7 +395,8 @@ class Circle {
 	
 	
 	
-}
+}// --- Circle 클래스 끝
+
 
 //[4-6] Rectangle 클래스 전체 작성
 //      class Rectangle extends Shape {  으로 시작하세요.
@@ -350,7 +420,8 @@ class Rectangle  {
 
 
 
-}
+}// --- Rectangle 클래스 끝
+
 
 //==========================================================================
 // 문제5(종합). BankAccount(부모) -> SavingsAccount(자식)
@@ -391,7 +462,8 @@ class BankAccount {
 	//>>> 여기에 getBalance 메소드를 작성하세요.
 
 
-}
+}// --- BankAccount 클래스 끝
+
 
 //[5-5] SavingsAccount 클래스 전체 작성
 //      class SavingsAccount extends BankAccount {  으로 시작하세요.
@@ -430,7 +502,8 @@ class SavingsAccount {
 	
 	
 	
-}
+}// --- SavingAccount 클래스 끝
+
 
 //==========================================================================
 // 실행 확인용 메인 클래스 (완성되어 있음 - 수정하지 마세요)

@@ -37,8 +37,8 @@ class Menu {
 	//    선언 문법:  접근제어자  자료형  변수명;
 
 	//>>> 여기에 변수 2개를 선언하세요.
-
-
+	private String menuName;
+	protected int price;
 
 	//[2] 생성자 작성
 	//    - 생성자 이름은 클래스 이름과 똑같이 Menu (반환타입 없음!)
@@ -50,9 +50,11 @@ class Menu {
 	//      이름이 같아서 왼쪽에 this. 를 붙여 구분합니다.
 
 	//>>> 여기에 생성자를 작성하세요.
-
-
-
+	public Menu(String menuName, int price) {
+		
+		this.menuName = menuName;
+		this.price = price;
+	}
 
 	//[3] getter 작성
 	//    문법:  public String getMenuName() { return this.menuName; }
@@ -61,7 +63,7 @@ class Menu {
 	//      이 문제에서는 price용 getter를 만들지 않습니다. (차이를 기억!)
 
 	//>>> 여기에 getMenuName 메소드를 작성하세요.
-
+	public String getMenuName() { return this.menuName; }
 
 	//[4] showMenu 메소드 작성
 	//    문법:  public void showMenu() { 출력코드 }
@@ -71,10 +73,11 @@ class Menu {
 	//      직접 읽을 수 있습니다.
 
 	//>>> 여기에 showMenu 메소드를 작성하세요.
-
-
-
-}
+	public void showMenu() {
+		
+		System.out.println("[메뉴] " + this.menuName + " - " + this.price + "원");
+	}
+}// --- Menu 클래스 끝
 
 
 //==========================================================================
@@ -125,22 +128,36 @@ class Menu {
 //          아이스 추가요금이 반영된 "최종 가격"을 출력합니다.
 
 //>>> 여기에 Coffee 클래스 전체를 작성하세요.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class Coffee extends Menu {
+	
+	private boolean iced;
+	
+	public Coffee(String menuName, int price, boolean iced) {
+		
+		super(menuName, price);
+		this.iced = iced;
+	}
+	
+	public int getFinalPrice() {
+		
+		if(this.iced) {
+			return this.price + 500;
+		}
+		return this.price;
+	}
+	
+	@Override
+	public void showMenu() {
+		
+		if(this.iced) {
+			
+			System.out.println("[커피] 아이스 " + super.getMenuName() + " - " + this.getFinalPrice() + "원 (아이스 +500원)");
+		}else {
+		
+			System.out.println("[커피] 따뜻한 " + super.getMenuName() + " - " + this.getFinalPrice() + "원");
+		}
+	}
+}// --- Coffee 클래스 끝
 
 
 //==========================================================================
