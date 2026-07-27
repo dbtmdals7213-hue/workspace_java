@@ -25,9 +25,10 @@ class Unit {
 	//        (매개변수명과 인스턴스변수명이 같으므로 this 키워드를 사용할 것)
 	public Unit(String name, int hp, int damage) {
 		
+		super();
 		this.name = name;
 		this.hp = hp;
-		this.damage = damage
+		this.damage = damage;
 	}
 
 	//문제 5. 이름 · 체력 2개만 매개변수로 전달받는 생성자를 선언하시오. (생성자 오버로딩)
@@ -86,7 +87,7 @@ class Unit {
 			return;
 		}
 		
-		this.hp -= this.damage;
+		target.hp -= this.damage;
 		System.out.println(this.name + "이(가)" + target.name + "을(를) 공격합니다! (공격력: " + this.damage + ")");
 		
 		if(target.hp <= 0) {
@@ -111,7 +112,7 @@ class Unit {
 		
 		System.out.println("[유닛 상태] " + this.name + " - 체력 : " + this.hp + ", 공격력 : " + this.damage);
 	}
-}//---- Unit 클래스 끝
+}// --- Unit 클래스 끝
 
 
 //[2] Marin 클래스 - Unit 을 상속받은 자식 클래스
@@ -144,9 +145,9 @@ class Marin extends Unit {
 			super.damage += 5;
 		}
 		System.out.println(super.name + "이(가) 스팀팩 기능 사용!");
-		System.out.println(">>> 체력 - 10,  공격력 + 5");
+		System.out.println(">>> 체력 -10,  공격력 +5");
 	}
-}
+}// --- Marin 클래스
 
 
 //[3] Zergling 클래스 - Unit 을 상속받은 자식 클래스
@@ -160,18 +161,18 @@ class Zergling extends Unit {
 		super(name, hp);
 	}
 
-
 	//문제 12. 저글링 전용 기능 돌진 메소드를 선언하시오.
 	//         메소드 선언부 : public void rush()
 	//
 	//   12-1. 공격력을 3 증가시킨다. (super 키워드 사용)
 	//   12-2. "OOO이(가) 돌진한다!" 와 ">>> 다음 공격  공격력 +3" 을 차례로 출력한다.
-
-
-
-
-
-}
+	public void rush() {
+		
+		super.damage += 3;
+		System.out.println(super.name + "이(가) 돌진한다!");
+		System.out.println(">>> 다음 공격  공격력 +3");
+	}
+}// --- Zergling 클래스
 
 
 //[4] Tank 클래스 - Unit 을 상속받은 자식 클래스
@@ -179,12 +180,14 @@ class Tank extends Unit {
 
 	//문제 13. 시즈 모드 상태를 저장할 boolean 자료형 인스턴스변수 siegeMode 를
 	//         초기값 false 로 선언하시오.
-
+	boolean siegeMode = false;
 
 	//문제 14. 이름 · 체력 · 공격력 3개를 매개변수로 전달받는 생성자를 선언하시오.
 	//         부모 Unit 의 생성자 중 3개를 받는 생성자를 super() 로 호출한다.
-
-
+	public Tank (String name, int hp, int damage) {
+		
+		super(name, hp, damage);
+	}
 
 	//문제 15. 시저탱크 전용 기능 시즈 모드 메소드를 선언하시오.
 	//         메소드 선언부 : public void siegeMode()
@@ -193,14 +196,21 @@ class Tank extends Unit {
 	//         "OOO은(는) 이미 시즈 모드입니다." 출력 후 return.
 	//   15-2. 그렇지 않으면 siegeMode 를 true 로 바꾸고 공격력을 15 증가시킨다.
 	//   15-3. "OOO이(가) 시즈 모드로 전환!" 과 ">>> 공격력 +15 (이동 불가)" 를 차례로 출력한다.
-
-
-
-
-
-
-
-}
+	public void siegeMode() {
+		
+		if(siegeMode) {
+			
+			System.out.println(super.name + "은(는) 이미 시즈 모드입니다.");
+			return;
+		}
+			
+		this.siegeMode = true;
+		super.damage += 15;
+		
+		System.out.println(super.name + "이(가) 시즈 모드로 전환!");
+		System.out.println(">>> 공격력 +15 (이동 불가)");
+	}
+}// --- Tank 클래스
 
 
 public class UnitTest {
@@ -208,58 +218,58 @@ public class UnitTest {
 
 		//문제 16. Marin 객체를 생성해 부모 Unit 자료형 참조변수 marin 에 저장하시오. (업캐스팅)
 		//         전달값 : "마린"  →  체력 100, 공격력 10 이 된다.
-
-
+		Unit marin = new Marin("마린");
+		
 		//문제 17. Zergling 객체를 생성해 부모 Unit 자료형 참조변수 zergling 에 저장하시오. (업캐스팅)
 		//         전달값 : "저글링", 80  →  공격력 10 이 된다.
-
+		Unit zergling = new Zergling("저글링", 80);
 
 		//문제 18. Tank 객체를 생성해 부모 Unit 자료형 참조변수 tank 에 저장하시오. (업캐스팅)
 		//         전달값 : "시저탱크", 150, 35
-
+		Unit tank = new Tank("시저탱크", 150, 35);
 
 		//문제 19. "\n======유닛의 고유 기능 사용========" 을 출력하시오.
-
+		System.out.println("\n======유닛의 고유 기능 사용========");
 
 		//문제 20. marin 을 Marin 으로 다운캐스팅해서 stimPack() 을 호출하시오.
 		//         (참조변수 자료형이 Unit 이므로 다운캐스팅 없이는 호출할 수 없다)
-
+		
+		((Marin)marin).stimPack();
 
 		//문제 21. zergling 을 Zergling 으로 다운캐스팅해서 rush() 를 호출하시오.
-
-
+		((Zergling)zergling).rush();
+		
 		//문제 22. tank 를 Tank 로 다운캐스팅해서 siegeMode() 를 호출하시오.
-
+		((Tank)tank).siegeMode();
 
 		//문제 23. "\n======유닛 상태========" 를 출력하시오.
-
+		System.out.println("\n======유닛 상태========");
 
 		//문제 24. marin, zergling, tank 의 status() 를 차례로 호출하시오.
-
-
-
+		marin.status();
+		zergling.status();
+		tank.status();
 
 		//문제 25. "\n===== 전 투 시 작 =====" 을 출력하시오.
-
+		System.out.println("\n===== 전 투 시 작 =====");
 
 		//문제 26. marin 이 zergling 을 공격하게 하시오.
-
+		marin.attack(zergling);
 
 		//문제 27. zergling 이 marin 을 공격하게 하시오.
-
+		zergling.attack(marin);
 
 		//문제 28. tank 가 zergling 을 공격하게 하시오. (1차)
-
+		tank.attack(zergling);
 
 		//문제 29. tank 가 zergling 을 공격하게 하시오. (2차 - 저글링이 파괴된다)
-
+		tank.attack(zergling);
 
 		//문제 30. "\n==== 전 투 종 료 ======" 를 출력한 뒤
 		//         zergling 과 marin 의 status() 를 차례로 호출하시오.
-
-
-
-
+		System.out.println("\n==== 전 투 종 료 ======");
+		zergling.status();
+		marin.status();
 	}
 }
 
