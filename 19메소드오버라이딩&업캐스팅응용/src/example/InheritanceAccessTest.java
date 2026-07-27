@@ -357,7 +357,7 @@ class Shape {
 	//      문법:  public String getShapeName() { return this.shapeName; }
 
 	//>>> 여기에 getShapeName 메소드를 작성하세요.
-
+	public String getShapeName() { return this.shapeName; }
 
 	//[4-4] getArea 메소드 작성
 	//      문법:  public double getArea() { return 0.0; }
@@ -367,9 +367,7 @@ class Shape {
 	//        (자식들이 이 메소드를 오버라이딩해서 진짜 계산식으로 교체할 예정)
 
 	//>>> 여기에 getArea 메소드를 작성하세요.
-
-
-
+	public double getArea() { return 0.0; }
 }// --- Shape 클래스 끝
 
 
@@ -391,10 +389,22 @@ class Shape {
 //            * Math.PI : 자바가 미리 준비해 둔 원주율 값(3.141592...)
 
 //>>> 여기에 Circle 클래스 전체를 작성하세요.
-class Circle {
+class Circle extends Shape {
 	
+	private double radius;
 	
+	public Circle(double radius) {
+		
+		super("원");
+		this.radius = radius;
+	}
 	
+	@Override
+	public double getArea() {
+		
+		// 원 넓이 구하는 공식 = 원주율 X 반지름 X 반지름
+		return Math.PI * this.radius * this.radius;
+	}
 }// --- Circle 클래스 끝
 
 
@@ -415,11 +425,23 @@ class Circle {
 //          - 반환 코드 1줄:  return this.width * this.height;
 
 //>>> 여기에 Rectangle 클래스 전체를 작성하세요.
-class Rectangle  {
+class Rectangle extends Shape {
 	
+	private double width;
+	private double height;
 
-
-
+	public Rectangle(double width, double height) {
+		
+		super("사각형");
+		this.width = width;
+		this.height = height;
+	}
+	
+	@Override
+	public double getArea() {
+		
+		return this.width * this.height;
+	}
 }// --- Rectangle 클래스 끝
 
 
@@ -436,7 +458,7 @@ class BankAccount {
 	//      private 접근제어자, int 자료형, 변수명 balance  (잔액 저장용)
 
 	//>>> 여기에 변수를 선언하세요.
-
+	private int balance;
 
 	//[5-2] 생성자 작성
 	//      - 생성자 이름: BankAccount
@@ -444,8 +466,10 @@ class BankAccount {
 	//      - 내부 코드 1줄:  this.balance = balance;
 
 	//>>> 여기에 생성자를 작성하세요.
-
-
+	public BankAccount(int balance) {
+		
+		this.balance = balance;
+	}
 
 	//[5-3] deposit 메소드 작성 (입금 기능, 출력은 없음)
 	//      문법:  public void deposit(int amount) { 코드 }
@@ -453,15 +477,16 @@ class BankAccount {
 	//        * this.balance = this.balance + amount; 를 줄여 쓴 것
 
 	//>>> 여기에 deposit 메소드를 작성하세요.
-
-
+	public void deposit(int amount) {
+		
+		this.balance += amount;
+	}
 
 	//[5-4] getter 작성
 	//      문법:  public int getBalance() { return this.balance; }
 
 	//>>> 여기에 getBalance 메소드를 작성하세요.
-
-
+	public int getBalance() { return this.balance; }
 }// --- BankAccount 클래스 끝
 
 
@@ -497,11 +522,24 @@ class BankAccount {
 //            System.out.println("이자 " + interest + "원이 입금되었습니다. (현재 잔액: " + getBalance() + "원)");
 
 //>>> 여기에 SavingsAccount 클래스 전체를 작성하세요.
-class SavingsAccount {
+class SavingsAccount extends BankAccount {
 
+	private double interestRate;
 	
+	public SavingsAccount(int balance, double interestRate) {
+		
+		super(balance);
+		this.interestRate = interestRate;
+	}
 	
-	
+	public void addInterest() {
+		
+		int interest = (int)(getBalance() * this.interestRate);
+		
+		deposit(interest);
+		
+		System.out.println("이자 " + interest + "원이 입금되었습니다. (현재 잔액: " + getBalance() + "원)");
+	}
 }// --- SavingAccount 클래스 끝
 
 
