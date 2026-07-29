@@ -34,8 +34,34 @@ public interface BoardService {
 		line(); // 구분선을 한 번 더 출력하기 위해 아래의 line() 메소드를 호출한다.
 	}
 	
+	// private 메소드
+	// - 인터페이스 안에서만 사용되는 메소드이고, 구현 자식 클래스에 상속되지 않는다.
+	// - default 메소드의 중복 코드를 줄이는 용도의 메소드이다.
 	private void line() {
 		
 		System.out.println("------------------------------------------------");
 	}
-}
+	
+	// static 메소드
+	// - 객체 생성 없이 "인터페이스명.메소드명()" 형태로 호출해서 사용하는 메소드
+	// - 어느 자식 구현 클래스에서든 똑같이 쓰이는 글 제목 검사 규칙을 이 메소드에 정의해 준다.
+	static boolean isVailidTitle(String title) {
+		
+		// 매개변수 title 로 받은 글 제목이 없을 경우 먼저 확인한다.
+		if(title == null) {
+			
+			return false;
+		}
+		
+		// 매개변수 title 로 글 제목을 받았다면 trim() 메소드로 글 제목에 양쪽 공백을 제거 후
+		// 글 제목이 없을 경우 한 번 더 확인한다.
+		if(title.trim().length() == 0) {
+			
+			return false;
+		}
+		
+		return true; // 위 두 검사를 모두 통과하면 적합한 제목임을 알리자
+	}
+}// interface Board 끝
+
+

@@ -25,6 +25,11 @@ public class Board {
 		
 		return id;
 	}
+
+	public String getTitle() {
+		
+		return title;
+	}
 	
 	
 	

@@ -10,7 +10,7 @@ public class MemoryBoardRepository implements BoardRepository{
 	
 	// 위 boards 배열에 새 글 한 건의 정보를 추가하는 기능
 	@Override
-	public boolean insert(Board board) {// <- new Board(글 제목, 글 내용, 글 작성자, 글 작성 날짜);
+	public boolean insert(Board board) {// <- new Board(1, "첫 글", "내용 입니다.", "홍길동");
 		
 		// boards 배열 칸이 최대치에 도달했는지 확인한다.
 		if(count >= MAX_SIZE) {
@@ -44,3 +44,5 @@ public class MemoryBoardRepository implements BoardRepository{
 	
 	
 }
+
+

@@ -15,5 +15,11 @@ public class BoardController {
 		this.service = service;
 	}
 	
-	// ... 서비스 로직들을 작성해야 한다.
+	// 새 게시글 등록 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘긴다.
+	public void requestRegister(Board board) {// <- new Board(1, "첫 글", "내용 입니다.", "홍길동");
+		
+		this.service.register(board);
+	}
 }
+
+
