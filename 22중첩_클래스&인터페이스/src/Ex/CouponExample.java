@@ -28,17 +28,17 @@ class Member {
 			//  (2) 바깥 Member 객체의 couponCount 를 1 증가시키세요.
 			//      힌트 : 바깥클래스명.this.변수명
 			this.menu = menu;
-			Member.this.couponCount += 1;
+			Member.this.couponCount++;
 		}
 
 		void print() {
 			// TODO 1-2.
 			//  실행 결과 형식대로 한 줄 출력하세요.
 			//  회원 이름과 누적 발급 수는 바깥 객체의 변수입니다.
-			System.out.println("[쿠폰] (TODO 1-2 미구현)");
+			System.out.println("[쿠폰] 회원=" + Member.this.name + " / 메뉴=" + this.menu + " / 누적 발급=" + Member.this.couponCount);
 		}
-	}
-}
+	}// class Coupon 중첩 클래스
+}// class Member 외부 바깥 클래스
 
 public class CouponExample {
 	public static void main(String[] args) {
@@ -49,5 +49,12 @@ public class CouponExample {
 		//  m 을 이용해 "아메리카노" 쿠폰과 "카페라떼" 쿠폰을 생성하고
 		//  각각 print() 를 호출하세요.
 		//  힌트 : Member.Coupon c1 = 바깥객체참조변수.new Coupon("...");
+		Member.Coupon c1 = m.new Coupon("아메리카노");
+		c1.print();
+		
+		Member.Coupon c2 = m.new Coupon("카페라떼");
+		c2.print();
 	}
 }
+
+

@@ -23,10 +23,19 @@ class Receipt {
 		//  - 메소드 : void show()
 		//  - 출력 형식 : 아메리카노 4500원 x 2개 = 9000원
 		//  - 매개변수(menu, price, count)와 지역변수(total)를 그대로 읽어서 사용합니다.
-
+	class Line {
+		
+		void show() {
+			
+			System.out.println(menu + " " + price + "원 x " + count + "개 = " + total + "원");
+		}
+		
+		// total = 0; <- 변경하려고 할 때 int total 이 final int total 상수 메모리로 변경되어 변경할 수 없다.
+	}
 		// TODO 3-2.
 		//  Line 객체를 생성하고 show() 를 호출하세요.
-		System.out.println("(TODO 3 미구현) total=" + total);
+		Line line = new Line();
+		line.show();
 	}
 }
 
@@ -38,3 +47,5 @@ public class ReceiptExample {
 		receipt.print("치즈케이크", 6000, 1);
 	}
 }
+
+
