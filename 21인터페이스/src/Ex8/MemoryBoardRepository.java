@@ -53,17 +53,76 @@ public class MemoryBoardRepository implements BoardRepository{
 		return result;
 	}
 	
+	// 위 boards 배열에 추가된 모든 글 중에서 글 번호에 해당하는 글 한 건을 제공하는 메소드
 	@Override
-	public Board selectOne(int boardId) {
+	public Board selectOne(int boardId) {// <-- 2
 		
+		// boards 배열에 저장된 글만 확인한다.
+		for(int i = 0; i < count; i++) {
+			
+			// 각 글의 번호와 찾는 번호를 비교한다.
+			if(boards[i].getId() == boardId) {
+				
+				// 찾으면 그 객체를 돌려주고 반복을 즉시 끝낸다.
+				return boards[i]; // return new Board(2, "인터페이스 질문", "default 메소드가 궁금합니다.", "김철수");
+			}
+		}
+		
+		// 끝까지 못 찾으면 null 을 돌려준다.
 		return null;
 	}
 	
+	// 위 boards 배열에 추가되어 있는 글 중에서 매개변수로 받은 글 번호에 해당하는 글의 내용을 수정해서 그 결과를 제공하는 메소드
 	@Override
 	public boolean update(int boardId, String newContent) {
 		
-		return false;
+		// 바로 위에 만든 글 번호에 해당하는 글 한 건을 제공하는 메소드 재활용
+		Board found = selectOne(boardId);
+		// = new Board(1, "첫 글", "내용 입니다.", "홍길동");
+		
+		// 못 찾았으면 null 이 들어 있다.
+		if(found == null) {
+			
+			return false; // 글 내용 수정하지 않고 수정 실패를 알리자
+		}
+		// 찾은 글 객체의 내용을 새 값으로 바꾼다.
+		// found 는 boards 배열 안의 Board 객체를 가리키므로 boards 배열의 칸에 저장된 Board 객체의 정보도 바뀐다.
+		found.setContent(newContent);
+		
+		// 글 내용 수정을 알리자
+		return true;
 	}
+	
+	// 위 boards 배열에 추가되어 있는 모든 글 중에서 글 번호에 해당하는 글 한 건을 정보 삭제해 결과를 제공하는 메소드
+	@Override
+	public boolean delete(int boardId) {
+		
+		for(int i = 0; i < count; i++) {
+			
+			// 삭제할 글을 찾았는지 확인한다.
+			if(boards[i].getId() == boardId) {
+				
+				// 찾은 위치부터 마지막 직전 칸까지 반복한다.
+				for(int j = i; j < count - 1; j++) {
+					
+					// 뒤 칸의 값을 앞 칸으로 당겨 빈 칸을 메운다
+					boards[j] = boards[j + 1];
+				}// --- 안쪽 for
+				
+				// 맨 뒷 칸에 남아있는 중복 값을 삭제한다.
+				boards[count - 1] = null;
+				
+				// 채워진 칸 수를 1줄인다.
+				count--;
+				
+				// 삭제 성공을 알린다.
+				return true;
+			}// --- if
+		}// --- 바깥 for
+		
+		// 삭제할 글 번호의 글이 boards 배열에 존재하지 않으면? 글 삭제 실패를 알린다.
+		return false;
+	}// -- delete 메소드 끝
 }
 
 

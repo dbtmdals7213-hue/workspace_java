@@ -83,19 +83,55 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 매개변수 boardId 로 받은 글 번호 2로 글을 찾아 받아옵니다.
 		// 방법. MemoryBoardRepository 객체의 selectOne(2); 메소드 호출해서 명령한다.
-		repository.selectOne(boardId);
+		Board found = repository.selectOne(boardId);
+		// = new Board(2, "인터페이스 질문", "default 메소드가 궁금합니다.", "김철수");
+		// = null;
+		
+		// 못 찾으면 null 이 들어있다.
+		// 확인 없이 found.getId() 를 사용하면 실행중에 NullPointerException 오류가 발생한다
+		if(found == null) {
+			
+			System.out.println(boardId + "번 글을 찾을 수 없습니다.");
+			return;
+		}
+		
+		// 찾으면 글의 정보를 항목별로 출력한다.
+		System.out.println("글 번호: " + found.getId());
+		System.out.println("제목: " + found.getTitle());
+		System.out.println("작성자: " + found.getWriter());
+		System.out.println("내용: " + found.getContent());
 	}
 
+	// 글 한 건의 글 내용 수정
 	@Override
 	public void modify(int boardId, String newContent) {
 		
+		printTitle("글 수정");
 		
+		// 저장소에 수정을 요청하고 그 결과를 반환 받아와 판단한다.
+		if(repository.update(boardId, newContent)) {
+			
+			System.out.println(boardId + "번 글을 수정했습니다.");
+		}else {
+			
+			System.out.println(boardId + "번 글을 찾을 수 없습니다.");
+		}
 	}
 
+	// 글 한 건 정보 삭제
 	@Override
 	public void remove(int boardId) {
 		
+		printTitle("글 삭제");
 		
+		// 저장소에 삭제를 요청하고 그 결과를 판단한다.
+		if(repository.delete(boardId)) {
+			
+			System.out.println(boardId + "번 글을 삭제했습니다.");
+		}else {
+			
+			System.out.println(boardId + "번 글을 찾을 수 없습니다.");
+		}
 	}
 
 }

@@ -11,8 +11,8 @@ public interface BoardRepository {
 	Board selectOne(int boardId);
 	
 	boolean update(int boardId, String newContent);
-	
-	
+
+	boolean delete(int boardId);
 }
 
 

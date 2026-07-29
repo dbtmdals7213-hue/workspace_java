@@ -34,6 +34,18 @@ public class BoardController {
 		
 		service.showDetail(boardId);
 	}
+
+	//4. 글 번호에 관한 글의 글 내용 수정 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘겨서 처리하게 한다.
+	public void requestModify(int boardId, String newContent) {
+		
+		service.modify(boardId, newContent);
+	}
+
+	//5. 글 번호에 관한 글 한 쌍의 정보 삭제 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘겨서 처리하게 한다.
+	public void requestRemove(int boardId) {
+		
+		service.remove(boardId);
+	}
 }
 
 

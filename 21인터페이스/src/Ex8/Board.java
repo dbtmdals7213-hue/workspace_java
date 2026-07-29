@@ -35,6 +35,11 @@ public class Board {
 		
 		return writer;
 	}
+
+	public void setContent(String newContent) {
+		
+		content = newContent;
+	}
 	
 	
 	

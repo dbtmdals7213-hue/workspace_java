@@ -39,7 +39,7 @@ public interface BoardService {
 	// - default 메소드의 중복 코드를 줄이는 용도의 메소드이다.
 	private void line() {
 		
-		System.out.println("------------------------------------------------");
+		System.out.println("-------------------------------");
 	}
 	
 	// static 메소드
