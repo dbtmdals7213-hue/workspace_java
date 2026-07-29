@@ -30,6 +30,11 @@ public class Board {
 		
 		return title;
 	}
+
+	public String getWriter() {
+		
+		return writer;
+	}
 	
 	
 	

@@ -15,10 +15,24 @@ public class BoardController {
 		this.service = service;
 	}
 	
-	// 새 게시글 등록 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘긴다.
+	//1. 새 게시글 등록 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘긴다.
 	public void requestRegister(Board board) {// <- new Board(1, "첫 글", "내용 입니다.", "홍길동");
+											  // <- new Board(2, "인터페이스 질문", "default 메소드가 궁금합니다.", "김철수");
+											  // <- new Board(3, "  ", "제목이 공백뿐입니다.", "이영희");
 		
 		this.service.register(board);
+	}
+	
+	//2. 글 목록 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘겨서 처리하게 한다.
+	public void requestList() {
+		
+		this.service.showList();
+	}
+	
+	//3. 글 한 건 상세정보 요청을 클라이언트로부터 받아 new BoardServiceImpl 부장 객체에게 넘겨서 처리하게 한다.
+	public void requestDetail(int boardId) {
+		
+		service.showDetail(boardId);
 	}
 }
 
