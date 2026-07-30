@@ -1,4 +1,3 @@
-
 /*
 	my_application_2 모듈 프로젝트는
 	my_module_a 모듈과 my_module_b 모듈 프로젝트에서 제공하는 패키지들을 사용해야 하므로

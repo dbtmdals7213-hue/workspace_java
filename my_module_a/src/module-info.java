@@ -13,5 +13,5 @@ module my_module_a {
 	// 작성 방법
 	// exports 노출시킬패키지명;
 	exports pack1;
-	exports pack2;
+	// exports pack2;
 }
