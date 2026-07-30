@@ -39,10 +39,10 @@ public class AlarmExample {
 		// TODO 4-2.
 		//  익명 구현 객체로 "따르릉! 7시입니다. 일어나세요." 를 출력하는
 		//  동작을 등록하고 wakeUp() 을 호출하세요.
-		//  작성 문법 : alarm.setRinger(new Alarm.Ringer() { ... });
+		//  작성 문법 : alarm.setRinger(new Alarm.Ringer() {});
 		
 		// 익명 구현 객체 생성 문법
-		// -> new 바깥클래스명.중첩인터페이스명() { 추상메소드 강제 오버라이딩 }
+		// -> new 바깥클래스명.중첩인터페이스명() { 추상 메소드 강제 오버라이딩 }
 		alarm.setRinger(new Alarm.Ringer() {
 			
 			@Override
@@ -67,13 +67,7 @@ public class AlarmExample {
 		});
 		
 		alarm.wakeUp();
-				
-		
-	}
-}
-
-
-
-
+	}// === main 메소드
+}// --- AlarmExample 클래스
 
 
