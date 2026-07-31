@@ -42,10 +42,12 @@ public class ExceptionHandlingExample4 {
 				//2. 예외 처리할 코드 작성
 				System.out.println("array 배열에 존재하지 않는 array[2] 칸에 접근해서 사용을 시도했다.");
 			}
-		}// for
+		}// for 반복문
 		
 		System.out.println("자바 프로그램 종료 코드 출력!");
 		
 	}// === main 메소드
 
 }// --- ExceptionHandlingExample4 클래스
+
+
