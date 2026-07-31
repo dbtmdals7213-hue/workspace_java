@@ -17,7 +17,7 @@ public class ExceptionHandilingExample1 {
 		//		   = null.length(); -> NullPointerException 실행 예외 발생!
 		int result = data.length();
 		
-		System.out.println("매개변수 data로 전달받은 전체 문자열의 총 개수: " + result);
+		System.out.println("매개변수 data 로 전달받은 전체 문자열의 총 개수: " + result);
 	}
 		
 	public static void main(String[] args) {

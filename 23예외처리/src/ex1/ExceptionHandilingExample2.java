@@ -21,6 +21,8 @@ public class ExceptionHandilingExample2 {
 		//	 개발자가 직접 발생하는 예외 종류에 따라 예외 처리할 코드를 작성하는
 		//	 catch(예상해서_발생할_종류의_예외를_처리할_클래스자료형명 매개변수명){} 블럭을 이어서 작성해주자.
 		
+		//3. 마지막으로 finally {} 블럭을 작성하여 발생한 예외와 상관없이 무조건 한 번은 실행되야 할 코드를 넣어 실행시킨다.
+		
 		try {
 			
 			int result = data.length(); // <--- NullPointerException 실행 예외 발생!
@@ -45,20 +47,24 @@ public class ExceptionHandilingExample2 {
 			*/
 			
 			// 작성할 수 있는 코드4. 예외 처리할 코드 작성
-			System.out.println("printLength 메소드를 호출할 때 문자열을 매개변수 data로 전달해야 예외가 발생하지 않음");
+			System.out.println("printLength 메소드를 호출할 때 문자열을 매개변수 data 로 전달해야 예외가 발생하지 않음");
+		}finally {
+			
+			// try {} 와 catch() {} 과 상관없이 무조건 한 번은 실행해야 할 코드 작성
+			System.out.println("[마무리 코드 실행]");
 		}
 		
-	}
+	}// === printLength 메소드
 		
 	public static void main(String[] args) {
 		
 		System.out.println("[자바 프로그램 시작 코드]");
 		
-		ExceptionHandilingExample2.printLength("ThisIsJava");
+		// ExceptionHandilingExample2.printLength("ThisIsJava");
 		
 		ExceptionHandilingExample2.printLength(null);
 		
 		System.out.println("[자바 프로그램 마지막 코드 실행 후 종료]");
-	}
+	}// === main 메소드
 
-}
+}// --- ExceptionHandilingExample2 클래스
