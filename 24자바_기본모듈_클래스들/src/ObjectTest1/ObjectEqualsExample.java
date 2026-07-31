@@ -30,7 +30,6 @@ public class ObjectEqualsExample {
 		//1. 서로 다른 두 개의 new Member 객체의 주소 번지가 같은지 비교한다.
 		//=====================================================
 		Member member1 = new Member(); // <- 생성된 객체 주소 번지: 0x100
-		
 		Member member2 = new Member(); // <- 생성된 객체 주소 번지: 0x200
 		
 		boolean result = member1.equals(member2);
@@ -40,7 +39,7 @@ public class ObjectEqualsExample {
 		// equals 메소드 내부 코드 동작과 동일한 == 연산자로 확인해도 결과는 위와 같다.
 		System.out.println("member1 == member2 = " + (member1 == member2));
 		
-		System.out.println("---------------------------------------");
+		System.out.println("-------------------------------------");
 		
 		//===================================
 		//2. 같은 객체를 가리키는 두 참조변수를 비교한다.
@@ -68,8 +67,39 @@ public class ObjectEqualsExample {
 		// String 클래스는 equals 메소드가 오버라이딩 되어있어 문자열 값이 같은지 비교한다.
 		System.out.println("member4.id.equals(member5.id) = " + member4.id.equals(member5.id)); // true
 		
-		System.out.println("---------------------------------------");
+		System.out.println("-------------------------------------");
 		
+		//==========================================================
+		//4. 제공받는 class Object 의 객체를 직접 생성해서 객체의 주소가 같은지 비교
+		//==========================================================
+		
+		// Object 클래스는 자바가 제공하는 최상위 클래스이며 직접 객체를 생성해서 사용할 수도 있다.
+		Object object1 = new Object(); // 0x600
+		Object object2 = new Object(); // 0x700
+		
+		System.out.println("object1.equals(object2) = " + object1.equals(object2)); // false
+		System.out.println("object1.equals(object1) = " + object1.equals(object1)); // true
+		
+		System.out.println("-------------------------------------");
+		
+		//=========================================================
+		//5. equals 메소드를 오버라이딩 해놓은 클래스와의 차이(String 자식 클래스)
+		//=========================================================
+		
+		// new String("java") 를 두 번 작성했으므로 두 String 객체 메모리는 두 개이고, 주소 값도 각각 다르다.
+		String str1 = new String("java"); // 0x800
+		String str2 = new String("java"); // 0x900
+		
+		// == 연산자는 주소 값을 비교하므로 false 이다.
+		System.out.println("str1 == str2 = " + (str1 == str2)); // false
+		
+		//equals 메소드는 String 객체 메모리 내부의 인스턴스 변수에 저장된 문자열 값을 비교하므로 true 이다.
+		System.out.println("str1.equals(str2) = " + str1.equals(str2)); // "java" 가 같으므로 true
+		
+		// 정리
+		// - Object 의 equals : 객체 주소값 비교(this == obj)
+		// - 재정의한 equals : 그 클래스가 정한 기준으로 값 비교
+		// - Member 클래스는 재정의하지 않았으므로 주소값 비교로 동작한다.
 	}
 
 }
