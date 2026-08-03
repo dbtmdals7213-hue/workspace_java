@@ -5,7 +5,6 @@ public class Ex1 {
 	public static void main(String[] args) {
 		
 		//1. String 클래스의 객체 생성 방법 3가지
-		
 		// 방법1.	 리터럴 문자열 대입. 문자열 상수 풀에 저장된다.
 		String s1 = "JAVA";
 		
@@ -34,7 +33,7 @@ public class Ex1 {
 		
 		if(str3 == str4) {
 			
-			System.out.println("[리터럴] 두 참조 변수가 같은 String 객체 하나를 가리킨다.(== 결과 true)");
+			System.out.println("[리터럴] 두 참조 변수가 같은 String 객체 하나를 가리킨다.(== 결과 true)"); // 출력됨
 		}else {
 			
 			System.out.println("[리터럴] 서로 다른 String 객체다(== 결과 false)");
@@ -43,12 +42,48 @@ public class Ex1 {
 		System.out.println("---------------------------------------------------------");
 		
 		//3. 방법2. 로 만든 두 String 객체 비교(new 연산자)
-		
 		String str1 = new String("Java");
 		String str2 = new String("Java");
 		
-	}
+		if(str1 == str2) {
+			
+			System.out.println("[new] 두 참조 변수가 같은 String 객체 메모리 하나를 가리킨다.");
+		}else {
+			
+			System.out.println("[new] 문자열 값은 같지만 서로 다른 String 객체 메모리이다."); // 출력됨
+		}
+		
+		// 두 String 객체 메모리에 저장된 각각의 "Java" 문자열이 같은지 비교하기 위해 equals 메소드 사용
+		System.out.println("str1.equals(str2) = " + str1.equals(str2)); // true
+		
+		System.out.println("---------------------------------------------------------");
+		
+		//4. 리터럴과 new 를 섞어서 비교하기
+		String a = "Java";
+		String b = new String("Java");
+		
+		// 두 String 객체 메모리의 주소 번지가 같으냐? 라고 물어봅시다.
+		System.out.println("a == b = " + (a == b)); // false
+		
+		// 두 String 객체 메모리 안에 저장된 "Java" 문자열 값이 같으냐? 라고 물어봅시다.
+		System.out.println("a.equals(b) = " + a.equals(b)); // true <----- 문자열끼리 비교
+		
+		System.out.println("---------------------------------------------------------");
+		
+		//5. 불변 확인
+		String origin = "JAVA";
+		String changed = origin.concat("_Study"); // 새 객체가 만들어진다.
+		
+		// origin 참조변수가 가리키는 String 객체의 내용은 바뀌지 않았다.
+		System.out.println("origin = " + origin.toString()); // "JAVA"
+		System.out.println("changed = " + changed.toString()); // "JAVA_Study"
+		
+		// 대입까지 해야 참조변수가 새 객체를 가리키게 된다.
+		origin = origin.concat("_Study");
+		System.out.println("대입 후 origin = " + origin.toString());
+		
+	}// === main 메소드
 
-}
+}// --- Ex1 클래스
 
 
