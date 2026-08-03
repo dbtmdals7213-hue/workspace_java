@@ -73,6 +73,12 @@ public class Ex3 {
 		MemberDTO noDetail = new MemberDTO("정하나", "제주시 연동 999");
 		System.out.println("이름: " + noDetail.getName() + ", 상세 주소: " + noDetail.getDetailAddress());
 		
+		// indexOf 메소드와 lastIndexOf 메소드의 차이를 직접 확인한다.
+		String text = "apple, banana, cherry, banana, date";
+		
+		System.out.println("indexOf(\"banana\") = " + text.indexOf("banana")); // 7
+		System.out.println("lastIndexOf(\"banana\") = " + text.lastIndexOf("banana")); // 23
+		System.out.println("lastIndexOf(\"melon\") = " + text.lastIndexOf("melon")); // -1
 		
 	}// === main 메소드
 
