@@ -1,17 +1,22 @@
 package ObjectTest1;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+// import lombok.EqualsAndHashCode;
+// import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+// import lombok.Setter;
+// import lombok.ToString;
 
+// @EqualsAndHashCode
+// @ToString
+// @Setter
+// @Getter
 
-@ToString
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
+@Data
 public class Member3 {// 회원 한 명의 정보가 저장되는 DTO 역할을 하는 클래스
 
 	private int memberNo; // 회원 번호 -> getMemberNo(), setMemberNo(int)
