@@ -10,6 +10,8 @@ public class Ex2 {
 		//1. length(): 전체 문자열의 총 문자 개수 반환한다.
 		System.out.println("length() = " + str5.length()); // 10
 		
+		System.out.println("-------------------------------------------------------");
+		
 		//2. charAt(인덱스): 전달한 인덱스 위치의 문자 하나를 반환한다. 반환 타입은 char 다.
 		System.out.println("charAt(0) = " + str5.charAt(0)); // "J"
 		System.out.println("charAt(9) = " + str5.charAt(9)); // "y"
@@ -92,6 +94,77 @@ public class Ex2 {
 		
 		// strip(): trim 과 비슷하지만 어러 나라의 공백 문자까지 처리한다.(Java 11 이상)
 		System.out.println("strip() 결과: [" + b.strip() + "]"); // [JA     VA]
+		
+		System.out.println("-------------------------------------------------------");
+		
+		//6. concat(): 두 문자열을 이어붙인 새 문자열을 반환한다.
+		String c = "JAVA";
+		String d = new String("PG");
+		
+		String temp4 = c.concat(d);
+		System.out.println("concat() 결과: " + (c + d)); // "JAVAPG"
+		
+		// + 연산자로 이어 붙이는 것과 결과는 같다.
+		System.out.println("+ 연산자 결과: " + (c + d)); // "JAVAPG"
+		
+		System.out.println("-------------------------------------------------------");
+		
+		//7. contains(): 특정 문자열이 포함되어 있는지 검사한다.
+		//	 포함되어 있으면 true, 없으면 false 를 반환한다.
+		
+		String e = new String("필요없는문자열해당문자열필요없는문자열");
+		
+		boolean result = e.contains("해당문자열");
+		System.out.println("\"해당문자열\" 포함 여부 = " + result); // true
+		
+		result = e.contains("문자열");
+		System.out.println("\"문자열\" 포함 여부 = " + result); // true
+		
+		result = e.contains("JAVA");
+		System.out.println("\"JAVA\" 포함 여부 = " + result); // false
+		
+		System.out.println("-------------------------------------------------------");
+		
+		//8. replace(): 찾은 부분을 다른 것으로 바꾼 새 문자열을 반환한다.
+		String f = new String("JAVAJSPC");
+		
+		// 작은 따옴표는 문자 하나(char), 큰 따옴표는 문자열(String)이다.
+		String result2 = f.replace('C', '!');
+        System.out.println("문자 단위 replace   => " + result2);   // JAVAJSP!
+
+        result2 = f.replace("JSPC", "PROGRAMMING");
+        System.out.println("문자열 단위 replace => " + result2);   // JAVAPROGRAMMING
+
+        // 빈 문자열로 바꾸면 해당 부분이 제거되는 효과가 된다.
+        System.out.println("A 제거              => " + f.replace("A", ""));   // JVJSPC
+		
+        System.out.println("-------------------------------------------------------");
+        
+		//9. toLowerCase() / toUpperCase(): 소문자, 대문자로 바꾼다.
+		String lowerStr = "Hello World";
+		System.out.println("toLowerCase() = " + lowerStr.toLowerCase());
+		System.out.println("toUpperCase() = " + lowerStr.toUpperCase());
+		
+		System.out.println("-------------------------------------------------------");
+		
+		//10. String.valueOf(): 다른 타입의 값을 문자열로 바꾼다.
+		// -> 특정 값을 문자열로 변환
+		String newStr = String.valueOf(10);
+		System.out.println("valueOf(10) = " + newStr); // "10"
+		
+		// 문자열 "10" 이 되었는지 확인한다. length() 메소드 호출해보자
+		// 숫자 10이라면 length() 메소드 호출 불가능할 것이다.
+		System.out.println("newStr.length() = " + newStr.length()); // 2
+		
+		// 3.14 실수를 문자열 "3.14" 로 변경해서 얻고 싶다.
+		System.out.println(String.valueOf(3.14)); // "3.14"
+		
+		// true 불린을 문자열 "true" 로 변경해서 얻고 싶다.
+		System.out.println(String.valueOf(true)); // "true"
+		
+		// -> 문자열을 정수 숫자로 변환
+		int num = Integer.parseInt("10");
+		System.out.println(num + 5); // 15
 		
 	}// === main 메소드
 
