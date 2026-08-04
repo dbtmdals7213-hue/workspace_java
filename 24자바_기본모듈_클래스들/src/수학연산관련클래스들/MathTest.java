@@ -59,19 +59,13 @@ public class MathTest {
 		for(int i = 0; i < 10; i++) {// i 가 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 가 될 때까지 1씩 증가하면서 10번 반복
 			
 			System.out.println((int)(Math.random() * 12) + 1);
-			
 		}
 		
+		// 5의 2승 -> 25.0을 구하고 싶다.
+		System.out.println(Math.pow(5, 2)); // 25.0
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// PI(원주율)
+		System.out.println(Math.PI); // 3.141592653589793
 		
 	}// === main 메소드
 
