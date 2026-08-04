@@ -195,22 +195,36 @@ class HealthInfoService {
 		System.out.println("DB 저장 완료(가정) -> INSERT INTO 테이블명 VALUES(age, weight, bmi);");
 		dto.printData(); // 실제 저장된 데이터 확인 용도(SELECT * FROM 테이블명 조회 결과를 보는 느낌)
 		
-		//----------------------------------
-		//6)
-		
+		//--------------------------------------------------------------------------------------
+		//6) Controller(사장) 에 돌려주는 반환 단계
+		// - 컨트롤러(main 메소드)가 다시 웹 브라우저 화면(클라이언트가 브라우저로 요청한 화면)으로 응답(출력) 보낼 수 있도록
+		// - HealthInfoService 서비스 클래스가 처리한 결과 DB 저장 완료한 HealthInfoEntity 객체 정보를 내보낸다.
+		//--------------------------------------------------------------------------------------
 		return dto;
-	}
+	}// === createHealthInfo 메소드
 	
 }// --- HealthInfoService 클래스
 
+/*
+	=======================================================
+	실행(WrapperPractice2) <--- Controller 역할을 하는 사장 클래스
+		- 클라이언트(사용자)가 웹에서 입력해서 요청했다고 "가정"
+		- 실제 웹 입력 값 처럼 문자열로 들어옴
+	=======================================================
+*/
 public class WrapperPractice2 {
 
 	public static void main(String[] args) {
 		
+		//1. 사용자가 입력했다고 가정하는 문자열 값 변수들에 저장
+		String ageInput = "27"; // 입력받은 데이터가? 숫자로 구성된 문자열임
+		String heightInput = "180"; // 입력받은 데이터가? 숫자로 구성된 문자열임
+		// String weightInput = "75kg"; -> 입력받은 데이터가? 숫자 + k, g 문자 혼합되어 숫자로만 구성되지 않은 문자열임
+		String weightInput = "75"; // 입력받은 데이터가? 숫자로 구성된 문자열임
 		
-		
-		
-		
+		//2. Controller			   -> Service				에 요청받은 기능을 처리해 달라고 명령!
+		//	 WrapperPractice2 클래스 -> HealthInfoService 클래스에 요청받은 기능을 처리해 달라고 명령!
+		HealthInfoEntity dto = HealthInfoService.createHealthInfo(ageInput, heightInput, weightInput);
 		
 	}// === main 메소드
 
