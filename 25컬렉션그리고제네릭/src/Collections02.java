@@ -68,7 +68,65 @@ public class Collections02 {
 		
 		System.out.println("\n===== List 인터페이스 추상 메소드 실습 =====");
 		System.out.println("현재 배열: " + list4); // "[사과, 포도, 수박, 포도]"
+												//	  0	   1	2	 3	<- index
 		
+		//(1) intindexOf(Object o): 전달 인자로 준 객체를 앞(0번 index)에서부터 찾아 해당 위치(index)를 반환함
+		//							찾지 못하면 -1을 반환함.
+		System.out.println("indexOf(\"포도\") -> " + list4.indexOf("포도")); // 1(앞에서부터 찾으므로 3번이 아닌 1번)
+		
+		//(2) int lastIndexOf(Object o): 저장된 객체를 배열의 마지막 index 위치부터 거꾸로 찾음
+		//								 찾으면 해당 위치(index)를 반환하고 찾지 못하면 -1을 반환함
+		System.out.println("lastIndexOf(\"포도\") -> " + list4.lastIndexOf("포도")); // 3(뒤에서부터 찾으므로 3번)
+		
+		//(3) int indexOf(Object o) 를 사용하여 ArrayList 배열에 저장되어 있지 않는 객체 찾기
+		System.out.println("indexOf(\"멜론\") -> " + list4.indexOf("멜론")); // 배열에서 찾지 못하면 -1 반환
+		
+		//(4) E get (int index): 매개변수 index 로 전달한 index 위치에 저장된 객체를 반환
+		System.out.println("get(2) -> " + list4.get(2)); // "수박"
+		
+		//(5) E set(int index, E element): 매개변수 index 로 전달한 index 위치에 저장된 객체를
+		//								   매개변수 E element 로 전달한 객체로 대체(교체) 하는 메소드
+		//								   대체되기 전의 기존 객체를 반환함
+		Object old = list4.set(0, "딸기");	// 0번 index 위치 칸에 저장되어 있는 "사과" 를 "딸기" 로 교체
+											// 교체 되기 전 "사과" 객체를 반환합니다.
+		System.out.println("set(0, \"딸기\") 의 반환 값(교체 전 객체) -> " + old); // "사과"
+		System.out.println("set 메소드 실행 후 배열 모습: " + list4);	// "[딸기, 포도, 수박, 포도]"
+																//	  0	   1	2	 3	 <- index
+		
+		//(6) void add(int index, E element): 매개변수 index 로 전달한 index 위치에
+		//									  매개변수 E element 로 전달한 객체를 저장합니다.
+		//									  매개변수 index 로 전달한 index 위치에 저장된 기존의 객체는
+		//									  뒤로 밀려나 그 다음 index 위치에 저장되게 됩니다.
+		list4.add(1, "귤");
+		System.out.println("add(1, \"귤\") 실행 후 배열 모습: " + list4); // "[딸기, 귤, 포도, 수박, 포도]"
+		
+		// "포도"(1번) 부터 뒤에 있던 객체들이 전부 한 칸씩 밀렸다.
+		// "[딸기, 귤, 포도, 수박, 포도]"
+		//	  0	  1	  2   3   4		<- index
+		
+		//(7) E remove(int index): 매개변수 index 로 전달한 index 위치에 저장된 객체를 삭제하고
+		//						   삭제된 그 객체를 반환함. 뒤에 있던 객체들은 앞으로 한 칸씩 당겨진다.
+		//						   (존재하지 않는 index 를 주면 IndexOutOfBoundsException 발생)
+		Object removed = list4.remove(3); // 3번 index 위치 칸에 저장된 "수박" 삭제
+						 				  // 삭제 시도한 "수박" 객체를 반환
+		System.out.println("remove(3) 의 반환 값(삭제된 객체) -> " + removed); // "수박"
+		System.out.println("remove(3) 실행 후 배열 모습 -> " + list4); // "[딸기, 귤, 포도, 포도]"
+		
+		// 참고.	4번 index 위치 칸에 저장되어 있었던 포도가 앞 칸으로 당겨져서 3번 index 위치 칸에 자동 저장된다. 그 후 4번 index 위치 칸 없어짐.
+		// "[딸기, 귤, 포도, 포도]"
+		//	  0	  1	  2   3   <- index
+		
+		//(8) boolean remove(Object o): 배열에서 객체를 찾아 첫 번째 것만 삭제. 성공 true / 실패 false 반환
+		boolean ok1 = list4.remove("포도"); // 앞 쪽(2번 index 위치 칸)에 저장된 "포도" 하나만 삭제
+		System.out.println("remove(\"포도\") 의 반환 값 -> " + ok1); // true
+		System.out.println("현재 ArrayList 배열 모습: " + list4); // "[딸기, 귤, 포도]"
+		
+		// "[딸기, 귤, 포도]"
+		//	  0   1   2		<- index
+		
+		boolean ok2 = list4.remove("멜론"); // "멜론" 은 배열에 없으므로 삭제 실패 값 false 를 반환
+		System.out.println("remove(\"멜론\") 의 반환 값 -> " + ok2); // false <- 삭제 실패
+		System.out.println("현재 ArrayList 배열 모습: " + list4); // "[딸기, 귤, 포도]"
 		
 	}// === main 메소드
 
