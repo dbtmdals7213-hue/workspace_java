@@ -156,11 +156,11 @@ public class SetListPractice2 {
 		//TODO 3-1 : 파이썬반 명단을 담은 HashSet(변수명 pythonSet)을 만들어
 		//           pythonClass의 아이디들을 전부 add하시오.
 		//           (교집합 확인 시 contains를 쓰기 위한 준비)
-		Set pythonSet = new HashSet();
+		Set<String> pythonSet = new HashSet<String>();
 		for(String id : pythonClass) {
 			
 			pythonSet.add(id);
-		}
+		}// for 반복문
 
 
 		//TODO 3-2 : 향상된 for문으로 javaClass를 순서대로 돌면서
@@ -168,18 +168,18 @@ public class SetListPractice2 {
 		//           "두 반 모두 수강 : 아이디" 형태로 출력하시오. (= 교집합)
 		for(String id : javaClass) {
 			
-			if(javaClass.contains(pythonSet)) {
+			if(pythonSet.contains(id) == true) {
 				
 				System.out.println("두 반 모두 수강: " + id);
-			}
-		}
+			}// if 조건문
+		}// for 반복문
 
 
 		//TODO 3-3 : 합집합용 HashSet(변수명 unionSet)을 만들어
 		//           javaClass와 pythonClass의 아이디들을 전부 add한 후
 		//           "전체 수강 인원(중복 제외) : N명" 형태로 출력하시오.
 		//           (두 반 모두 듣는 lee, choi는 Set이 알아서 한 번만 센다)
-		Set unionSet = new HashSet();
+		Set<String> unionSet = new HashSet<String>();
 		for(String id : javaClass) {
 			
 			unionSet.add(id);
