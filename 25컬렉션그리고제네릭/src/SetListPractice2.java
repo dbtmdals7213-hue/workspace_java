@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class SetListPractice2 {
+	@SuppressWarnings("unlikely-arg-type")
 	public static void main(String[] args) {
 
 		//=====================================================================
@@ -49,10 +50,14 @@ public class SetListPractice2 {
 		//           향상된 for문으로 tagList의 아이디들을 전부 add하시오.
 		//           (중복 태그는 Set이 알아서 걸러주므로 반환값 확인은 필요 없다)
 		Set<String> attendSet = new HashSet<String>();
-		for(String id : tagList) {
+		
+		// 향상된 for 문:	"tagList ArrayList 배열에서 객체를 0번 칸부터 하나씩 꺼내
+		//				String id 변수에 담아가며 반복해라" 는 뜻
+		for(String id : tagList) {// [Lee, kim, lee, choi, kim]
 			
+			// 꺼낸 아이디 문자열 객체를 출석자 확인용 HashSet 배열에 추가 시도
 			attendSet.add(id);
-		}
+		}// for 반복문
 
 
 		//TODO 1-2 : 향상된 for문으로 allStudents를 순서대로 돌면서
@@ -64,8 +69,8 @@ public class SetListPractice2 {
 			if(attendSet.contains(id) == false) {
 				
 				System.out.println("결석: " + id);
-			}
-		}
+			}// if 조건문
+		}// for 반복문
 
 
 		//=====================================================================
@@ -110,14 +115,14 @@ public class SetListPractice2 {
 			if(banSet.contains(comment.get(i))) {
 				
 				comment.set(i, "**");
-				filteredCount++;
-			}
-		}
+				filteredCount++; // 교체 개수 1증가
+			}// if 조건문
+		}// for 반복문
 
 
 		//문제 2 결과 출력 (수정하지 말 것)
-		System.out.println("필터링된 단어 수 : " + filteredCount + "개");
-		System.out.println("필터링 후 댓글 : " + comment);
+		System.out.println("필터링된 단어 수 : " + filteredCount + "개"); // 2개
+		System.out.println("필터링 후 댓글 : " + comment); // "[이, 강의, **, 진짜, **, 같아요]"
 
 		//=====================================================================
 		// [문제 3] 두 반 수강생 비교
@@ -187,3 +192,4 @@ public class SetListPractice2 {
 
 	}
 }
+
