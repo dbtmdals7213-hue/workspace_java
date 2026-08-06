@@ -38,8 +38,43 @@ public class Collections03 {
 		
 		Iterator iterator = list.iterator();
 		
+		// hasNext() 가 true 를 반환하는 동안(= 아직 안 꺼낸 객체가 남아있는 동안) 반복한다.
+		while(iterator.hasNext()) {
+			
+			System.out.println(iterator.next()); // cursor 위치의 객체 반환 후 cursor 1 증가
+		}
 		
+		//========================
+		// Iterator 사용 시 주의 2가지
+		//========================
+		
+		// 주의1.	 Iterator 는 1회용이다.
+		//		 위 while 문이 끝난 시점에 cursor 는 이미 끝(6)에 가있으므로
+		//		 같은 iterator 로 다시 반복하면 hasNext() 가 false 라 한 번도 실행되지 않는다.
+		System.out.println("다 쓴 iterator hasNext() -> " + iterator.hasNext());
+		//		 처음부터 다시 ArrayList 배열에서 꺼내고 싶으면? list.iterator() 를 다시 호출해
+		//		 cursor = 0 인 새 ArrayList$Itr 객체를 새로 만들어야 한다.
+		
+		Iterator iterator2 = list.iterator();
+		System.out.println("새로 만든 iterator2 참조변수의 ArrayList$Itr 객체의 hasNext() -> " + iterator2.hasNext());
+		
+		// 주의2.	 hasNext() 확인 없이 next() 만 계속 호출하면?
+		//		 ArrayList 원본 배열에 꺼낼 객체가 없는 순간 NoSuchElementException 예외가 발생하여 자바 프로그램이 강제 종료된다.
+		//		 그래서 while(itr.hasNext()) { itr.next() }; 형태를 공식처럼 사용한다.
+		
+		//=================================================
+		// 방법3. 향상된 for 문(Iterator 를 자동으로 써주는 촉약 문법)
+		//=================================================
+		System.out.println("========= 방법3. 향상된 for 문 =========");
+		// 작성법: for(꺼낸객체를담을변수선언 : 반복할대상배열) { 반복할코드; }
+		// 읽는법: ArrayList 배열에서 객체를 하나씩 꺼내서 Object obj 변수에 담아가며 반복할 코드를 실행해라!
+		for(Object obj : list) {
+			
+			System.out.println(obj);
+		}
 		
 	}// === main 메소드
 
 }// --- Collections03 클래스
+
+
