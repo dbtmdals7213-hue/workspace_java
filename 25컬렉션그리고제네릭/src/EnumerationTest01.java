@@ -24,6 +24,12 @@ public class EnumerationTest01 {
 			System.out.println(vector.get(i));
 		}
 		
+		Enumeration enu = vector.elements();
+		
+		while(enu.hasMoreElements()) {
+			
+			System.out.println(enu.nextElement());
+		}
 		
 	}// === main 메소드
 
