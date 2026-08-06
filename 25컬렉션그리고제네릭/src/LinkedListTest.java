@@ -45,6 +45,40 @@ public class LinkedListTest {
 		arrayList.add(20); // arrayList.add(Integer.valueOf(20));
 		arrayList.add(30); // 칸이 가득찬 상태에서 추가!
 		
+		// ArrayList 전체 배열 메모리의 각 칸에 추가로 저장된 Integer 래퍼 객체들을 반환(얻어) 받아 출력
+		System.out.println("ArrayList: ");
+		
+		// 향상된 for 반복문을 이용하여 ArrayList 배열에 저장된 Integer 객체들을 반복해서 얻어 출력
+		for(int i : arrayList) {
+			// ★ 꺼내지는 것은 Integer 객체인데 담는 변수는 기본 자료형 int 다?
+			// -> 오토 언박싱:	컴파일러가 Integer객체.intValue() 를 자동으로 호출해
+			//				Integer 객체 속의 int 값을 꺼내 i 변수에 담아 준다.(박싱의 반대)
+			System.out.println(i);
+		}
+		
+		arrayList.remove(1);
+		
+		System.out.println("--------------------------------");
+		//===================================================
+		//3. LinkedList 의 삭제 동작: 이동 없이 "링크 수정" 만 일어난다.
+		//===================================================
+		
+		// List 부모 인터페이스를 구현 받은 자식 LinkedList 클래스의 배열 메모리 구조 생성해서 살펴보자.
+		List<Integer> linkedList = new LinkedList<Integer>();
+		
+		linkedList.add(40); // Integer.valueOf(40); 래퍼 객체를 담은 노드가 만들어져 연결됨
+		linkedList.add(50);
+		linkedList.add(60);
+		
+		// LinkedList 의 1번째 노드(데이터 50) 하나 삭제
+		linkedList.remove(1);
+		
+		System.out.println("LinkedList: ");
+		
+		for(int i : linkedList) {
+			
+			System.out.println(i);
+		}
 		
 	}// === main 메소드
 
