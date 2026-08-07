@@ -37,6 +37,8 @@ public class HashMapTest {
 		System.out.println(key + " : " + value);
 		// 홍길동 : 95
 		
+		System.out.println("-------------------");
+		
 		Set<String> keySet = map.keySet();
 		Iterator<String> keyIterator = keySet.iterator();
 		
@@ -52,11 +54,36 @@ public class HashMapTest {
 			System.out.println(k + " : " + v);
 		}// while 반복문
 		
-		System.out.println("------------------------------------");
+		System.out.println("-------------------");
 		
 		Set<Entry<String, Integer>> entrySet = map.entrySet();
 		
+		Iterator<Entry<String, Integer>> entryIterator = entrySet.iterator();
 		
+		// HashMap.Itr 자식 객체는 그 다음 HashMap 배열 내부의 각 칸에 저장된 Entry 객체를 하나씩 반복해서 꺼내어 사용할 수 있는 동안만 반복
+		// (HashMap 내부에 아직 순회하지 않은 Entry 객체가 있는 동안만 반복)
+		while(entryIterator.hasNext()) {
+			
+			// HashMap.Itr 객체가 현재 사용하고 있는 HashMap 내부의 각 칸에 저장된 Entry 객체를 하나씩 꺼낸다
+			Entry<String, Integer> entry = entryIterator.next();
+			
+			// Entry 객체에 저장된 key 를 꺼낸다.
+			String k = entry.getKey();
+			
+			// Entry 객체에 저장된 value 를 꺼낸다.
+			Integer v = entry.getValue();
+			
+			// 꺼낸 key 와 value 를 같이 출력
+			System.out.println(k + " : " + v);
+		}// while 반복문
+		
+		System.out.println();
+		
+		// HashMap 객체 내부의 인스턴스 변수의 배열 메모리에 저장된 Entry 객체 정보 중 key 를 이용해 Entry 객체(key-value) 한 쌍 삭제
+		map.remove("홍길동");
+		
+		// HashMap 객체 내부의 배열 메모리의 각 칸에 저장된 Entry 객체 개수 얻어 출력
+		System.out.println(map.size() + "개"); // "2개"
 		
 	}// === main 메소드
 
