@@ -21,7 +21,9 @@ class GenericClass<T> {// <- <T> 의미: GenericClass 클래스 설계도 내부
 	}// === getMember 메소드
 }// --- GenericClass 클래스
 
+
 //============================================================================================================
+
 
 //	<Tv, String>
 //	<Car, String>
@@ -50,20 +52,137 @@ class Product<K, V> {// <- <K, V> Product 클래스 설계도 내부에는 아�
 	public V getModel() {
 		
 		return this.model;
-	}
+	}// === getModel 메소드
 	
 	public void setModel(V model) {
 		
 		this.model = model;
-	}
+	}// === setModel 메소드
 	
 }// --- Product 클래스
 
+
+class Tv {}
+class Car {}
+
+
+//============================================================================================================
+
+interface Rentable<P> {
+	
+	P rent(); // 추상 메소드
+}
+
+// 렌트 대상인 Home 클래스와 Car2 클래스 작성
+class Home {
+	
+	public void turnOnLight() {
+		
+		System.out.println("전등을 켭니다.");
+	}// === turnOnLight 메소드
+	
+}// --- Home 클래스
+
+class Car2 {
+	
+	public void run() {
+		
+		System.out.println("자동차가 달립니다.");
+	}// === run 메소드
+	
+}// --- Car2 클래스
+
+
+// 집을 렌트해주는 대리점 클래스
+class HomeAgency implements Rentable {
+	
+	@Override
+	public Home rent() {
+		
+		return new Home();
+	}
+	
+}// --- HomeAgency 클래스
+
+
+// 자동차를 렌트해주는 대리점 클래스
+class CarAgency implements Rentable {
+	
+	@Override
+	public Car2 rent() {
+		
+		return new Car2();
+	}// === rent 메소드
+	
+}// --- CarAgency 클래스
 
 
 public class GenericTest04 {
 
 	public static void main(String[] args) {
+		
+		// 집을 렌트(대여) 해주는 대리점 역할의 HomeAgency 클래스의 객체 생성
+		HomeAgency homeAgency = new HomeAgency();
+		
+		// 대리점으로부터 집을 렌트함
+		Home home = homeAgency.rent();
+		
+		// 렌트한 집으로 들어가서 전등을 켭니다.
+		home.turnOnLight(); // "전등을 켭니다."
+		
+		//------------------------------------------------
+		
+		// 자동차 렌트(대여)해주는 대리점 역할의 CarAgency 클래스의 객체 생성
+		CarAgency carAgency = new CarAgency();
+		
+		// 자동차 렌트(대여) 하자
+		Car2 car2 = carAgency.rent();
+		
+		// 렌트한 자동차로 가서 달립니다.
+		car2.run(); // "자동차가 달립니다."
+		
+		
+		
+		System.out.println("--------------------------");
+		
+		// K 는 Car 로, V 는 String 으로 대체
+		Product<Car, String> product2 = new Product<Car, String>();
+		
+		// setter 역할을 하는 메소드를 호출해서 Car 제품 정보 저장
+		product2.setKind(new Car());
+		product2.setModel("SUV 자동차");
+		
+		// getter 역할을 하는 메소드를 호출해서 인스턴스 변수 kind, model 에 저장된 객체를 꺼내옵니다.
+		Car car = product2.getKind(); // new Car;
+		String carModel = product2.getModel(); // "SUV 자동차"
+		
+		// new Car().equals(new Car());
+		boolean result = product2.getKind().equals(product2.getKind());
+		
+		System.out.println(result); // true
+		
+		if(product2.getModel().equals("SUV 자동차")) {
+			
+			System.out.println("두 문자열 객체 내부에 저장된 특정 SUV 자동차 문자열 2개가 같다"); // 출력됨
+		}else {
+			
+			System.out.println("두 문자열 객체 내부에 저장된 특정 SUV 자동차 문자열 2개는 같지 않다");
+		}
+		
+		System.out.println("--------------------------");
+		
+		// K 는 Tv 로, V 자리에는 String 으로 대체
+		Product<Tv, String> product1 = new Product<Tv, String>();
+		
+		product1.setKind(new Tv());
+		product1.setModel("스마트 TV");
+		
+		Tv tv = product1.getKind(); // Tv kind 인스턴스 변수에 저장된 -> new Tv(); 객체 주소 반환 받아 저장
+		
+		String tvModel = product1.getModel(); // String model 인스턴스 변수에 저장된 -> "스마트 TV" 객체 주소 반환 받아 저장
+		
+		System.out.println(tv); // Tv@279f2327
+		System.out.println(tvModel); // 스마트 TV
 		
 		System.out.println("--------------------------");
 		
