@@ -79,7 +79,7 @@ import java.util.ArrayList; //List부모인터페이스를 구현한 자식 Arra
 //         2 | 박학생 : 기한이 언제까지인가요?
 //         3 | 선생님 : 확인했습니다 수고했어요
 //===================================================================
-
+ 
 public class BoardCommentTest {
 
 	//-------------------------------------------------------------------
@@ -144,32 +144,46 @@ public class BoardCommentTest {
 	public static void main(String[] args) {
 
 		//1단계 : selectBoard 메소드 호출해서 (글번호 2 전달) 글 1개 HashMap 주소 저장
-		HashMap<String, Object> value = selectBoard(2);
-		System.out.println(selectBoard(2));
+		HashMap<String, Object> board = selectBoard(2);
 		
 
 		//2단계 : board 에서 글 정보 꺼내 상세보기 출력 (다운캐스팅 필수)
 		System.out.println("==================== 글 상세보기 ====================");
-		for(int i = 0; i < value.size(); i++) {
-			
-			String key = (String)value.get(1);
-			
-		}
-
+		int no = (Integer)board.get("no");
+		String title = (String)board.get("title");
+		String writer = (String)board.get("writer");
+		String content = (String)board.get("content");
+		int hit = (Integer)board.get("hit");
+		
+		System.out.println("글 번호 : " + no);
+		System.out.println("제목 : " + title);
+		System.out.println("작성자 :" + writer);
+		System.out.println("내용 : " + content);
+		System.out.println("조회수 : " + hit);
+		
+		
 		//3단계 : selectCommentList 메소드 호출해서 (글번호 2 전달) 댓글 목록 ArrayList 주소 저장
-
+		List<HashMap<String, Object>> commentList = selectCommentList(2);
 
 
 		//4단계 : [실무 포인트] board 안에 "commentList" key 로 댓글 목록 통째로 저장
-
+		board.put("commentList", commentList);
 
 
 		//5단계 : board 에서 "commentList" key 로 댓글 목록 다시 꺼내 댓글 갯수 출력
-
+		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>)board.get("commentList");
+		
+		System.out.println("==================== 댓글 (" + list.size() + "개) ====================");
 
 
 		//6단계 : for 반복문으로 댓글 전체 출력
-
+		for(HashMap<String, Object> comment : list) {
+		    
+			Integer commentNo = (Integer)comment.get("commentNo");
+			String writers = (String)comment.get("writer");
+			String contents = (String)comment.get("content");
+			System.out.println(commentNo + " | " + writers + " : " + contents);
+		}
 
 
 	}//----- main
