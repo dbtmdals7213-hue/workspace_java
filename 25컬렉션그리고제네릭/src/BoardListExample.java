@@ -52,6 +52,61 @@ public class BoardListExample {
 		boardList.add(new BoardDTO(2, "자바 질문 있어요.", "lee", 3));
 		boardList.add(new BoardDTO(3, "스터디 모집합니다.", "park", 5));
 		
+		//==================================================
+		//3. 글 목록 전체 출력(JSP 에서 <table> 에 반복 출력하는 처리!)
+		//==================================================
+		System.out.println("번호\t제목\t\t작성자\t조회수");
+		System.out.println("------------------------------------------");
+		
+		// 향상된 for 문: boardList 참조변수에 저장된 ArrayList 배열에서 BoardDTO 객체를 하나씩 꺼내 dto 변수에 담아가며 반복
+		for(BoardDTO dto : boardList) {
+			
+			// ArrayList 배열에서 꺼낸 BoardDTO 객체의 getter 메소드를 호출해 글 1건의 각 컬럼 값을 출력한다.
+			System.out.println(dto.getNo() + "\t" 
+				+ dto.getTitle()+ "\t" 
+				+ dto.getWriter() + "\t" 
+				+ dto.getHit());
+		}
+		
+		//========================================
+		//4. 상세 보기: 글 번호로 글 1건 찾기 + 조회 수 증가
+		//	 (게시판에서 제목을 클릭하면 일어나는 일을 흉내)
+		//========================================
+		
+		int targetNo = 2; // 사용자가 클릭한 글 번호(JSP 에서는 파라미터로 전달받는 값)
+		
+		System.out.println("===== " + targetNo + "번 글 상세보기 =====");
+		
+		// ArrayList 배열을 돌면서 글 번호가 일치하는 BoardDTO 객체를 찾는다.
+		for(BoardDTO dto : boardList) {
+			
+			// ArrayList 배열에서 꺼낸 BoardDTO 객체의 글 번호가 찾는 글 번호 2의 글과 같다면?
+			if(dto.getNo() == targetNo) {
+				
+				// 상세 보기가 일어났으므로 글 조회 수 1 올린다.
+				dto.increaseHit(); // hit 인스턴스 변수 값 1 누적해서 글 조회 수 1 올릴 수 있다.
+				
+				// 2번 글 번호의 글 상세 내용 출력
+				System.out.println("제목: " + dto.getTitle());
+				System.out.println("작성자: " + dto.getWriter());
+				System.out.println("조회 수: " + dto.getHit());
+			}// if 조건문
+		}// for 반복문
+		
+		//=======================================================================
+		//5. 수정이 진짜 반영되었는지 글 목록 다시 출력해서 확인 <- DB 의 테이블에 저장된 모든 글을 조회
+		//=======================================================================
+		
+		System.out.println("===== 상세 보기 후 목록 다시 출력 =====");
+		for(BoardDTO dto : boardList) {
+			
+			// ArrayList 배열에서 꺼낸 BoardDTO 객체의 getter 메소드를 호출해 글 1건의 각 컬럼 값을 출력한다.
+			System.out.println(dto.getNo() + "\t" 
+				+ dto.getTitle()+ "\t" 
+				+ dto.getWriter() + "\t" 
+				+ dto.getHit()); // <--- 2번 글의 조회 수가 1 증가된 상태로 출력
+		}
+		
 	}// === main 메소드
 
 }// --- BoardListExample 클래스
