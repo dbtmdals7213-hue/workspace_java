@@ -58,6 +58,7 @@ public class HashMapEx3 {
 		Iterator<Entry<String, Integer>> iterator = set.iterator();
 		
 		while(iterator.hasNext()) {
+			
 			Entry<String, Integer> entry = iterator.next();
 			
 			String k = entry.getKey();
@@ -65,6 +66,7 @@ public class HashMapEx3 {
 			System.out.println(k + " : " + v);
 		}
 
+		
 		//4단계 : remove 메소드로 key "이회원" 삭제 후 size 출력
 		map.remove("이회원");
 		System.out.println(map.size() + " 개");
