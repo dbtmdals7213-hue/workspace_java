@@ -37,8 +37,6 @@ public class IOTest03 {
 			e.printStackTrace(); // 결론: 어떤 예외가 발생하던지 간에 모든 예외 메세지 출력 가능, 모든 예외 처리 코드 작성 가능
 		}
 		
-		
-		
 	}// === main Method
 
 }// --- IOTest03 Class
