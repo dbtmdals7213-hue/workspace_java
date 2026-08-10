@@ -149,13 +149,13 @@ public class BoardCommentTest {
 
 		//2단계 : board 에서 글 정보 꺼내 상세보기 출력 (다운캐스팅 필수)
 		System.out.println("==================== 글 상세보기 ====================");
-		int no = (Integer)board.get("no");
-		String title = (String)board.get("title");
-		String writer = (String)board.get("writer");
-		String content = (String)board.get("content");
-		int hit = (Integer)board.get("hit");
+		int no = (Integer)board.get("no"); // 글 번호
+		String title = (String)board.get("title"); // 글 제목
+		String writer = (String)board.get("writer"); // 작성자
+		String content = (String)board.get("content"); // 글 내용
+		int hit = (Integer)board.get("hit"); // 조회 수
 		
-		System.out.println("글 번호 : " + no);
+		System.out.println("글번호 : " + no);
 		System.out.println("제목 : " + title);
 		System.out.println("작성자 :" + writer);
 		System.out.println("내용 : " + content);
@@ -177,13 +177,26 @@ public class BoardCommentTest {
 
 
 		//6단계 : for 반복문으로 댓글 전체 출력
-		for(HashMap<String, Object> comment : list) {
-		    
-			Integer commentNo = (Integer)comment.get("commentNo");
-			String writers = (String)comment.get("writer");
-			String contents = (String)comment.get("content");
-			System.out.println(commentNo + " | " + writers + " : " + contents);
-		}
+		/*
+			for(HashMap<String, Object> comment : list) {
+			    
+				Integer commentNo = (Integer)comment.get("commentNo");
+				String commentWriter = (String)comment.get("writer");
+				String commentContent = (String)comment.get("content");
+				System.out.println(commentNo + " | " + commentWriter + " : " + commentContent);
+			}
+		*/
+		
+		for(int i = 0; i < list.size(); i++) {
+		
+			HashMap<String, Object> comment = list.get(i);
+			
+			int commentNo = (Integer)comment.get("commentNo");
+			String commentWriter = (String)comment.get("writer");
+			String commentContent = (String)comment.get("content");
+			
+			System.out.println(commentNo + " | " + commentWriter + " : " + commentContent);
+		}// for 반복문
 
 
 	}//----- main
