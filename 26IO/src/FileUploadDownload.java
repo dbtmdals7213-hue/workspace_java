@@ -60,7 +60,17 @@ public class FileUploadDownload {
 		//====================
 		//4. 파일 다운로드 처리
 		//====================
+		System.out.println("파일 다운로드 시작 ...");
 		
+		// 서버(upload 폴더)의 "upload/userFile.txt" 를
+		// 사용자(download 폴더)의 "download/userFile_copy.txt" 로 복사
+		if(copyFile(uploadFile, downloadFile)) {
+			
+			System.out.println("파일 다운로드(copy) 완료!");
+		}else {
+			
+			System.out.println("파일 다운로드(copy) 실패!");
+		}
 		
 	}// === main Method
 
