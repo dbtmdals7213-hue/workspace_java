@@ -56,19 +56,33 @@ public class FileCopy01 {
 			
 			// BufferedOutputStream 보조 출력 스트림 객체 생성 방법
 			
-			//순서1.	순서2. "복사될 새 파일" 에 BufferedInputStream 입력 보조 스트림 통로로부터 읽어들인 데이터들을
-			//		1바이트 단위로 내보내서 출력하기 위한 FileOutputStream 출력 스트림 통로 객체 생성 후
-			//		업그레이드 해서 내부 버퍼 메모리 공간 512 바이트에 모아두었다가
-			//		512 바이트 크기의 데이터 단위로 출력하기 위한 출력 보조 스트림 통로 BufferedOutputStream 객체 생성
+			//순서1,	순서2. "복사될 새 파일" 에 BufferedInputStream 입력 보조 스트림 통로로부터 읽어들인 데이터들을
+			//			  1바이트 단위로 내보내서 출력하기 위한 FileOutputStream 출력 스트림 통로 객체 생성 후
+			//			  업그레이드 해서 내부 버퍼 메모리 공간 512 바이트에 모아두었다가
+			//			  512 바이트 크기의 데이터 단위로 출력하기 위한 출력 보조 스트림 통로 BufferedOutputStream 객체 생성
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(args[1])));
 			
+			while((i = bis.read(buffer)) != -1) {
+				
+				bos.write(buffer, 0, i);
+				
+				bos.flush();
+				
+				// 256 바이트씩 읽어들인 바이트 수를 len 변수에 누적
+				len += i;
+				
+				System.out.println("process: read[" + i + ", " + len + "], avail[" + bis.available() + "]");
+			}// while 반복문
+			
+			// 자원 해제(스트림 통로 메모리들을 모두 사용하였으면 JVM 메모리의 Heap 영역에서 객체 제거)
+			bis.close();	bos.close();
+			
+			System.out.println(len + " byte are copied ...");
 			
 		}catch (Exception e) {
 			
 			e.printStackTrace(); // 예외가 발생하면 출력
-		}
-		
-		
+		}// catch 블럭
 		
 	}// === main Method
 
