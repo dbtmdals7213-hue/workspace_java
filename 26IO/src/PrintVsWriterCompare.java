@@ -105,8 +105,20 @@ public class PrintVsWriterCompare {
 	//===============================================================
 	public static void printHex(String fileName) throws IOException {
 		
+		// 파일 전체를 byte[] 배열에 담아 반환해 옵니다.
+		// - Path.of(fileName); ->  매개변수로 전달한 파일 이름 경로를 보관한 Path 객체로 만들어 반환
+		byte[] bytes = Files.readAllBytes(Path.of(fileName));
 		
-	}
+		System.out.println(fileName + "바이트: ");
+		
+		// 향상된 for 문: bytes 배열의 칸을 앞에서부터 하나씩 꺼내 b 변수에 담아 반복
+		for(byte b : bytes) {
+			
+			System.out.print(" " + String.format("%02X", b & 0xFF));
+		}// for 반복문
+		
+		System.out.println(); // 바이트를 다 출력한 뒤 한 줄 줄바꿈 출력
+	}// === printHex Method
 	
 }// --- PrintVsWriterCompare Class
 
