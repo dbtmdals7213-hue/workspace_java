@@ -143,7 +143,7 @@ public class Exercise01_Student {
         if(!Files.exists(empDir)) {
         	
         	Files.createDirectory(empDir);
-        	System.out.println("폴더 생성 완료!");
+        	System.out.println("emp 폴더 생성 완료!");
         }else {
         	
         	System.out.println("emp 폴더가 이미 존재함.");
@@ -153,7 +153,7 @@ public class Exercise01_Student {
         if(!Files.exists(listFile)) {
         	
         	Files.createFile(listFile);
-        	System.out.println("파일 생성 완료!");
+        	System.out.println("list.txt 생성 완료!");
         }else {
         	
         	System.out.println("list.txt 파일이 이미 존재함.");
@@ -178,23 +178,23 @@ public class Exercise01_Student {
         
         // TODO: 파일 존재 여부 출력
         System.out.print("Files.exists(listFile)");
-        System.out.print("\t\t    " + Files.exists(listFile));
-        System.out.println("    (5)에서 만들었으므로");
+        System.out.print("\t\t | " + Files.exists(listFile));
+        System.out.println("   | (5)에서 만들었으므로");
         
         // TODO: empDir 이 폴더인지 출력
         System.out.print("Files.isDirectory(empDir)");
-        System.out.print("\t    " + Files.isDirectory(empDir));
-        System.out.println("    폴더이므로");
+        System.out.print("\t | " + Files.isDirectory(empDir));
+        System.out.println("   | 폴더이므로");
         
         // TODO: listFile 이 일반 파일인지 출력
         System.out.print("Files.isRegularFile(listFile)");
-        System.out.print("\t    " + Files.isRegularFile(listFile));
-        System.out.println("    일반 파일이므로");
+        System.out.print("\t | " + Files.isRegularFile(listFile));
+        System.out.println("   | 일반 파일이므로");
         
         // TODO: listFile 크기 출력
         System.out.print("Files.size(listFile)");
-        System.out.print("\t\t    " + Files.size(listFile));
-        System.out.println("\t    내용 없는 빈 파일이므로");
+        System.out.print("\t\t | " + Files.size(listFile));
+        System.out.println("\t  | 내용 없는 빈 파일이므로");
 
     }
 }
