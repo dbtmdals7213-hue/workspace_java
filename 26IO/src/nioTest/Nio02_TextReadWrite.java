@@ -113,7 +113,7 @@ public class Nio02_TextReadWrite {
     	//=========================================================
     	//[2] 파일 전체의 데이터를 String 문자열로 읽기 - readString 메소드 사용
     	//=========================================================
-    	System.out.println("============= [2] 파일 통째로 읽기 =============");
+    	System.out.println("============== [2] 파일 통째로 읽기 ==============");
     	
     	// Files.readString(경로, 인코딩)
     	// - 스트림 통로 열리고, 디스크의 바이트가 UTF-8 규칙으로 다시 문자로 바뀌어
@@ -145,8 +145,65 @@ public class Nio02_TextReadWrite {
     	
     	for(String line : lines) {
     		
+    		// split(","): 문자열을 쉼표 위치에서 잘라 String 배열에 담아 반환한다.
+    		String[] arr = line.split(",");
     		
+    		String name = arr[0]; // 0번 index 칸의 요소를 이름으로 사용
+    		int age = Integer.parseInt(arr[1].trim());
+    		String city = arr[2]; // 2번 index 칸의 요소를 지역으로 사용
+    		
+    		System.out.println("이름: " + name + " 내년 나이: " + (age + 1) + " 사는 지역:" + city);
+    	}// for 반복문
+    	System.out.println();
+    	
+    	//==============================
+    	//[4] 파일 끝에 이어쓰기 - APPEND 옵션
+    	//==============================
+    	Files.writeString(path, "박민수, 30, 인천\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+    	
+    	System.out.println("이어쓰기 후 파일 크기: " + Files.size(path) + "bytes");
+    	
+    	// 다시 member.txt 파일에 저장된 데이터들을 한 줄 단위로 읽어서 읽어들인 한 줄씩 ArrayList 배열에 각 칸에 저장 후
+    	// ArrayList 배열 자체를 반환해오자
+    	List<String> after = Files.readAllLines(path, StandardCharsets.UTF_8);
+    	System.out.println("이어쓰기 후 줄 수: " + after.size()); // 출력: 4
+    	System.out.println();
+    	
+    	//==============================================================================
+    	//[5] List 를 만들어 파일로 저장하기 - Files.write() 메소드 사용
+    	// List 배열을 하나 먼저 만들고, 파일에 기록할 문자열을 List 배열에 모두 추가 후 그것을 파일에 보내 기록
+    	//==============================================================================
+    	
+    	List<String> newList = new ArrayList<>();
+    	
+    	newList.add("상품코드, 상품명, 가격");
+    	newList.add("P001, 키보드, 35000");
+    	newList.add("P002, 마우스, 18000");
+    	
+    	Path productPath = Path.of("product.txt"); // 저장할 파일의 경로 객체
+    	
+    	// Files.write(경로, List, 인코딩)
+    	// - List 배열의 요소를 앞에서부터 한 줄씩 파일에 쓴다.
+    	//	 각 요소 뒤에 줄바꿈을 자동으로 넣어 준다.
+    	//	 그래서 add 추가할 때 \n 을 붙이면 줄바꿈이 두 번 되어 빈 줄이 생긴다. 조심하자!
+    	Files.write(productPath, newList, StandardCharsets.UTF_8);
+    	
+    	System.out.println("product.txt 저장 완료(" + Files.size(productPath) + " bytes)");
+    	System.out.println();
+    	
+    	//=============================
+    	//[6] 파일에 저장 결과를 다시 읽어 확인
+    	//=============================
+    	System.out.println("============ [6] 파일 저장 결과 확인 ============");
+    	
+    	List<String> productLines = Files.readAllLines(productPath, StandardCharsets.UTF_8);
+    	
+    	// for 문: 행 번호를 출력해야 하므로 일반 for 문 사용
+    	for(int i = 0; i < productLines.size(); i++) {
+    		
+    		System.out.println((i + 1) + "행: " + productLines.get(i));
     	}
+    	System.out.println();
     	
     }// === main Method
 
