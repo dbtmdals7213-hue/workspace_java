@@ -15,8 +15,10 @@ public class IoVsNioCompare {
 
 	public static void main(String[] args) throws IOException {
 		
-		//1. 방식1. IO 스트림으로 쓰기
-		System.out.println("========== [1] IO 스트림으로 쓰기 ==========");
+		//========================
+		//[1] 방식1. IO 스트림으로 쓰기
+		//========================
+		System.out.println("============= [1] IO 스트림으로 쓰기 =============");
 		
 		FileOutputStream fos = new FileOutputStream("io_data.txt");
 		
@@ -30,8 +32,10 @@ public class IoVsNioCompare {
 		System.out.println("io_data.txt 저장 완료(IO 패키지 방식)");
 		System.out.println();
 		
-		//2. 방식1. IO 스트림으로 읽기
-		System.out.println("========== [2] IO 스트림으로 읽기 ==========");
+		//========================
+		//[2] 방식1. IO 스트림으로 읽기
+		//========================
+		System.out.println("============= [2] IO 스트림으로 읽기 =============");
 		
 		FileInputStream fis = new FileInputStream("io_data.txt");
 		
@@ -45,8 +49,10 @@ public class IoVsNioCompare {
 		fis.close(); // 읽기 통로도 개발자가 직접 작성해서 닫아야 한다 <- 단점
 		System.out.println();
 		
-		//3. 방식2. NIO Files 클래스로 쓰기와 읽기
-		System.out.println("===== [3] NIO Files 클래스로 쓰기와 읽기 =====");
+		//=================================
+		//[3] 방식2. NIO Files 클래스로 쓰기와 읽기
+		//=================================
+		System.out.println("======== [3] NIO Files 클래스로 쓰기와 읽기 ========");
 		
 		Path nioPath = Path.of("nio_files_data.txt");
 		
@@ -60,8 +66,10 @@ public class IoVsNioCompare {
 		
 		System.out.println();
 		
-		//4. 방식3. NIO 채널 + 버퍼로 쓰기
-		System.out.println("======== [4] NIO 채널 + 버퍼로 쓰기 ========");
+		//============================
+		//[4] 방식3. NIO 채널 + 버퍼로 쓰기
+		//============================
+		System.out.println("=========== [4] NIO 채널 + 버퍼로 쓰기 ===========");
 		
 		Path chPath = Path.of("nio_channel_data.txt"); // 쓰기 할 파일 경로
 		
@@ -80,8 +88,29 @@ public class IoVsNioCompare {
 		System.out.println("FileChannel 채널 영역으로 쓴 바이트 수 = " + writen); // 3
 		System.out.println();
 		
+		//=======================================
+		//[5] 방식3. NIO 채널 + 버퍼로 파일 내용 읽어들이기
+		//=======================================
+		System.out.println("===== [5] NIO 채널 + 버퍼로 파일 내용 읽어들이기 =====");
 		
+		ch.position(0);
 		
+		ByteBuffer readBuf = ByteBuffer.allocate(10);
+		
+		int readCount = ch.read(readBuf);
+		
+		System.out.println("FileChannel 채널로 파일에서 읽어들인 바이트 수: " + readCount); // 3
+		
+		readBuf.flip();
+		
+		while(readBuf.hasRemaining()) {
+			
+			byte v = readBuf.get();
+			
+			System.out.println("버퍼에서 꺼낸 값 = " + v);
+		}
+		
+		ch.close();
 		
 	}// === main Method
 
