@@ -120,15 +120,33 @@ public class Exercise03_Student {
         //   폴더 이름 : "files" / "doc" / "etc" / "backup2"
         //   createDirectories (끝에 s) : 이미 있어도 예외가 없다. 반복 실행 안전
         // TODO: filesDir / docDir / etcDir / backupDir Path 만들고 createDirectories
-
+    	Path filesDir = Path.of("files");
+    	Path docDir = Path.of("doc");
+    	Path etcDir = Path.of("etc");
+    	Path backupDir = Path.of("backup2");
+    	
+    	Files.createDirectories(filesDir);
+    	Files.createDirectories(docDir);
+    	Files.createDirectories(etcDir);
+    	Files.createDirectories(backupDir);
 
         // ---------- (2) 테스트 파일 5개 만들기 ----------
         //   resolve 결합 모델 : filesDir("files") + "report.txt" --> "files/report.txt"
         //   (filesDir 자체는 안 바뀌고 새 Path 객체가 반환된다)
         // TODO: files 폴더 안에 5개 파일을 writeString 으로 생성
         //       힌트: filesDir.resolve("report.txt") 형태로 경로를 만든다
+    	Path fileA = filesDir.resolve("a.txt");
+    	Path fileB = filesDir.resolve("b.txt");
+    	Path fileC = filesDir.resolve("c.txt");
+    	Path fileD = filesDir.resolve("d.txt");
+    	Path fileE = filesDir.resolve("e.txt");
 
-
+    	Files.writeString(fileA, "A, a, 1", StandardCharsets.UTF_8);
+    	Files.writeString(fileB, "B, b, 2", StandardCharsets.UTF_8);
+    	Files.writeString(fileC, "C, c, 3", StandardCharsets.UTF_8);
+    	Files.writeString(fileD, "D, d, 4", StandardCharsets.UTF_8);
+    	Files.writeString(fileE, "E, e, 5", StandardCharsets.UTF_8);
+    	
         // ---------- (3)(4) 확장자로 분류하기 ----------
         System.out.println("===== 분류 시작 =====");
 
@@ -151,7 +169,15 @@ public class Exercise03_Student {
         //       파일명을 String 으로 꺼내 endsWith(".txt") 로 판단
         //       doc 또는 etc 로 Files.move
         //       이동 결과 출력
-
+        
+        try(DirectoryStream<Path> stream = Files.newDirectoryStream(filesDir)) {
+        	
+        	for(Path p : stream) {
+        		
+        		
+        	}
+        }
+        
         System.out.println();
 
         // ---------- (5) 분류 결과 확인 ----------

@@ -153,6 +153,24 @@ public class Nio03_FileManage {
         System.out.println("이동한 파일 있나? : " + Files.exists(uploadNotice)); // true
         System.out.println();
         
+        //==============================================================
+        //[4] 파일 이름 변경
+        // 이름 변경 전용 메소드 NIO 패키지에 없다.
+        // 같은 폴더 안에서 다른 이름으로 move 하면 결과가 이름 변경이 된다.
+        //==============================================================
+        System.out.println("======== [4] 파일 이름 바꾸기 ========");
+        
+        // 같은 uploads 폴더 안에서 "파일명만 다른" 경로가 보관된 Path 객체를 만든다.
+        // 결과 -> "uploads/notice_202608.txt"
+        Path renamed = uploadDir.resolve("notice_202608.txt");
+        
+        // 원본 파일과 대상의 "폴더는 같고 이름만 다른" move 메소드 사용
+        // 실무에서는 파일명 중복을 막기 위해 날짜를 붙여 저장할 때 이렇게 쓴다.
+        Files.move(uploadNotice, renamed, StandardCopyOption.REPLACE_EXISTING);
+        
+        System.out.println("파일 이름 변경: notice.txt -> notice_202608.txt");
+        System.out.println();
+        
         //==========================================================================
         //[5] 폴더 목록 출력 - DirectoryStream 스트림 통로 이용
         // 여기서만 스트림 통로 객체를 개발자가 직접 코드 작성해서 다룬다.
@@ -164,7 +182,7 @@ public class Nio03_FileManage {
         	
         	for(Path p : stream) {
         		
-        		// 출력 예) 파일명: notice.txt / 크기: 35 bytes
+        		// 출력 예) 파일명: notice_202608.txt / 크기: 35 bytes
         		//		  파일명: report.txt / 크기: 42 bytes
         		System.out.println("파일명: " + p.getFileName() + " / 크기: " + Files.size(p) + " bytes");
         	}// for 반복문
@@ -184,17 +202,65 @@ public class Nio03_FileManage {
         	
         	for(Path p : stream) {// uploads 폴더 안 항목을 1개씩 꺼내 반복
         		
-        		// uploads/notice.txt
+        		// uploads/notice_202608.txt
         		// uploads/report.txt
         		
         		Path target = backupDir.resolve(p.getFileName());
         		
         		// 백업이므로 Files 클래스의 copy 메소드를 사용한다.(원본 파일 유지가 백업의 목적)
         		Files.copy(p, target, StandardCopyOption.REPLACE_EXISTING);
+        		
+        		// 백업한 파일명을 반복해서 출력
+        		System.out.println("백업: " + p.getFileName());
+        		
+        		// 총 몇 번 파일 백업했는지
+        		count++;
         	}// for 반복문
         }// try(...){}
         
+        System.out.println("총 " + count + "개 파일 백업 완료"); // 총 2개 파일 백업 완료
+        System.out.println();
         
+        //==============================================================
+        //[7] 파일 삭제 - Files.deleteIfExitsts() 메소드 사용
+        //==============================================================
+        System.out.println("=========== [7] 파일 삭제 ===========");
+        
+        // 삭제할 파일의 경로가 보관되는 Path 객체 만들기
+        Path tempTarget = tempDir.resolve("report.txt");
+        
+        // Files.deleteIfExists(삭제할파일경로);
+        // -> 삭제할 파일 경로에 파일 있으면? 삭제하고 true 를 돌려준다.
+        // -> 삭제할 파일 경로에 파일이 있는데 삭제에 실패하면? 삭제 실패 이유에 관한 예외 메세지를 알려준다.
+        // -> 삭제할 파일 경로에 파일 없으면? 아무일 없이 false 를 돌려준다.
+        boolean deleted = Files.deleteIfExists(tempTarget);
+        
+        System.out.println("temp/report.txt 삭제되었나? : " + deleted); // true <- 삭제됨
+        System.out.println("삭제 후 존재? : " + Files.exists(tempTarget)); // false
+        System.out.println();
+        
+        //==============================================================
+        //[8] 백업 파일 내용 확인
+        // 파일 개수만으로 백업 성공을 확신할 수 없다.
+        // 내용까지 같아야 진짜 성공이므로 읽어서 확인한다.
+        //==============================================================
+        System.out.println("======= [8] 백업 파일 내용 확인 =======");
+        
+        // 백업이 되어있는 파일의 전체 경로를 보관하는 Path 객체 얻기
+        // -> "backup/report.txt"
+        Path backupReport = backupDir.resolve("report.txt");
+        
+        List<String> lines = Files.readAllLines(backupReport, StandardCharsets.UTF_8);
+        
+        // ArrayList 배열의 각 칸에 저장된 report.txt 에서 읽어들인 문자열을 반복해서 얻어 출력
+        for(String line : lines) {
+        	
+        	System.out.println("report.txt 파일에서 읽어온 내용: " + line);
+        	// report.txt 파일에서 읽어온 내용: 8월 업무 보고서
+        	// report.txt 파일에서 읽어온 내용: 작성자 홍길동
+        }// for 반복문
+        
+        System.out.println();
     }// === main Method
 
 }// --- Nio03_FileManage Class
