@@ -135,10 +135,10 @@ public class Exercise03_Student {
         //   (filesDir 자체는 안 바뀌고 새 Path 객체가 반환된다)
         // TODO: files 폴더 안에 5개 파일을 writeString 으로 생성
         //       힌트: filesDir.resolve("report.txt") 형태로 경로를 만든다
-    	Path fileA = filesDir.resolve("a.txt");
-    	Path fileB = filesDir.resolve("b.txt");
+    	Path fileA = filesDir.resolve("a.csv");
+    	Path fileB = filesDir.resolve("b.png");
     	Path fileC = filesDir.resolve("c.txt");
-    	Path fileD = filesDir.resolve("d.txt");
+    	Path fileD = filesDir.resolve("d.jpg");
     	Path fileE = filesDir.resolve("e.txt");
 
     	Files.writeString(fileA, "A, a, 1", StandardCharsets.UTF_8);
@@ -174,9 +174,27 @@ public class Exercise03_Student {
         	
         	for(Path p : stream) {
         		
+        		String fileName = p.getFileName().toString();
         		
-        	}
-        }
+        		Path target; // 이동할 목적지 경로를 담을 변수
+        		String folder; // 출력용 폴더 이름을 담을 변수
+        		
+        		if(fileName.endsWith(".txt")) {
+        			
+        			target = docDir.resolve(fileName);
+        			folder = "doc";
+        		}else {// files 폴더 내부에 만들어져 있는 파일들 중에서 확장자가 .txt 로 끝나지 않는 파일명이라면?
+        			
+        			target = etcDir.resolve(fileName);
+        			folder = "etc";
+        		}
+        		
+        		Files.move(p, target, StandardCopyOption.REPLACE_EXISTING);
+        		
+        		// 이동 결과 안내 출력
+        		System.out.println(fileName + " -> " + folder + "폴더로 이동");
+        	}// for 반복문
+        }// try 블럭
         
         System.out.println();
 
@@ -185,12 +203,20 @@ public class Exercise03_Student {
         //   그대로 두 번 써도 되고, 정답처럼 보조 메서드로 분리해도 된다.
         System.out.println("===== doc 폴더 =====");
         // TODO: doc 폴더 목록 출력 + 개수 출력
-
+        // -> printFolder 메소드가 doc 폴더 목록을 출력한 뒤 "개수" 를 돌려준다.
+        int docCount = printFolder(docDir);
+        
+        System.out.println("doc 파일 수: " + docCount);
+        
         System.out.println();
 
         System.out.println("===== etc 폴더 =====");
         // TODO: etc 폴더 목록 출력 + 개수 출력
-
+        // -> printFolder 메소드가 etc 폴더 목록을 출력한 뒤 "개수" 를 돌려준다.
+        int etcCount = printFolder(etcDir);
+        
+        System.out.println("etc 파일 수: " + etcCount);
+        
         System.out.println();
 
         // ---------- (6) doc 폴더 백업 ----------
@@ -200,6 +226,53 @@ public class Exercise03_Student {
         System.out.println("===== 백업 =====");
         // TODO: doc 폴더 전체를 backup2 로 copy (REPLACE_EXISTING)
         //       백업 개수 출력
+        int backupCount = 0; // 백업한 파일 개수를 세는 변수
+        
+        // 이번에는 doc 폴더를 향해 스트림 통로를 연다
+        try(DirectoryStream<Path> stream = Files.newDirectoryStream(docDir)) {
+        	
+        	for(Path p : stream) {
+        		
+        		Path target = backupDir.resolve(p.getFileName());
+        		
+        		Files.copy(p, target, StandardCopyOption.REPLACE_EXISTING);
+        		
+        		System.out.println("백업 완료: " + p.getFileName());
+        		
+        		backupCount++;
+        	}// for 반복문
+        	
+        }// try 블럭
+        
+        System.out.println("총 " + backupCount + "개 백업");
+        
+    }// === main Method
+    
+    //============================================================
+    //[보조 메소드] 폴더 목록을 출력하고 파일 개수 반환한다.
+    // 같은 코드가 doc / etc 두 번 반복되어 호출되므로 메소드를 아래쪽에 만들어 놨다.
+    //============================================================
+    public static int printFolder(Path dir) throws IOException{
+    
+    	// doc 또는 etc 폴더에 저장된 파일 개수 저장할 변수
+    	int count = 0;
+    	
+    	// 매개변수로 Path dir 로 전달받은 폴더를 향해 DirectoryStream 통로를 연다.
+    	try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+    		
+    		for(Path p : stream) {
+    			
+    			System.out.println(p.getFileName() + " (" + Files.size(p) + " bytes)");
+    			count++;
+    		}// for 반복문
+    	}// try 블럭
+    	
+    	// 해당 폴더 안에 저장된 파일 개수 반환
+    	return count;
+    }// === printFolder Method
+    
+}// --- Exercise03_Student Class
 
-    }
-}
+
+
+
