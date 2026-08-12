@@ -18,17 +18,17 @@ import java.util.List;                         // 목록 타입
  * 1. 용어 정리 (이 예제에 나오는 자바 용어)
  * ------------------------------------------------------------------
  *
- *   버퍼            : 데이터를 옮길 때 중간에 잠시 담아 두는 byte 배열.
- *                     Heap 에 만들어진다. 한 바이트씩 옮기는 것보다
- *                     묶어서 옮기는 것이 훨씬 빠르기 때문에 사용한다.
- *   DirectoryStream : 폴더 안의 항목(Path 객체)을 하나씩 꺼내 주는 스트림.
- *                     NIO 에서 유일하게 내 코드로 닫아야 하는 스트림이다.
+ *   버퍼        			: 데이터를 옮길 때 중간에 잠시 담아 두는 byte 배열.
+ *                     	  Heap 에 만들어진다. 한 바이트씩 옮기는 것보다
+ *                     	  묶어서 옮기는 것이 훨씬 빠르기 때문에 사용한다.
+ *   DirectoryStream 	: 폴더 안의 항목(Path 객체)을 하나씩 꺼내 주는 스트림.
+ *                     	  NIO 에서 유일하게 내 코드로 닫아야 하는 스트림이다.
  *   try-with-resources : try (스트림 생성) { 사용 } 형태의 문법.
- *                     try 블록이 끝나면 스트림의 close() 가 자동 호출된다.
- *   예외            : 실행 중 오류. 아래 세 가지가 이 예제와 관련 있다.
- *                     FileAlreadyExistsException  이미 있는데 또 만들 때
- *                     NoSuchFileException         없는 것을 지우거나 읽을 때
- *                     DirectoryNotEmptyException  안 비운 폴더를 지울 때
+ *                     	  try 블록이 끝나면 스트림의 close() 가 자동 호출된다.
+ *   예외            		: 실행 중 오류. 아래 세 가지가 이 예제와 관련 있다.
+ *                     	  FileAlreadyExistsException  이미 있는데 또 만들 때
+ *                    	  NoSuchFileException         없는 것을 지우거나 읽을 때
+ *                     	  DirectoryNotEmptyException  안 비운 폴더를 지울 때
  *
  *
  * ------------------------------------------------------------------
@@ -55,7 +55,7 @@ import java.util.List;                         // 목록 타입
  *
  *   [이 예제의 NIO 코드와 IO 대응 코드]
  *
- *     NIO (이 예제, 각 1줄)     | IO (java.io 방식)
+ *     NIO (이 예제, 각 1줄)     	 | IO (java.io 방식)
  *     --------------------------+------------------------------------------
  *     Files.copy                | 전용 메서드 없음. 스트림 2개 + 버퍼 반복을
  *                               | 직접 구현해야 했다 ([2] 에서 상세 비교)
@@ -63,8 +63,8 @@ import java.util.List;                         // 목록 타입
  *     Files.deleteIfExists      | f.delete()      - 실패 시 false 만 반환
  *     Files.newDirectoryStream  | f.listFiles()   - 전체를 배열로 한 번에
  *
- *   요약 : IO 는 "복사 기능이 아예 없고", 나머지도 실패 원인을
- *          알려 주지 않는다. 이 두 가지가 NIO 로 바뀐 핵심 이유다.
+ *   요약	 : IO 는 "복사 기능이 아예 없고", 나머지도 실패 원인을
+ *    	   알려 주지 않는다. 이 두 가지가 NIO 로 바뀐 핵심 이유다.
  *
  *
  * ------------------------------------------------------------------
@@ -93,9 +93,38 @@ public class Nio03_FileManage {
         // [1] 폴더 3개와 파일 2개 준비
         // ==============================================================
         System.out.println("===== [1] 폴더와 임시 파일 준비 =====");
+        
+        Path tempDir = Path.of("temp"); // temp 폴더의 경로가 저장된 Path 객체 얻기
+        Path uploadDir = Path.of("uploads"); // upload 폴더의 경로가 저장된 Path 객체 얻기
+        Path backupDir = Path.of("backup"); // backup 폴더의 경로가 저장된 Path 객체 얻기
+        
+        // Files.createDirectories(Path 객체);
+        // - Path 객체 내부의 경로에 적힌 폴더를 생성하는 메소드
+        Files.createDirectories(tempDir); // temp 폴더 생성
+        Files.createDirectories(uploadDir); // uploads 폴더 생성
+        Files.createDirectories(backupDir); // backup 폴더 생성
+        
+        System.out.println("temp / uploads / backup 폴더 준비 완료");
+        
+        // Path 인터페이스의 resolve("파일명"); 
+        // - Path 객체에 저장된 "폴더 경로" + "/파일명" 한 새 경로 "폴더경로/파일명" 를 만들어 반환 해줍니다.
+        Path tempReport = tempDir.resolve("report.txt"); // "temp/report.txt" <- 경로가 저장된 Path 객체
+        Path tempNotice = tempDir.resolve("notice.txt"); // "temp/notice.txt" <- 경로가 저장된 Path 객체
+        
+        Files.writeString(tempReport, "8월 업무 보고서\n작성자 홍길동\n", StandardCharsets.UTF_8);
+        Files.writeString(tempNotice, "8월 공지사항\n휴무일 안내\n", StandardCharsets.UTF_8);
+        
+        System.out.println("임시 원본 파일 2개 생성 완료");
+        System.out.println();
+        
+        
+        
+        
+        
+    }// === main Method
 
- 
+}// --- Nio03_FileManage Class
 
-    }   // main 끝
 
-}   // 클래스 끝
+
+
