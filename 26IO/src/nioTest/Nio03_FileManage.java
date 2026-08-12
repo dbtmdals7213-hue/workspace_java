@@ -89,10 +89,10 @@ public class Nio03_FileManage {
 
     public static void main(String[] args) throws IOException {
 
-        // ==============================================================
-        // [1] 폴더 3개와 파일 2개 준비
-        // ==============================================================
-        System.out.println("===== [1] 폴더와 임시 파일 준비 =====");
+        //==============================================================
+        //[1] 폴더 3개와 파일 2개 준비
+        //==============================================================
+        System.out.println("======= [1] 폴더와 임시 파일 준비 =======");
         
         Path tempDir = Path.of("temp"); // temp 폴더의 경로가 저장된 Path 객체 얻기
         Path uploadDir = Path.of("uploads"); // upload 폴더의 경로가 저장된 Path 객체 얻기
@@ -117,8 +117,82 @@ public class Nio03_FileManage {
         System.out.println("임시 원본 파일 2개 생성 완료");
         System.out.println();
         
+        //==============================================================
+        //[2] 원본 파일 복사해서 새 파일로 만든다 - Files.copy 메소드 사용
+        //==============================================================
+        System.out.println("========== [2] 복사(copy) ==========");
         
+        // 복사본이 만들어질 위치의 경로(uploadDir + "report.txt")가 보관되는 Path 객체 만들기
+        // 결과 -> "uploads/report.txt" 경로 만들어서 보관됨
+        Path uploadReport = uploadDir.resolve("report.txt");
         
+        Files.copy(tempReport, uploadReport, StandardCopyOption.REPLACE_EXISTING);
+        
+        System.out.println("복사 완료: " + tempReport + " -> " + uploadReport);
+        //					복사 완료: temp\report.txt -> uploads\report.txt
+        
+        System.out.println("원본 파일 남아 있나? : " + Files.exists(tempReport)); // true <- 원본 파일 유지한다
+        System.out.println("사본 생겼나? : " + Files.exists(uploadReport)); // true <- 복제한 사본이 새로 생김
+        System.out.println();
+        
+        //==============================================================
+        //[3] 파일 이동 - Files.move 메소드 사용
+        //==============================================================
+        System.out.println("======== [3] 파일 이동(move) ========");
+        
+        // 파일 이동 후 저장될 위치 경로 정보(upload/notice.txt)를 보관하는 Path 객체 얻기
+        Path uploadNotice = uploadDir.resolve("notice.txt");
+        
+        Files.move(tempNotice, uploadNotice, StandardCopyOption.REPLACE_EXISTING);
+        
+        System.out.println("파일 이동 완료: " + tempNotice + " -> " + uploadNotice);
+        //					파일 이동 완료: temp\notice.txt -> uploads\notice.txt
+        
+        // move 메소드의 성질 확인: 원본 위치는 비었고, 대상 이동 위치에만 파일이 이동되어 있다.(파일 1개 존재)
+        System.out.println("원본 파일 남아 있나? : " + Files.exists(tempNotice)); // false <- move 메소드로 인해 원본 파일 이동되었으니 없음
+        System.out.println("이동한 파일 있나? : " + Files.exists(uploadNotice)); // true
+        System.out.println();
+        
+        //==========================================================================
+        //[5] 폴더 목록 출력 - DirectoryStream 스트림 통로 이용
+        // 여기서만 스트림 통로 객체를 개발자가 직접 코드 작성해서 다룬다.
+        // 그래서 유일하게 예외 처리를 통한 스트림 통로 제거해야 한다. try-with-resources 구문이 나온다.
+        //==========================================================================
+        System.out.println("===== [5] uploads 폴더 목록 출력 =====");
+        
+        try(DirectoryStream<Path> stream = Files.newDirectoryStream(uploadDir)) {
+        	
+        	for(Path p : stream) {
+        		
+        		// 출력 예) 파일명: notice.txt / 크기: 35 bytes
+        		//		  파일명: report.txt / 크기: 42 bytes
+        		System.out.println("파일명: " + p.getFileName() + " / 크기: " + Files.size(p) + " bytes");
+        	}// for 반복문
+        }// try(...){} 블록의 끝. 이 중괄호 } 내부에서 stream.close() 가 자동으로 호출된다.
+        
+        System.out.println();
+        
+        //==============================================================
+        //[6] 전체 파일 백업 - uploads 폴더에 모든 파일을 backup 폴더로 복사
+        //==============================================================
+        System.out.println("========= [6] 전체 파일 백업 =========");
+        
+        int count = 0;
+        
+        // uploads 폴더를 향해 스트림 통로를 다시 연다
+        try(DirectoryStream<Path> stream = Files.newDirectoryStream(uploadDir)) {
+        	
+        	for(Path p : stream) {// uploads 폴더 안 항목을 1개씩 꺼내 반복
+        		
+        		// uploads/notice.txt
+        		// uploads/report.txt
+        		
+        		Path target = backupDir.resolve(p.getFileName());
+        		
+        		// 백업이므로 Files 클래스의 copy 메소드를 사용한다.(원본 파일 유지가 백업의 목적)
+        		Files.copy(p, target, StandardCopyOption.REPLACE_EXISTING);
+        	}// for 반복문
+        }// try(...){}
         
         
     }// === main Method
