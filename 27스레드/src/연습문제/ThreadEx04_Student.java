@@ -70,7 +70,7 @@ class LikeService {
     //----------------------------------------------------------
 
     //여기에 TODO 1 을 작성하시오
-
+	int like = 0;
 
     //----------------------------------------------------------
     // TODO 2 : 좋아요 수를 1 올리는 메소드를 완성하시오
@@ -88,9 +88,10 @@ class LikeService {
     //----------------------------------------------------------
 
     //여기에 TODO 2 의 메소드를 작성하시오
-
-
-
+	public void increase() {
+		
+		like++;
+	}// === increase Method
 
 }   //LikeService 클래스의 끝
 
@@ -105,7 +106,7 @@ class LikeTask implements Runnable {
     //----------------------------------------------------------
 
     //여기에 TODO 3 을 작성하시오
-
+	LikeService service;
 
     //----------------------------------------------------------
     // TODO 4 : 생성자를 완성하시오
@@ -119,10 +120,11 @@ class LikeTask implements Runnable {
     //----------------------------------------------------------
 
     //여기에 TODO 4 의 생성자를 작성하시오
-
-
-
-
+	public LikeTask(LikeService service) {
+		
+		this.service = service;
+	}
+	
     //----------------------------------------------------------
     // TODO 5 : run 메소드의 몸통을 완성하시오
     //   줄 1 : for 문으로 i 를 0부터 1000000 미만까지 반복
@@ -136,7 +138,11 @@ class LikeTask implements Runnable {
     public void run() {
 
         //여기에 TODO 5 를 작성하시오
-
+    	for(int i = 0; i < 1000000; i++) {
+    		
+    		service.increase();
+    	}// for 반복문
+    	
     }   //run 메소드의 끝
 
 }   //LikeTask 클래스의 끝
@@ -156,7 +162,7 @@ public class ThreadEx04_Student {
         //------------------------------------------------------
 
         //여기에 TODO 6 을 작성하시오
-
+    	LikeService service = new LikeService();
 
         //------------------------------------------------------
         // TODO 7 : 그 서비스를 사용하는 작업 객체를 1개 만드시오
@@ -164,7 +170,7 @@ public class ThreadEx04_Student {
         //------------------------------------------------------
 
         //여기에 TODO 7 을 작성하시오
-
+    	LikeTask task = new LikeTask(service);
 
         //------------------------------------------------------
         // TODO 8 : 스레드 2개를 만들고 시작한 뒤, 끝날 때까지 기다리시오
@@ -177,12 +183,12 @@ public class ThreadEx04_Student {
         //------------------------------------------------------
 
         //여기에 TODO 8 의 여섯 줄을 작성하시오
-
-
-
-
-
-
+    	Thread t1 = new Thread(task, "사용자A");
+    	Thread t2 = new Thread(task, "사용자B");
+    	
+    	t1.start();		t2.start();
+    	
+    	t1.join();		t2.join();
 
         //------------------------------------------------------
         // TODO 9 : 기대값과 실제값을 출력하시오
@@ -192,7 +198,9 @@ public class ThreadEx04_Student {
         //------------------------------------------------------
 
         //여기에 TODO 9 의 두 줄을 작성하시오
-
+    	System.out.println("기대 값: 2000000");
+    	System.out.println("실제 값: " + service.like);
+    	
     }   //main 의 끝
 
 }   //ThreadEx04_Student 클래스의 끝
