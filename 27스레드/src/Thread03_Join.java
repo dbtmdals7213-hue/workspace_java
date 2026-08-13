@@ -33,7 +33,7 @@ class SumTask implements Runnable {
 
 public class Thread03_Join {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		// 작업 객체(run 메소드가 작성된 클래스의 객체) 2개를 따로 만든다.
 		SumTask task1 = new SumTask(100); // 1부터 100까지의 합계를 구할 작업을 run 메소드 내부에서 코드에 의해 한다.
@@ -45,6 +45,20 @@ public class Thread03_Join {
 		Thread t1 = new Thread(task1, "계산기-1");
 		Thread t2 = new Thread(task2, "계산기-2");
 		
+		// start() 의 동작 방식
+		//1. JVM 에 새 스레드를 하나 만들어 달라고 요청하고
+		//2. 그 새 스레드가 작업의 run() 을 실행하게 한 뒤,
+		//3. 자신(main 스레드)는 기다리지 않고, "곧 바로" 다음 줄로 넘어간다.
+		//4. 이 줄 이후 main 스레드 작업, 계산기-1 스레드, 계산기-2 스레드 세 스레드가 서로 동시에 일을 합니다.
+		t1.start();
+		t2.start();
+		
+		t1.join();
+		t2.join();
+		
+		// main 스레드가 출력
+		System.out.println("1 ~ 100 합계: " + task1.result);
+		System.out.println("1 ~ 1000 합계: " + task2.result);
 		
 	}// === main Method
 
