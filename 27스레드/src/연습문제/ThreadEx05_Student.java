@@ -108,6 +108,8 @@ class SafeLikeService {
     //여기에 TODO 2 의 메소드를 작성하시오
     public void increaseBlock() {
     	
+    	String name = Thread.currentThread().getName();
+    	
     	synchronized (this) {
 			
     		like++;
@@ -224,8 +226,8 @@ public class ThreadEx05_Student {
         SafeLikeService s2 = new SafeLikeService();
         SafeLikeTask task2 = new SafeLikeTask(s2, true);
 
-        Thread b1 = new Thread(task2, "사용자A");
-        Thread b2 = new Thread(task2, "사용자B");
+        Thread b1 = new Thread(task2, "사용자C");
+        Thread b2 = new Thread(task2, "사용자D");
         
         b1.start();		b2.start();
         
@@ -235,3 +237,7 @@ public class ThreadEx05_Student {
     }   //main 의 끝
 
 }   //ThreadEx05_Student 클래스의 끝
+
+
+
+
