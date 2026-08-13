@@ -60,10 +60,48 @@ public class Main {
 		
 		System.out.println(add2.operation(5, 3));
 		
+		/*
+			2-1. 람다식 작성 O 연습:
+				MathOperation함수형 부모인터페이스 내부의 operation 추상메소드를 구현한 익명메소드의 매개변수로 두개의 정수를 각각 전달 받아서
+				첫 매개변수 값에서 두번쨰 매개변수 값을 뺸(-) 계산 결과 값 하나를 정수로 반환하는 기능의 익명메소드를 람다식으로 작성
+		*/					
+		MathOperation result1 = (int a, int b) -> {return a - b;};
 		
+		System.out.println(result1.operation(5, 3));
+		
+		/*
+			 2-2. 람다식 작성 O 연습:
+				 MathOperation 함수형 부모인터페이스 내부의 operation 추상메소드를 구현한 익명메소드의 매개변수로
+				 두 개의 정수를 전달 받아 곱하기(*) 계산 결과를 정수로 반환하는 람다식 작성
+		*/
+		MathOperation result2 = (int a, int b) -> {return a * b;};
+		
+		System.out.println(result2.operation(5, 3));
+		
+		
+		/*
+			2-3. 람다식 작성 O 연습:
+				MathOperation 함수형 부모인터페이스 내부의 operation 추상메소드를 구현한 익명메소드의 매개변수로
+				두 개의 정수를 전달 받아 나눗셈(/) 계산 결과를 정수로 반환하는 람다식 작성
+		*/			
+		MathOperation result3 = (int a, int b) -> {return a / b;};
+		
+		System.out.println(result3.operation(6, 3));
+		
+		/*
+	 		2-3. 람다식 작성 O 연습:
+	 			MathOperation 함수형 부모인터페이스 내부의 operation 추상메소드를 구현한 익명메소드의 매개변수로
+	 			두 개의 정수를 전달 받아 나눗셈(/) 계산 결과를 정수로 반환하는 람다식 작성
+		*/	
 		
 		
 	}// === main Method
+	
+	//외부에 메소드 하나 만들어서 처리 
+	static int throwException() {
+		
+		throw new ArithmeticException("0으로 나눌 수 없습니다.");
+	}
 
 }// --- Main Class
 
