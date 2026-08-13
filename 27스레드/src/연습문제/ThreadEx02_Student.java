@@ -103,10 +103,20 @@ class PaymentTask implements Runnable {
         //----------------------------------------------------------
 
         //여기에 TODO 1, 2, 3 을 작성하시오
+    	try {
+    		for(int i = 1; i <= 3; i++) {
+    			
+    			System.out.println(Thread.currentThread().getName() + " 결제 진행중 " + i + " / 3");
+    			
+    			Thread.sleep(1000);
+    		}
+    		
+    		System.out.println(Thread.currentThread().getName() + " 결제 완료!");
 
-
-
-
+    	}catch (InterruptedException e) {
+			
+    		System.out.println("결제가 중단되었습니다.");
+		}// catch 블럭
 
     }   //run 메소드의 끝
 
@@ -127,7 +137,7 @@ public class ThreadEx02_Student {
         //------------------------------------------------------
 
         //여기에 TODO 4 를 작성하시오
-
+    	PaymentTask task = new PaymentTask();
 
         //------------------------------------------------------
         // TODO 5 : 같은 작업을 실행할 스레드 2개를 만드시오
@@ -137,8 +147,8 @@ public class ThreadEx02_Student {
         //------------------------------------------------------
 
         //여기에 TODO 5 의 두 줄을 작성하시오
-
-
+    	Thread t1 = new Thread(task, "결제-A");
+    	Thread t2 = new Thread(task, "결제-B");
 
         //------------------------------------------------------
         // TODO 6 : 두 스레드를 시작하시오
@@ -149,8 +159,8 @@ public class ThreadEx02_Student {
         //------------------------------------------------------
 
         //여기에 TODO 6 의 두 줄을 작성하시오
-
-
+    	t1.start();
+    	t2.start();
 
         //------------------------------------------------------
         // TODO 7 : main 의 메시지를 출력하시오
@@ -160,7 +170,12 @@ public class ThreadEx02_Student {
         //------------------------------------------------------
 
         //여기에 TODO 7 을 작성하시오
-
+    	System.out.println("main: 결제 2건을 접수했다.");
+    	
     }   //main 의 끝
 
 }   //ThreadEx02_Student 클래스의 끝
+
+
+
+

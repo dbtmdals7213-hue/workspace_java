@@ -33,8 +33,20 @@ public class Thread02_Sleep {
 
 	public static void main(String[] args) {
 		
+		//1. 스레드가 작업할 코드가 작성된 run() 메소드가 작성된 일반 클래스의 객체 생성
+		DownloadTask task = new DownloadTask();
 		
+		//2. 실제 스레드 2개를 만든다
+		Thread t1 = new Thread(task, "파일다운로드-A");
+		Thread t2 = new Thread(task, "파일다운로드-B");
 		
+		//3. 스레드 작업시키기
+		// start(): 새 스레드를 만들고, 그 스레드가 new DownloadTask(); 내부의 run() 을 실행하게 된다.
+		t1.start();
+		t2.start();
+		
+		//4. main 스레드는 두 다운로드를 기다리지 않으므로 이 줄이 대게 가장 먼저 출력된다.
+		System.out.println("main 스레드: 두 다운로드하는 스레드를 시작시켰다.");
 		
 	}// === main Method
 
