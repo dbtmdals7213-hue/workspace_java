@@ -112,6 +112,7 @@ class SafeLikeService {
 			
     		like++;
 		}// synchronized 보호 구역
+    	
     }// === increaseBlock Method
 
 }   //SafeLikeService 클래스의 끝

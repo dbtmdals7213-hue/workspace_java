@@ -123,7 +123,6 @@ public class SyncThreadEx {
 		//3. 소비자 스레드 객체 생성 및 일 시작(소비 시작)
 		new Thread(new Consumer(autoMachine), "길동 소비자 스레드").start(); // run() 은 CPU 가 이 스레드를 점유할 때 실행될 것임
 		
-		
 	}// === main Method
 
 }// --- SyncThreadEx Class
