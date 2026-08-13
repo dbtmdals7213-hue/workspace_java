@@ -49,7 +49,27 @@ public class Ex1 {
 		// 메소드 오버라이딩해서 작성해놓은 이름이 없는 익명 메소드를 test(""); 형태로 호출해서 반환받은 결과 출력
 		System.out.println(isEmpty.test("")); // true
 		
+		/*
+			3. Consumer<T> 함수형 인터페이스
+			 - 매개변수로 값을 전달받아 처리하지만, 값을 반환하지 않는 accept 추상 메소드가 작성된 함수형 인터페이스.
+			 - 매개변수로 값을 하나 전달받아서 사용(처리)만 하고, 결과를 돌려주지 않는 accept 추상 메소드가 작성된 함수형 인터페이스.
+			 - T 는 accept 추상 메소드의 매개변수로 전달받는 클래스 타입을 의미하며,
+			   accept 추상 메소드는 매개변수로 전달받는 값만 처리하고 처리된 값을 반환하지는 않습니다.
+			   
+			   void accept(T t);
+		*/
+		/*
+			Consumer<T> 함수형 인터페이스 내부에 작성된 void accept(T t); 추상 메소드를 강제로 오버라이딩 시킨
+			이름이 없는 자식 익명 클래스를 만드는 동시에 이름이 없는 자식 익명 객체 메모리 내부에 람다식을 이용해 익명 메소드를 작성한
+			자식 익명 객체를 생성해서 그 주소 번지를 Consumer<T> 함수형 부모 인터페이스 타입의 print 참조변수에 대입해서 저장.
+		*/
+		// 매개변수 t 로 문자열을 하나 전달받아 출력 후 줄바꿈 하는 람다식
+		Consumer<String> print = (String t) -> {System.out.println(t);};
+		//					   =  		 t  ->  System.out.println(t);
 		
+		// 위 익명 메소드는 void accept(String t) 추상 메소드를 강제로 오버라이딩 시킨 익명 메소드이므로
+		// Consumer<String> 함수형 인터페이스 내부에 작성된 accept 추상 메소드명으로 호출해서 사용해야 함.
+		print.accept("Hello"); // "Hello" 출력
 		
 	}// === main Method
 
