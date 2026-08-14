@@ -136,6 +136,7 @@ class Menu {
 		this.name = name;
 		this.price = price;
 	}// Menu 생성자
+	
 }// --- Menu Class
 
 
@@ -158,11 +159,110 @@ class MenuService {
 	//---------------------------------------------
 	public List<String> findAll(){
 		
-		return null;
-	}
+		// 결과를 담을 가변 크기 배열을 만든다.(칸이 자동으로 늘어난다.)
+		List<String> result = new ArrayList<>();
+		
+		for(Menu m : menuList) {
+			
+			result.add(m.name + " " + m.price + "원");
+		}// for 반복문
+		
+		return result; // 조립된 ArrayList 배열 목록을 호출한 곳(람다)으로 돌려준다.
+	}// === findAll Method
+	
+	//----------------------------------
+	//기능2:	지정한 가격 이하의 메뉴만 걸러서 반환
+	//----------------------------------
+	public List<String> findUnder(int maxPrice) {// <--- 기준 가격 4000원
+		
+		List<String> result = new ArrayList<>(); // 결과를 담을 가변 크기 배열
+		
+		//순서1.	menuList 고정 크기 배열의 Menu 객체를 읽어들일 데이터 스트림 통로 만들어 반환
+		List<Menu> filtered = menuList.stream()
+		
+		//순서2.	Stream<Menu> 데이터 스트림 통로의 Menu 객체를 하나씩 m 매개변수로 전달해 조건식을 확인하고,
+		//		조건이 참인 객체만 남긴 새로운 Stream<Menu> 데이터 스트림 객체를 반환한다.
+		// 조건:	특정 메뉴의 가격이 매개변수 int maxPrice 로 받은 기준 가격 이하인가?
+		.filter(m -> m.price <= maxPrice)
+		
+		//순서3.	Stream<Menu> 통로에 남은 Menu 객체들을 ArrayList 배열에 담아 반환(최종 연산)
+		.collect(Collectors.toList());
+		
+		// 걸러진 Menu(메뉴) 객체들을 "이름 가격원" 문자열로 조립한다.
+		for(Menu m : filtered) {
+			
+			result.add(m.name + " " + m.price + "원");
+		}// for 반복문
+		
+		return result; // ArrayList result 배열 반환 ["아메리카노 3000원", "쿠키 2000원"]
+	}// === findUnder Method
+	
+	//-----------------------------
+	//기능3:	가격이 싼 순서로 정렬해서 반환
+	//-----------------------------
+	public List<String> findSorted() {
+		
+		List<String> result = new ArrayList<>();
+		
+		//순서1.	menuList 고정 크기 배열의 Menu 객체들을 읽어들일 데이터 스트림 통로를 만들어 반환
+		List<Menu> sorted = menuList.stream()
+		
+		//순서2.	Stream<Menu> 통로의 Menu 객체를 두 개씩(a, b) 자리에 담아 비교하며
+		//		순서를 정한 Stream<Menu> 통로 객체를 반환
+		.sorted((a, b) -> a.price - b.price)
+		
+		//순서3.	정렬된 순서대로 ArrayList 배열에 Menu 객체를 담아 반환
+		.collect(Collectors.toList());
+		
+		// 정렬된 메뉴들을 "메뉴이름 가격원" 문자열로 조립해서 ArrayList 에 추가 후 반환
+		for(Menu m : sorted) {
+			
+			result.add(m.name + " " + m.price + "원");
+		}// for 반복문
+		
+		return result;
+	}// === findSorted
+	
+	//-----------------------------------
+	//기능4:	전체 메뉴의 평균 가격 계산 후 돌려주기
+	//-----------------------------------
+	public double findAverage() {
+		
+		//순서1.	Menu 객체를 읽어들인 데이터 스트림 통로를 만들어 반환
+		double average = menuList.stream()
+		
+		//순서2.	Stream<Menu> 통로 객체에서 price 값만 꺼내어
+		//		int 숫자가 흐르는 IntStream 통로 객체로 바꿔서 반환한다.
+		.mapToInt(m -> m.price)
+		
+		//순서3.	IntStream 통로 숫자들의 평균을 계산해 OptionalDouble 이라는 객체 메모리에 담아 반환한다.
+		// OptionalDouble 객체 메모리에 담아 반환하는 이유: 메뉴 price 가 위 IntStream 통로에 없으면 평균을 구할 수 없기 때문에
+		.average()
+		
+		//순서4.	OptinalDouble 객체 메모리(상자)를 열어 평균을 꺼낸다.(반환한다.) 만약 평균 값이 저장되어 있지 않으면 0.0을 돌려 받게 하자
+		.orElse(0.0);
+		
+		return average;// 계산된 평균 값을 돌려준다.(반환한다.)
+	}// === findAverage Method
+	
+}// --- MenuService Class
+
+
+//=====================================================
+//[4] 주소와 기능을 연결해두고, 요청 주소가 들어오면 찾아 실행하는 클래스
+//=====================================================
+class MiniServer {
+	
+	// 주소록 표(HashMap): 키 = 주소 문자열, 값 = 그 주소에서 실행할 람다식
+	// HashMap 의 put(키, 값); 추가함
+	// get(키) -> 값 얻음
+	// containsKey(키);
+	
+	Map<String, RequestHandler> mappingTable = new HashMap<>();
 	
 	
-}
+	
+}// --- MiniServer Class
 
 
 public class LambdaMvcPreview {
