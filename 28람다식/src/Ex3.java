@@ -64,7 +64,7 @@ public class Ex3 {
 		
 		// 데이터 준비
 		List<String> names = Arrays.asList("Alice", "Bob", "Chrlie");
-		// ["Alice", "Bob", "Chrle"] <- 문자열 객체들이 저장된 ArrayList 고정 칸 배열
+		// ["Alice", "Bob", "Chrlie"] <- 문자열 객체들이 저장된 ArrayList 고정 칸 배열
 		//		0		1		2
 		
 		// 최종 할 일 -> 각 문자열의 문자 개수를 계산하여 새로운 ArrayList 배열에 최종 담아 반환
@@ -73,11 +73,13 @@ public class Ex3 {
 		List<Integer> stream = names.stream()
 		
 		//순서2.	위 Stream 통로 객체에 있는 각 문자열의 문자 개수가 저장된 IntegerStream 통로 객체를 반환
-					  .map(t -> {return t.length();})
-		
+					  						 .map((String t) -> {return t.length();})
+		//									 .map( String :: length)
+					  						 
 		//순서3.	IntegerStream 통로에서 꺼내온 Integer 객체들을 ArrayList 배열에 담아 반환
-					  .collect(Collectors.toList());
-					  
+					  						 .collect(Collectors.toList());
+		
+		System.out.println(stream.toString()); // "[5, 3, 6]" <--- ArrayList 
 	}// === main Method
 
 }// --- Ex3 Class
