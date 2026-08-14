@@ -53,8 +53,10 @@ public class Ex2 {
 		IntStream stream2 = stream.mapToInt((score) -> {return score.intValue();});
 		
 		//순서3.	최종 연산 결과 값 산출 - 60점 이상인 점수들의 평균 값 산출!
+		double average = stream2.average().orElse(0.0);
 		
-		
+		System.out.println("Average Score: " + average);
+		//					Average Score: 78.0
 		
 	}// === main Method
 
