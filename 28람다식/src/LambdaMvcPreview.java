@@ -260,14 +260,123 @@ class MiniServer {
 	
 	Map<String, RequestHandler> mappingTable = new HashMap<>();
 	
+	//--------------------------------------------------------
+	// 주소 등록 메소드
+	// "이 주소로 요청이 오면 이 기능을 실행해라" 를 표(HashMap)에 한 줄 추가
+	//--------------------------------------------------------
+	public void addMapping(String url, RequestHandler handler) {
+		
+		// put(키, 값): 표에 한 쌍으로 등록된다.
+		mappingTable.put(url, handler);
+		
+		System.out.println("[등록] " + url + " 처리 람다 등록 완료");
+	}// === addMapping Method
 	
+	//-----------------------------------------------------------------
+	// 주소 처리 메소드
+	// 주소를 받아 표(HashMap)에서 기능(람다식)을 찾아 실행하고, 그 결과 문자열을 돌려준다.
+	//-----------------------------------------------------------------
+	public String dispatch(String url, String param) {
+		
+		// 표(HashMap)의 containsKey(키): 표에 그 키가 등록되어 있으면 true, 없으면 false 반환
+		boolean exists = mappingTable.containsKey(url);
+		
+		// 사용자가 요청한 url 주소가 표(HashMap)에 등록되지 않은 주소이면?
+		// (404 는 "그런 주소 없음" 을 뜻하는 널리 쓰이는 번호다.)
+		if(!exists) {
+			
+			// 등록되지 않은 주소에 대한 안내 문자열을 돌려주는 메소드를 끝낸다.
+			return "404 : " + url + " 은 없는 주소입니다.";
+		}
+		
+		// 사용자가 요청한 url 주소가 표(HashMap)에 등록된 주소이면?
+		// get(키):	표에서 그 키에 저장된 값(람다식)을 꺼내온다.
+		//			꺼낸 람다식의 익명 자식 구현 객체를 handler 변수에 저장
+		RequestHandler handler = mappingTable.get(url);
+		
+		return handler.handle(param);
+	}// === dispatch Method
 	
 }// --- MiniServer Class
 
 
+//===========================
+//[5] 자바 프로그램 실행시키는 클래스
+//===========================
 public class LambdaMvcPreview {
 
 	public static void main(String[] args) {
+		
+		// 데이터 가공 담당 객체와, 주소록 표 담당 객체를 각각 1개씩 만든다.
+		MenuService service = new MenuService();
+		MiniServer server = new MiniServer();
+		
+		//==========================
+		//[1] 주소 4개에 기능(람다식) 등록
+		//==========================
+		server.addMapping("/menu", (param) -> {
+			
+			// 데이터 가공은 MenuService 에게 맡긴다.(역할 분담)
+			List<String> list = service.findAll();
+			
+			// 응답 문자열의 앞 부분을 먼저 만들어 준다.
+			String response = "전체 메뉴: ";
+			
+			// 목록을 하나씩 꺼내 뒤에 "전체 메뉴: " 뒤에 계속 누적해서 연결하자
+			for(String s : list) {
+				
+				response = response + s + " / ";
+			}
+			
+			return response;
+		});
+		
+		//---------------------------------------------
+		//등록2.	지정 가격 이하 메뉴(param 자리로 가격이 넘어온다.)
+		//---------------------------------------------
+		server.addMapping("/menu/under", (param) -> {
+			
+			// param 은 문자열("4000") 이므로 계산에 쓰려면 정수로 바꿔야 한다.
+			int maxPrice = Integer.parseInt(param);
+			
+			// 바꾼 기준 가격 4000을 기준으로 가격 필터 기능을 호출한다.
+			List<String> list = service.findUnder(maxPrice);
+			
+			String response = maxPrice + "원 이하";
+			
+			for(String s : list) {
+				
+				response = response + s;
+			}
+			
+			return response;
+		});
+		
+		//-------------------------------------------------
+		//등록3.	가격 싼 가격 순 정렬 목록(param 을 쓰지 않는 기능이다.)
+		//-------------------------------------------------
+		server.addMapping("/menu/sorted", (param) -> {
+			
+			List<String> list = service.findSorted(); // 정렬 기능 사용 후 메뉴 정보들을 ArrayList 배열에 담아 반환 받기
+			
+			String response = "가격순: ";
+			
+			for(String s : list) {
+				
+				response = response + s;
+			}
+			
+			return response; // 가격 싼 가격 순 정렬 목록 반환
+		});
+		
+		//----------------------------
+		//등록4.	평균 가격
+		//----------------------------
+		server.addMapping("/menu/average", (param) -> "평균 가격: " + service.findAverage() + "원");
+		
+		System.out.println();
+		
+		
 		
 		
 		
