@@ -21,8 +21,6 @@ public class Ex6 {
 		int result3 = recomparator.compare(10, 10); // 10과 10이 같으냐? -> 두 값이 같으면 0 반환
 		System.out.println(result3); // 두 값이 같으므로 0 출력
 		
-		
-		
 	}// === main Method
 
 }// --- Ex6 Class
